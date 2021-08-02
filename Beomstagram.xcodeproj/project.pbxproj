@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		032DD5FE8A60F26BE495E56B /* Pods_Beomstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F571872E2964945E3592A40 /* Pods_Beomstagram.framework */; };
+		D81FD2AF26B7EC63001360F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2AE26B7EC63001360F5 /* AppDelegate.swift */; };
+		D81FD2B126B7EC63001360F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2B026B7EC63001360F5 /* SceneDelegate.swift */; };
+		D81FD2B626B7EC63001360F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D81FD2B426B7EC63001360F5 /* Main.storyboard */; };
+		D81FD2B826B7EC65001360F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D81FD2B726B7EC65001360F5 /* Assets.xcassets */; };
+		D81FD2BB26B7EC65001360F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D81FD2B926B7EC65001360F5 /* LaunchScreen.storyboard */; };
+		D81FD2C326B7ECDB001360F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D81FD2C226B7ECDB001360F5 /* GoogleService-Info.plist */; };
+		D81FD2C826B7EDFC001360F5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2C726B7EDFC001360F5 /* LoginViewController.swift */; };
+		D81FD2CD26B7EFBF001360F5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2CC26B7EFBF001360F5 /* UserModel.swift */; };
+		D81FD2CF26B7F229001360F5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2CE26B7F229001360F5 /* RegisterViewController.swift */; };
+		D81FD2D426B7F2DC001360F5 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2D326B7F2DC001360F5 /* AuthManager.swift */; };
+		D81FD2D826B7FBFE001360F5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2D726B7FBFE001360F5 /* Extension.swift */; };
+		D81FD2DA26B80233001360F5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2D926B80233001360F5 /* HomeViewController.swift */; };
+		D81FD2DD26B804A2001360F5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2DC26B804A2001360F5 /* ProfileViewController.swift */; };
+		D81FD2DF26B804AE001360F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2DE26B804AE001360F5 /* SearchViewController.swift */; };
+		D81FD2E126B804C7001360F5 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2E026B804C7001360F5 /* AddContentViewController.swift */; };
+		D81FD2E326B804D2001360F5 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2E226B804D2001360F5 /* HistoryViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		155483A3F803B935A1519F80 /* Pods-Beomstagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beomstagram.release.xcconfig"; path = "Target Support Files/Pods-Beomstagram/Pods-Beomstagram.release.xcconfig"; sourceTree = "<group>"; };
+		1F571872E2964945E3592A40 /* Pods_Beomstagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beomstagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D6AE762A8EB2C73552D637 /* Pods-Beomstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beomstagram.debug.xcconfig"; path = "Target Support Files/Pods-Beomstagram/Pods-Beomstagram.debug.xcconfig"; sourceTree = "<group>"; };
+		D81FD2AB26B7EC63001360F5 /* Beomstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beomstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D81FD2AE26B7EC63001360F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D81FD2B026B7EC63001360F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D81FD2B526B7EC63001360F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D81FD2B726B7EC65001360F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D81FD2BA26B7EC65001360F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D81FD2BC26B7EC65001360F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D81FD2C226B7ECDB001360F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D81FD2C726B7EDFC001360F5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D81FD2CC26B7EFBF001360F5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		D81FD2CE26B7F229001360F5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		D81FD2D326B7F2DC001360F5 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		D81FD2D726B7FBFE001360F5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		D81FD2D926B80233001360F5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D81FD2DC26B804A2001360F5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D81FD2DE26B804AE001360F5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		D81FD2E026B804C7001360F5 /* AddContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
+		D81FD2E226B804D2001360F5 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D81FD2A826B7EC63001360F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				032DD5FE8A60F26BE495E56B /* Pods_Beomstagram.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		286C6E113CB8A29426B37776 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F571872E2964945E3592A40 /* Pods_Beomstagram.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		532DEE24E082C105BBA2D3AF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				84D6AE762A8EB2C73552D637 /* Pods-Beomstagram.debug.xcconfig */,
+				155483A3F803B935A1519F80 /* Pods-Beomstagram.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D81FD2A226B7EC63001360F5 = {
+			isa = PBXGroup;
+			children = (
+				D81FD2AD26B7EC63001360F5 /* Beomstagram */,
+				D81FD2AC26B7EC63001360F5 /* Products */,
+				532DEE24E082C105BBA2D3AF /* Pods */,
+				286C6E113CB8A29426B37776 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D81FD2AC26B7EC63001360F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2AB26B7EC63001360F5 /* Beomstagram.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D81FD2AD26B7EC63001360F5 /* Beomstagram */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2C926B7EF7E001360F5 /* Model */,
+				D81FD2C426B7ED9D001360F5 /* Resouce */,
+				D81FD2C526B7EDAD001360F5 /* Controller */,
+				D81FD2C626B7EDB8001360F5 /* StoryBoard */,
+				D81FD2BC26B7EC65001360F5 /* Info.plist */,
+				D81FD2C226B7ECDB001360F5 /* GoogleService-Info.plist */,
+			);
+			path = Beomstagram;
+			sourceTree = "<group>";
+		};
+		D81FD2C426B7ED9D001360F5 /* Resouce */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2AE26B7EC63001360F5 /* AppDelegate.swift */,
+				D81FD2B026B7EC63001360F5 /* SceneDelegate.swift */,
+				D81FD2B726B7EC65001360F5 /* Assets.xcassets */,
+				D81FD2D326B7F2DC001360F5 /* AuthManager.swift */,
+				D81FD2D726B7FBFE001360F5 /* Extension.swift */,
+			);
+			path = Resouce;
+			sourceTree = "<group>";
+		};
+		D81FD2C526B7EDAD001360F5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2DB26B8048C001360F5 /* TabBar */,
+				D81FD2D026B7F22F001360F5 /* Login */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D81FD2C626B7EDB8001360F5 /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2B426B7EC63001360F5 /* Main.storyboard */,
+				D81FD2B926B7EC65001360F5 /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoard;
+			sourceTree = "<group>";
+		};
+		D81FD2C926B7EF7E001360F5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2CC26B7EFBF001360F5 /* UserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D81FD2D026B7F22F001360F5 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2C726B7EDFC001360F5 /* LoginViewController.swift */,
+				D81FD2CE26B7F229001360F5 /* RegisterViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D81FD2DB26B8048C001360F5 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2D926B80233001360F5 /* HomeViewController.swift */,
+				D81FD2DC26B804A2001360F5 /* ProfileViewController.swift */,
+				D81FD2DE26B804AE001360F5 /* SearchViewController.swift */,
+				D81FD2E026B804C7001360F5 /* AddContentViewController.swift */,
+				D81FD2E226B804D2001360F5 /* HistoryViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D81FD2AA26B7EC63001360F5 /* Beomstagram */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D81FD2BF26B7EC65001360F5 /* Build configuration list for PBXNativeTarget "Beomstagram" */;
+			buildPhases = (
+				3606B5A2E7247796C1A58CF2 /* [CP] Check Pods Manifest.lock */,
+				D81FD2A726B7EC63001360F5 /* Sources */,
+				D81FD2A826B7EC63001360F5 /* Frameworks */,
+				D81FD2A926B7EC63001360F5 /* Resources */,
+				DE8BD8032463B6CE700A0B56 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Beomstagram;
+			productName = Beomstagram;
+			productReference = D81FD2AB26B7EC63001360F5 /* Beomstagram.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D81FD2A326B7EC63001360F5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					D81FD2AA26B7EC63001360F5 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+				};
+			};
+			buildConfigurationList = D81FD2A626B7EC63001360F5 /* Build configuration list for PBXProject "Beomstagram" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D81FD2A226B7EC63001360F5;
+			productRefGroup = D81FD2AC26B7EC63001360F5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D81FD2AA26B7EC63001360F5 /* Beomstagram */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D81FD2A926B7EC63001360F5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D81FD2BB26B7EC65001360F5 /* LaunchScreen.storyboard in Resources */,
+				D81FD2C326B7ECDB001360F5 /* GoogleService-Info.plist in Resources */,
+				D81FD2B826B7EC65001360F5 /* Assets.xcassets in Resources */,
+				D81FD2B626B7EC63001360F5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3606B5A2E7247796C1A58CF2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Beomstagram-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE8BD8032463B6CE700A0B56 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Beomstagram/Pods-Beomstagram-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Beomstagram/Pods-Beomstagram-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Beomstagram/Pods-Beomstagram-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D81FD2A726B7EC63001360F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D81FD2DF26B804AE001360F5 /* SearchViewController.swift in Sources */,
+				D81FD2C826B7EDFC001360F5 /* LoginViewController.swift in Sources */,
+				D81FD2D426B7F2DC001360F5 /* AuthManager.swift in Sources */,
+				D81FD2E326B804D2001360F5 /* HistoryViewController.swift in Sources */,
+				D81FD2E126B804C7001360F5 /* AddContentViewController.swift in Sources */,
+				D81FD2D826B7FBFE001360F5 /* Extension.swift in Sources */,
+				D81FD2DA26B80233001360F5 /* HomeViewController.swift in Sources */,
+				D81FD2CF26B7F229001360F5 /* RegisterViewController.swift in Sources */,
+				D81FD2AF26B7EC63001360F5 /* AppDelegate.swift in Sources */,
+				D81FD2DD26B804A2001360F5 /* ProfileViewController.swift in Sources */,
+				D81FD2CD26B7EFBF001360F5 /* UserModel.swift in Sources */,
+				D81FD2B126B7EC63001360F5 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D81FD2B426B7EC63001360F5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D81FD2B526B7EC63001360F5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D81FD2B926B7EC65001360F5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D81FD2BA26B7EC65001360F5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D81FD2BD26B7EC65001360F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D81FD2BE26B7EC65001360F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D81FD2C026B7EC65001360F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84D6AE762A8EB2C73552D637 /* Pods-Beomstagram.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SPJ3VZVK78;
+				INFOPLIST_FILE = Beomstagram/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = beomsoo.Beomstagram2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D81FD2C126B7EC65001360F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 155483A3F803B935A1519F80 /* Pods-Beomstagram.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SPJ3VZVK78;
+				INFOPLIST_FILE = Beomstagram/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = beomsoo.Beomstagram2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D81FD2A626B7EC63001360F5 /* Build configuration list for PBXProject "Beomstagram" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D81FD2BD26B7EC65001360F5 /* Debug */,
+				D81FD2BE26B7EC65001360F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D81FD2BF26B7EC65001360F5 /* Build configuration list for PBXNativeTarget "Beomstagram" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D81FD2C026B7EC65001360F5 /* Debug */,
+				D81FD2C126B7EC65001360F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D81FD2A326B7EC63001360F5 /* Project object */;
+}
