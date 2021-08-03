@@ -11,15 +11,12 @@ class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     @IBOutlet weak var id: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var name: UITextField!
-    
     
     @IBAction func registerSelected(_ sender: Any) {
         AuthManager.shared.createNewUser(id: id.text!, password: password.text!, name: name.text!, email: email.text!) {success in
@@ -28,13 +25,14 @@ class RegisterViewController: UIViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
                 else {
-                    let alert = UIAlertController(title: "오류", message: "회원 가입 정보를 확인해주세요", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "회원가입 오류", message: "회원 가입 정보를 확인해주세요", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }
             }
         }
-        
     }
+    
+    
 }
 

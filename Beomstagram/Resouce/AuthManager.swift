@@ -7,14 +7,16 @@
 
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 public class AuthManager {
     
     static let shared = AuthManager()
     
+    
     public func createNewUser(id: String, password: String, name: String, email: String, completion: @escaping (Bool) -> Void) {
         
-        if (id.isEmpty || password.isEmpty || password.count <= 8 || name.isEmpty || email.isEmpty) {
+        guard !id.isEmpty, !password.isEmpty, !name.isEmpty, !email.isEmpty, password.count >= 8, email.contains("@"), email.contains(".") else {
             completion(false)
             return
         }
@@ -32,8 +34,8 @@ public class AuthManager {
     }
     
     public func loginUser(email: String, password: String, completion: @escaping (Bool) -> Void) {
-
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
             if error != nil {
                 print("\(error.debugDescription)")
                 completion(false)
@@ -47,5 +49,19 @@ public class AuthManager {
         }
     }
     
-    
+    func updateContent(content: Content) {
+        let uid = Auth.auth().currentUser?.uid
+        let Cuid = Database.database().reference().child(uid!).child("contents").childByAutoId().key
+        let image = content.image.jpegData(compressionQuality: 0.1)
+        let imageRef = Storage.storage().reference().child(uid!).child("contents").child(Cuid!)
+        
+        imageRef.putData(image!, metadata: nil) { (StorageMetadata, error) in
+            //예외처리
+            
+            imageRef.downloadURL { (url, error) in
+                Database.database().reference().child(uid!).child("contents").child("Cid").setValue(["Cuid": Cuid!, "ImageUrl": url?.absoluteString, "Comment": content.comment])
+            }
+        }
+       
+    }
 }

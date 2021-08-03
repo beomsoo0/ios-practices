@@ -22,8 +22,9 @@
 		D81FD2DA26B80233001360F5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2D926B80233001360F5 /* HomeViewController.swift */; };
 		D81FD2DD26B804A2001360F5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2DC26B804A2001360F5 /* ProfileViewController.swift */; };
 		D81FD2DF26B804AE001360F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2DE26B804AE001360F5 /* SearchViewController.swift */; };
-		D81FD2E126B804C7001360F5 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2E026B804C7001360F5 /* AddContentViewController.swift */; };
+		D81FD2E126B804C7001360F5 /* NewContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2E026B804C7001360F5 /* NewContentViewController.swift */; };
 		D81FD2E326B804D2001360F5 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2E226B804D2001360F5 /* HistoryViewController.swift */; };
+		D83547A626B945CC008A22BC /* PushContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83547A526B945CC008A22BC /* PushContentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +47,9 @@
 		D81FD2D926B80233001360F5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D81FD2DC26B804A2001360F5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D81FD2DE26B804AE001360F5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		D81FD2E026B804C7001360F5 /* AddContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
+		D81FD2E026B804C7001360F5 /* NewContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentViewController.swift; sourceTree = "<group>"; };
 		D81FD2E226B804D2001360F5 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		D83547A526B945CC008A22BC /* PushContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushContentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 			children = (
 				D81FD2DB26B8048C001360F5 /* TabBar */,
 				D81FD2D026B7F22F001360F5 /* Login */,
+				D83547A526B945CC008A22BC /* PushContentViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -163,7 +166,7 @@
 				D81FD2D926B80233001360F5 /* HomeViewController.swift */,
 				D81FD2DC26B804A2001360F5 /* ProfileViewController.swift */,
 				D81FD2DE26B804AE001360F5 /* SearchViewController.swift */,
-				D81FD2E026B804C7001360F5 /* AddContentViewController.swift */,
+				D81FD2E026B804C7001360F5 /* NewContentViewController.swift */,
 				D81FD2E226B804D2001360F5 /* HistoryViewController.swift */,
 			);
 			path = TabBar;
@@ -288,12 +291,13 @@
 				D81FD2C826B7EDFC001360F5 /* LoginViewController.swift in Sources */,
 				D81FD2D426B7F2DC001360F5 /* AuthManager.swift in Sources */,
 				D81FD2E326B804D2001360F5 /* HistoryViewController.swift in Sources */,
-				D81FD2E126B804C7001360F5 /* AddContentViewController.swift in Sources */,
+				D81FD2E126B804C7001360F5 /* NewContentViewController.swift in Sources */,
 				D81FD2D826B7FBFE001360F5 /* Extension.swift in Sources */,
 				D81FD2DA26B80233001360F5 /* HomeViewController.swift in Sources */,
 				D81FD2CF26B7F229001360F5 /* RegisterViewController.swift in Sources */,
 				D81FD2AF26B7EC63001360F5 /* AppDelegate.swift in Sources */,
 				D81FD2DD26B804A2001360F5 /* ProfileViewController.swift in Sources */,
+				D83547A626B945CC008A22BC /* PushContentViewController.swift in Sources */,
 				D81FD2CD26B7EFBF001360F5 /* UserModel.swift in Sources */,
 				D81FD2B126B7EC63001360F5 /* SceneDelegate.swift in Sources */,
 			);
