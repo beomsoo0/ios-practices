@@ -24,6 +24,7 @@ class NewContentViewController: UIViewController {
         nextVC.contentImage = firstImage
     }
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,7 +8,10 @@
 import Foundation
 
 extension String {
-    public func safetyDatabase() -> String {
-        return self.replacingOccurrences(of: "@", with: "-").replacingOccurrences(of: ".", with: "-")
+    public func safetyEmail() -> String {
+        return self.replacingOccurrences(of: "@", with: "=").replacingOccurrences(of: ".", with: "-")
+    }
+    public func restoreEmail() -> String {
+        return self.replacingOccurrences(of: "=", with: "2").replacingOccurrences(of: "-", with: ".")
     }
 }

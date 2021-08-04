@@ -16,30 +16,35 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var followCount: UILabel!
     @IBOutlet weak var followerCount: UILabel!
     
+    let userManager = UserModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initProfile()
+        print(userManager.id!)
     }
+    
+    
     func initProfile() {
-        id.text = "bumssooooo"
+//        id.text = userManager.userInfo!.id!
         profileImage.image = UIImage(named: "ong")
-        contentsCount.text = "12"
-        followCount.text = "100"
-        followerCount.text = "100"
+        contentsCount.text = String(userManager.contentsCount())
+        //followCount.text = String(userManager.user!.follow) ?? ""
+        //followerCount.text = String(userManager.user!.follow) ?? ""
     }
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return userManager.contentsCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileContentsCell", for: indexPath)
         as! ProfileContentsCell
         
-        cell.contentImage.image = UIImage(named: "ong")
+        cell.contentImage.image = UserModel().contents[indexPath.item].image
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -54,11 +59,5 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 class ProfileContentsCell: UICollectionViewCell {
     
-
     @IBOutlet weak var contentImage: UIImageView!
-}
-
-class Profile {
-    
-    
 }

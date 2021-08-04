@@ -19,6 +19,21 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var name: UITextField!
     
     @IBAction func registerSelected(_ sender: Any) {
+        resignKeyBoardRegister()
+        register()
+    }
+}
+
+extension RegisterViewController {
+    
+    private func resignKeyBoardRegister() {
+        id.resignFirstResponder()
+        password.resignFirstResponder()
+        email.resignFirstResponder()
+        name.resignFirstResponder()
+    }
+    
+    private func register() {
         AuthManager.shared.createNewUser(id: id.text!, password: password.text!, name: name.text!, email: email.text!) {success in
             DispatchQueue.main.async {
                 if success {
@@ -32,7 +47,6 @@ class RegisterViewController: UIViewController {
             }
         }
     }
-    
     
 }
 

@@ -26,14 +26,14 @@ class PushContentViewController: UIViewController {
     @IBAction func shareSelected(_ sender: Any) {
         let homeVC = self.storyboard?.instantiateViewController(identifier: "HomeVC") as! HomeViewController
         
-        let content = Content(image: contentImage!, comment: pushedComment.text!)
-        AuthManager.shared.updateContent(content: content)
+        DatabaseManager.shared.updateContent(image: contentImage!, comment: pushedComment.text!)
         
         homeVC.readImage = contentImage
         homeVC.readComment = pushedComment.text!
         
         //self.dismiss(animated: true, completion: nil)
         self.navigationController?.popToRootViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
         homeVC.reloadInputViews()
     }
     

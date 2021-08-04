@@ -17,6 +17,20 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     
     @IBAction func loginSeleted(_ sender: Any) {
+        resignKeyBoardLogin()
+        login()
+    }
+    
+}
+
+extension LoginViewController {
+    
+    private func resignKeyBoardLogin() {
+        email.resignFirstResponder()
+        password.resignFirstResponder()
+    }
+    
+    private func login() {
         AuthManager.shared.loginUser(email: email.text!, password: password.text!) { success in
             DispatchQueue.main.async {
                 if success {
@@ -32,6 +46,5 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
     
 }
