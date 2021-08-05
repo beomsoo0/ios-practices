@@ -13,11 +13,13 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    @IBOutlet weak var id: UITextField!
-    @IBOutlet weak var password: UITextField!
+
     @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var password: UITextField!
+
     @IBOutlet weak var name: UITextField!
     
+    @IBOutlet weak var id: UITextField!
     @IBAction func registerSelected(_ sender: Any) {
         resignKeyBoardRegister()
         register()
@@ -27,14 +29,14 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController {
     
     private func resignKeyBoardRegister() {
-        id.resignFirstResponder()
         password.resignFirstResponder()
         email.resignFirstResponder()
         name.resignFirstResponder()
+        id.resignFirstResponder()
     }
     
     private func register() {
-        AuthManager.shared.createNewUser(id: id.text!, password: password.text!, name: name.text!, email: email.text!) {success in
+        AuthManager.shared.createNewUser(email: email.text!, password: password.text!, name: name.text!, id: id.text!) {success in
             DispatchQueue.main.async {
                 if success {
                     self.dismiss(animated: true, completion: nil)

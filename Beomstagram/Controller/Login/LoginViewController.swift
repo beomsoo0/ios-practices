@@ -7,6 +7,7 @@
 
 import UIKit
 
+//View
 class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -23,6 +24,7 @@ class LoginViewController: UIViewController {
     
 }
 
+//View Model
 extension LoginViewController {
     
     private func resignKeyBoardLogin() {

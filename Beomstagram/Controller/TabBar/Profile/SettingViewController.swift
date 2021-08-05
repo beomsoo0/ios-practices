@@ -8,6 +8,7 @@
 import UIKit
 import SafariServices
 
+//View
 class SettingViewController: UIViewController {
 
     private var data = [[SettingCellModel]]()
@@ -16,6 +17,33 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
         configureModels()
     }
+}
+
+extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath)
+        cell.textLabel?.text = data[indexPath.section][indexPath.row].title
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        data[indexPath.section][indexPath.row].handler()
+    }
+    
+}
+
+//View Model
+extension SettingViewController {
     
     private func configureModels() {
         data.append(
@@ -29,7 +57,6 @@ class SettingViewController: UIViewController {
             self?.didTabSavedContents()
         }]
         )
-        
         data.append(
             [SettingCellModel(title: "네이버") { [weak self] in
                 self?.openURL(type: .naver)
@@ -53,14 +80,12 @@ class SettingViewController: UIViewController {
     }
     
     private func didTabProfileEdit() {
-        
     }
     private func didTabFriendInvite() {
-        
     }
     private func didTabSavedContents() {
-        
     }
+    
     private func openURL(type: SettingURLType) {
         let urlString: String
         
@@ -99,29 +124,6 @@ class SettingViewController: UIViewController {
             }
         }
     }
-}
-
-extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return data.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data[section].count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath)
-        cell.textLabel?.text = data[indexPath.section][indexPath.row].title
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-        data[indexPath.section][indexPath.row].handler()
-    }
-    
 }
 
 struct SettingCellModel {

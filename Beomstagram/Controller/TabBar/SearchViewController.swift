@@ -13,11 +13,10 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
 
     }
-    
-
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 18
     }
@@ -30,13 +29,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSpacing: CGFloat = 10
-        let width: CGFloat = (collectionView.bounds.width - 2 * itemSpacing) / 3
+        let width: CGFloat = collectionView.bounds.width / 3 - 1
         let height: CGFloat = width
         return CGSize(width: width, height: height)
     }
-    
-    
     
 }
 

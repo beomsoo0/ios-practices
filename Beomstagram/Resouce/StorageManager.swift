@@ -19,18 +19,17 @@ public class StorageManager {
     }
     
     public func uploadImageToStorage(cuid: String, uid: String, image: UIImage, completion: @escaping (Result<URL, StorageManagerError>) -> Void) {
-        
         let dataImage = image.jpegData(compressionQuality: 0.1)!
         let imageRef = ref.child(uid).child("contents").child(cuid)
-        
+    
         // Upload Storage
         imageRef.putData(dataImage, metadata: nil) { (StorageMetadata, error) in
-            if error != nil {
+            guard error == nil else {
                 completion(.failure(.urlUploadError))
                 return
             }
             imageRef.downloadURL { (url, error) in
-                guard let url = url, error != nil else {
+                guard let url = url, error == nil else {
                     completion(.failure(.urlDownloadError))
                     return
                 }

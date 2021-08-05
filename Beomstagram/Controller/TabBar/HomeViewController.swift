@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
     var readImage: UIImage?
     var readComment: String?
     
-    let userModel = UserModel()
+    var userModel = UserModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,20 +23,20 @@ class HomeViewController: UIViewController {
         let uid = Auth.auth().currentUser?.uid
         let ref = Database.database().reference()
         let userInfoAddr = ref.child("users").child(uid!)
-        let contentsAddr = Database.database().reference().child(uid!).child("contents")
+        //let contentsAddr = Database.database().reference().child(uid!).child("contents")
 
         // User Info 불러오기 from Database
-        userInfoAddr.observeSingleEvent(of: .value, with: { snapshot in
-                let value = snapshot.value as? NSDictionary
-                self.userModel.id = value?["id"] as? String ?? "No ID"
-                self.userModel.name = value?["name"] as? String ?? "No Name"
-                self.userModel.email = value?["email"] as? String ?? "No Email"
-                self.userModel.follower = value?["follower"] as? Int ?? -1
-                self.userModel.follow = value?["follower"] as? Int ?? -1
-            })
-
-        print(userModel.id)
-        print(userModel.follow)
+//        userInfoAddr.observeSingleEvent(of: .value, with: { snapshot in
+//                let value = snapshot.value as? NSDictionary
+//                self.userModel.id = value?["id"] as? String ?? "No ID"
+//                self.userModel.name = value?["name"] as? String ?? "No Name"
+//                self.userModel.email = value?["email"] as? String ?? "No Email"
+//                self.userModel.follower = value?["follower"] as? Int ?? -1
+//                self.userModel.follow = value?["follower"] as? Int ?? -1
+//            })
+//
+//        print(userModel.id!)
+//        print(userModel.follow!)
         titleBarInsert()
     }
     
@@ -65,13 +65,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
         
-//        cell.id.text = "bumssooooo"
-//        cell.profileImage.image = UIImage(named: "ong")
-        cell.mainImage.image = self.readImage
-        cell.newComment.text = self.readComment
-        cell.like.text = "좋아요 100개"
+        cell.profileID.text = userModel.id
+        cell.profileImage.image = UIImage(named: "ong")
+        cell.postImage.image = UIImage(named: "ong")
+        cell.likeCount.text = "좋아요 123개"
+        cell.postComment.text = "IOS 앱개발 어려워옹"
         return cell
     }
     
@@ -103,12 +103,11 @@ extension HomeViewController {
 }*/
 
 
-class TableCell: UITableViewCell {
+class PostCell: UITableViewCell {
     
-    @IBOutlet weak var id: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var mainImage: UIImageView!
-    @IBOutlet weak var like: UILabel!
-    @IBOutlet weak var newComment: UILabel!
-    
+    @IBOutlet weak var profileID: UILabel!
+    @IBOutlet weak var postImage: UIImageView!
+    @IBOutlet weak var likeCount: UILabel!
+    @IBOutlet weak var postComment: UILabel!
 }

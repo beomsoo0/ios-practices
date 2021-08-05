@@ -12,6 +12,6 @@ extension String {
         return self.replacingOccurrences(of: "@", with: "=").replacingOccurrences(of: ".", with: "-")
     }
     public func restoreEmail() -> String {
-        return self.replacingOccurrences(of: "=", with: "2").replacingOccurrences(of: "-", with: ".")
+        return self.replacingOccurrences(of: "=", with: "@").replacingOccurrences(of: "-", with: ".")
     }
 }
