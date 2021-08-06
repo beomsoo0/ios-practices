@@ -14,36 +14,28 @@ class HomeViewController: UIViewController {
     var readImage: UIImage?
     var readComment: String?
     
-    var userModel = UserModel()
+    let userModel = UserModel.shared
+    let allUserModel = AllUserModel.shared
+    
+    @IBOutlet weak var postView: UITableView!
+    
+    @IBAction func reload(_ sender: Any) {
+        postView.reloadData()
+        //print("Home image count: ", userModel.contents.count)
+        print("allUserModel : ", allUserModel.userModels.count)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //parsingUserInfo()
-        
-        let uid = Auth.auth().currentUser?.uid
-        let ref = Database.database().reference()
-        let userInfoAddr = ref.child("users").child(uid!)
-        //let contentsAddr = Database.database().reference().child(uid!).child("contents")
-
-        // User Info 불러오기 from Database
-//        userInfoAddr.observeSingleEvent(of: .value, with: { snapshot in
-//                let value = snapshot.value as? NSDictionary
-//                self.userModel.id = value?["id"] as? String ?? "No ID"
-//                self.userModel.name = value?["name"] as? String ?? "No Name"
-//                self.userModel.email = value?["email"] as? String ?? "No Email"
-//                self.userModel.follower = value?["follower"] as? Int ?? -1
-//                self.userModel.follow = value?["follower"] as? Int ?? -1
-//            })
-//
-//        print(userModel.id!)
-//        print(userModel.follow!)
+        DatabaseManager.shared.loadAllUserModel()
         titleBarInsert()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //print(userModel.id)
+        postView.reloadData()
     }
+
     func titleBarInsert () {
         let imageView = UIImageView(frame: CGRect(x: -100, y: 0, width: 60, height: 20))
         imageView.contentMode = .scaleAspectFit
@@ -56,51 +48,60 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+//        let userCount = allUserModel.userModels.count
+//        var allContentCount: Int = 0
+//        var i: Int = 0
+//        while i < userCount {
+//            allContentCount += allUserModel.userModels[0].contents.count
+//        }
+//        print(allContentCount)
+        if allUserModel.userModels.count >= 1 {
+            let userCount = allUserModel.userModels.count
+            var allContentCount: Int = 0
+            var i: Int = 0
+            while i < userCount {
+                allContentCount += allUserModel.userModels[i].contents.count
+                i += 1
+            }
+            return allContentCount
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
+        if allUserModel.userModels.count >= 1 {
+            var allContentCount: Int = 0
+            var user: Int = 0
+            let userCount = allUserModel.userModels.count
+            while user < userCount {
+                var content: Int = 0
+                let contentsCount: Int = allUserModel.userModels[user].contents.count
+                while content < contentsCount {
+                    if allContentCount == indexPath.row {
+                        cell.profileID.text = allUserModel.userModels[user].userInfo?.id
+                        cell.profileImage.image = UIImage(named: "ong")
+                        cell.postImage.image = allUserModel.userModels[user].contents[content].image
+                        cell.likeCount.text = "좋아요 123개"
+                        cell.postComment.text = allUserModel.userModels[user].contents[content].comment
+                    }
+                    content += 1
+                    allContentCount += 1
+                }
+                user += 1
+            }
+        }
         
-        cell.profileID.text = userModel.id
-        cell.profileImage.image = UIImage(named: "ong")
-        cell.postImage.image = UIImage(named: "ong")
-        cell.likeCount.text = "좋아요 123개"
-        cell.postComment.text = "IOS 앱개발 어려워옹"
         return cell
     }
     
     
 }
-
-/*
-extension HomeViewController {
-    
-    func parsingUserInfo() {
-        let uid = Auth.auth().currentUser?.uid
-        let ref = Database.database().reference()
-        let userInfoAddr = ref.child("users").child(uid!)
-        //let contentsAddr = Database.database().reference().child(uid!).child("contents")
-        
-        // User Info 불러오기 from Database
-        userInfoAddr.observeSingleEvent(of: .value, with: { snapshot in
-                let value = snapshot.value as? NSDictionary
-                self.userModel.id = value?["id"] as? String ?? "No ID"
-                self.userModel.name = value?["name"] as? String ?? "No Name"
-                self.userModel.email = value?["email"] as? String ?? "No Email"
-                self.userModel.follower = value?["follower"] as? Int ?? -1
-                self.userModel.follow = value?["follower"] as? Int ?? -1
-            })
- 
-        
-        // !!저장된 Content 불러오기!!
-    }
-}*/
 
 
 class PostCell: UITableViewCell {

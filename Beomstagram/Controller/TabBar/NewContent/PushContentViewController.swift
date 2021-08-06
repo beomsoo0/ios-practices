@@ -9,19 +9,15 @@ import UIKit
 
 // View
 class PushContentViewController: UIViewController {
-
-    var contentImage: UIImage?
+    
     @IBOutlet weak var pushedImage: UIImageView!
     @IBOutlet weak var pushedComment: UITextField!
+  
+    var contentImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         pushedImage.image = contentImage
-        
     }
     
     @IBAction func shareSelected(_ sender: Any) {
@@ -34,6 +30,8 @@ extension PushContentViewController {
     private func shareContent() {
         DatabaseManager.shared.uploadContent(image: pushedImage.image!, comment: pushedComment.text!) { success in
             if success {
+                DatabaseManager.shared.loadContents()
+                
                 self.navigationController?.popToRootViewController(animated: true)
                 self.tabBarController?.selectedIndex = 0
             }

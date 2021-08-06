@@ -467,8 +467,14 @@
                     <navigationItem key="navigationItem" id="2R7-pj-jM6">
                         <barButtonItem key="rightBarButtonItem" title="Dm" id="OUl-6A-wS8">
                             <imageReference key="image" image="paperplane" catalog="system" renderingMode="original"/>
+                            <connections>
+                                <action selector="reload:" destination="dqV-WF-Pcm" id="0zC-Je-51J"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="postView" destination="uPf-nW-ysa" id="MDl-O1-B8I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-AP-4P0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -575,6 +581,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pek-OM-2XI">
                                         <rect key="frame" x="309" y="5" width="39" height="30"/>
                                         <state key="normal" title="저장됨"/>
+                                        <connections>
+                                            <action selector="reload:" destination="8yS-O0-Bfl" eventType="touchUpInside" id="vIP-jA-mg1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -606,7 +615,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hTf-tm-6ZB">
                                 <rect key="frame" x="0.0" y="367" width="428" height="476"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="utT-E5-wpo">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="utT-E5-wpo">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -680,6 +689,7 @@
                         <outlet property="id" destination="8Ai-bG-Onv" id="qiF-Sq-Xyp"/>
                         <outlet property="postCollectionView" destination="hTf-tm-6ZB" id="RDf-Ld-VK2"/>
                         <outlet property="profileImage" destination="k4q-cG-5dm" id="P2W-AS-B6d"/>
+                        <outlet property="profileView" destination="pcv-fj-gPB" id="lf2-Cx-gBT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fmF-Lz-99j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -735,6 +745,15 @@
                     <view key="view" contentMode="scaleToFill" id="YE8-aA-0Sd">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="여긴하기싫엉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UV-5g-r0r">
+                                <rect key="frame" x="48" y="401" width="345" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bYh-dK-c0F"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -745,7 +764,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cgC-wD-b20" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="951" y="2161"/>
+            <point key="canvasLocation" x="950.46728971962614" y="2160.9071274298058"/>
         </scene>
         <!--새 게시물-->
         <scene sceneID="mwH-r6-cV0">
@@ -917,7 +936,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tvU-kF-Fmy">
                                 <rect key="frame" x="0.0" y="94" width="428" height="749"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JCE-EX-4uL">
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="JCE-EX-4uL">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -952,6 +971,14 @@
                                     <outlet property="delegate" destination="Ot9-5F-GS9" id="0Px-we-u22"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dxf-Ym-KQE">
+                                <rect key="frame" x="343" y="54" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="reload:" destination="Ot9-5F-GS9" eventType="touchUpInside" id="Dba-kP-Vis"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IVv-b6-WNm"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -969,6 +996,9 @@
                         <imageReference key="image" image="magnifyingglass" catalog="system" renderingMode="original"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="jea-Ow-rVY"/>
+                    <connections>
+                        <outlet property="searchCollectionView" destination="tvU-kF-Fmy" id="m5P-EY-i87"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R7o-q3-l8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

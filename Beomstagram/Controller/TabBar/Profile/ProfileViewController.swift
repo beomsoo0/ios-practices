@@ -17,102 +17,51 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var followCount: UILabel!
     @IBOutlet weak var followerCount: UILabel!
     @IBOutlet weak var postCollectionView: UICollectionView!
+    @IBOutlet weak var profileView: UIView!
     
-    var userModel = UserModel()
-    var contentsModel = [ContentModel]()
+    var userModel = UserModel.shared
+
+    @IBAction func reload(_ sender: Any) {
+        
+        postCollectionView.reloadData()
+        initProfile()
+        print(userModel.contents.count)
+        print(userModel.userInfo?.name ?? "No")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let ref = DatabaseManager.shared.ref
-        let uid = AuthManager.shared.currentUid()
-        
-//        ref.child("users").child(uid!).observeSingleEvent(of: DataEventType.value) { (DataSnapshot) in
-//            for items in DataSnapshot.children.allObjects as! [DataSnapshot] {
-//                guard uid != nil else {
-//                    break
-//                }
-//                let values = items.value as! [String: Any]
-//
-//                self.userModel.id = values["id"] as? String
-//                self.userModel.name = values["name"] as? String
-//                self.userModel.email = values["email"] as? String
-//                self.userModel.email?.restoreEmail()
-//                self.userModel.follower = values["follower"] as? Int
-//                self.userModel.follow = values["follow"] as? Int
-//            }
-//        }
-        
-//        ref.child(uid!).child("contents").observeSingleEvent(of: DataEventType.value) { (DataSnapshot) in
-//            for items in DataSnapshot.children.allObjects as! [DataSnapshot] {
-//                let values = items.value as! [String: Any]
-//                var content = ContentModel()
-//
-//                URLSession.shared.dataTask(with: URL(string: values["ImageUrl"] as! String)!) { (data, response, error ) in
-//                    DispatchQueue.main.async {
-//                        content.image = UIImage(data: data!)
-//                        content.cuid = values["Cuid"] as? String
-//                        content.comment = values["Comment"] as? String
-//
-//                        //모델에 넣어주기
-//                        self.userModel.contents.append(content)
-//                        self.postCollectionView.reloadData()
-//                    }
-//                }.resume()
-//            }
-//        }
-        ref.child(uid!).child("contents").observeSingleEvent(of: DataEventType.value) { (DataSnapshot) in
-                  for items in DataSnapshot.children.allObjects as! [DataSnapshot] {
-                      let values = items.value as! [String: Any]
-                      var content = ContentModel()
-      
-                      URLSession.shared.dataTask(with: URL(string: values["ImageUrl"] as! String)!) { (data, response, error ) in
-                          DispatchQueue.main.async {
-                              content.image = UIImage(data: data!)
-                              content.cuid = values["Cuid"] as? String
-                              content.comment = values["Comment"] as? String
-      
-                              //모델에 넣어주기
-                              self.contentsModel.append(content)
-                              self.postCollectionView.reloadData()
-                          }
-                      }.resume()
-                  }
-              }
+        initProfile()
     }
-    
-    
+
     func initProfile() {
-//        id.text = userModel.id
         profileImage.image = UIImage(named: "ong")
-//        contentsCount.text = String(userModel.contents.count)
-//        followerCount.text = String(userModel.follower)
-//        followCount.text = String(userModel.follow)
-        
+        id.text = userModel.userInfo?.id
+        contentsCount.text = String(userModel.contents.count ?? -1)
+        followerCount.text = String(userModel.userInfo?.follower ?? -1)
+        followCount.text = String(userModel.userInfo?.follow ?? -1)
     }
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return userManager.contentsCount()
-        return contentsModel.count
+        print("Profile image count: ", userModel.contents.count)
+        return userModel.contents.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileContentsCell", for: indexPath)
-        as! ProfileContentsCell
-        
-        //cell.contentImage.image = UserModel().contents[indexPath.item].image
-        cell.contentImage.image = contentsModel[indexPath.item].image
+            as! ProfileContentsCell
+        cell.contentImage.image = userModel.contents[indexPath.item].image
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = collectionView.bounds.width / 3 - 1
+        let itemSpacing: CGFloat = 1
+        let width: CGFloat = (collectionView.bounds.width - itemSpacing) / 3
         let height: CGFloat = width
         return CGSize(width: width, height: height)
     }
-
     
 }
 

@@ -108,6 +108,8 @@ extension SettingViewController {
         AuthManager.shared.logOutUser { success in
             DispatchQueue.main.async {
                 if success {
+                    UserModel.shared.contents = []
+                    UserModel.shared.userInfo = nil
                     let loginVC = self.storyboard?.instantiateViewController(identifier: "LoginVC")
                     loginVC?.modalPresentationStyle = .fullScreen
                     self.present(loginVC!, animated: true) {

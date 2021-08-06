@@ -129,8 +129,8 @@
 				D81FD2D326B7F2DC001360F5 /* AuthManager.swift */,
 				D82259F926BA713C002E4B01 /* DatabaseManager.swift */,
 				D82259FD26BA81C7002E4B01 /* StorageManager.swift */,
-				D81FD2D726B7FBFE001360F5 /* Extension.swift */,
 				D82A764326BB769C00C057FC /* PhotoManager.swift */,
+				D81FD2D726B7FBFE001360F5 /* Extension.swift */,
 			);
 			path = Resouce;
 			sourceTree = "<group>";
