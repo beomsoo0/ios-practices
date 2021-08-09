@@ -19,34 +19,60 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var postCollectionView: UICollectionView!
     @IBOutlet weak var profileView: UIView!
     
-    var userModel = UserModel.shared
+    var userModel = UserModel()
 
-    @IBAction func reload(_ sender: Any) {
-        
-        postCollectionView.reloadData()
-        initProfile()
-        print(userModel.contents.count)
-        print(userModel.userInfo?.name ?? "No")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        initProfile()
-    }
 
-    func initProfile() {
-        profileImage.image = UIImage(named: "ong")
-        id.text = userModel.userInfo?.id
-        contentsCount.text = String(userModel.contents.count ?? -1)
-        followerCount.text = String(userModel.userInfo?.follower ?? -1)
-        followCount.text = String(userModel.userInfo?.follow ?? -1)
+        let uid = Auth.auth().currentUser?.uid
+        let ref = Database.database().reference()
+        
+        // 유저 정보 받아오기
+        ref.child("userinfo").child(uid!).observeSingleEvent(of: .value) { (UidSnapshot) in
+            let values = UidSnapshot.value as? [String: Any]
+            
+            DispatchQueue.main.async {
+                self.userModel.userInfo.email = values?["email"] as? String ?? "nil"
+                self.userModel.userInfo.id = values?["id"] as? String ?? "nil"
+                self.userModel.userInfo.name = values?["name"] as? String ?? "nil"
+                self.userModel.userInfo.follower = values?["follower"] as? Int ?? -1
+                self.userModel.userInfo.follow = values?["follow"] as? Int ?? -1
+                
+                self.id.text =  self.userModel.userInfo.id
+                self.profileImage.image = UIImage(named: "ong") //[x]
+                self.followerCount.text = String(self.userModel.userInfo.follower ?? -1)
+                self.followCount.text = String(self.userModel.userInfo.follow ?? -1)
+            }
+        }
+        // 게시물 받아오기
+        ref.child("contents").child(uid!).observeSingleEvent(of: DataEventType.value) { (CuidSnapshot) in
+            for items in CuidSnapshot.children.allObjects as! [DataSnapshot] {
+                let values = items.value as! [String: Any]
+                var content = ContentModel()
+                
+                URLSession.shared.dataTask(with: URL(string: values["ImageUrl"] as! String)!) { (data, response, error ) in
+                    
+                    DispatchQueue.main.async {
+                        content.image = UIImage(data: data!)
+                        content.cuid = values["Cuid"] as? String ?? "nil"
+                        content.comment = values["Comment"] as? String ?? "nil"
+                        self.userModel.contents.append(content)
+                        self.contentsCount.text = String(self.userModel.contents.count)
+                        self.postCollectionView.reloadData()
+                    }
+                }.resume()
+            }
+        }
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.postCollectionView.reloadData()
     }
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("Profile image count: ", userModel.contents.count)
         return userModel.contents.count
     }
     

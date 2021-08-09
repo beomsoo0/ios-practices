@@ -11,14 +11,14 @@ class UserModel {
     
     static var shared = UserModel()
     
-    var userInfo: UserInfo?
-    var contents: [ContentModel] = []
+    var userInfo = UserInfo()
+    var contents = [ContentModel]()
 }
 
 struct UserInfo {
+    var email: String?
     var id: String?
     var name: String?
-    var email: String?
     var follower: Int?
     var follow: Int?
 }
@@ -29,16 +29,11 @@ struct ContentModel {
     var comment: String?
 }
 
-class AllContentsModel {
+class PostContentsModel {
+    var userInfo = UserInfo()
     
-    static let shared = AllContentsModel()
-    
-    var contents: [ContentModel] = []
-}
-
-class AllUserModel {
-    
-    static let shared = AllUserModel()
-    
-    var userModels: [UserModel] = []
+    var cuid: String?
+    var image: UIImage?
+    var comment: String?
+    var like: Int?
 }

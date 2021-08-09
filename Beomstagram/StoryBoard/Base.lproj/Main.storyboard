@@ -467,13 +467,10 @@
                     <navigationItem key="navigationItem" id="2R7-pj-jM6">
                         <barButtonItem key="rightBarButtonItem" title="Dm" id="OUl-6A-wS8">
                             <imageReference key="image" image="paperplane" catalog="system" renderingMode="original"/>
-                            <connections>
-                                <action selector="reload:" destination="dqV-WF-Pcm" id="0zC-Je-51J"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="postView" destination="uPf-nW-ysa" id="MDl-O1-B8I"/>
+                        <outlet property="postTableView" destination="uPf-nW-ysa" id="q5K-tz-Dlc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-AP-4P0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -483,7 +480,7 @@
         <!--Profile View Controller-->
         <scene sceneID="1Vb-Ph-Yxl">
             <objects>
-                <viewController id="8yS-O0-Bfl" customClass="ProfileViewController" customModule="Beomstagram" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileVC" id="8yS-O0-Bfl" customClass="ProfileViewController" customModule="Beomstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v0b-G7-aOK">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -581,9 +578,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pek-OM-2XI">
                                         <rect key="frame" x="309" y="5" width="39" height="30"/>
                                         <state key="normal" title="저장됨"/>
-                                        <connections>
-                                            <action selector="reload:" destination="8yS-O0-Bfl" eventType="touchUpInside" id="vIP-jA-mg1"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -921,7 +915,7 @@
         <!--Search View Controller-->
         <scene sceneID="pNv-ZN-gBc">
             <objects>
-                <viewController id="Ot9-5F-GS9" customClass="SearchViewController" customModule="Beomstagram" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchVC" id="Ot9-5F-GS9" customClass="SearchViewController" customModule="Beomstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NJW-sK-FmI">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -971,14 +965,6 @@
                                     <outlet property="delegate" destination="Ot9-5F-GS9" id="0Px-we-u22"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dxf-Ym-KQE">
-                                <rect key="frame" x="343" y="54" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="reload:" destination="Ot9-5F-GS9" eventType="touchUpInside" id="Dba-kP-Vis"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IVv-b6-WNm"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
