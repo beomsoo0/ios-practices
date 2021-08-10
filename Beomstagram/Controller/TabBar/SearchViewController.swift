@@ -10,7 +10,7 @@ import Firebase
 
 class SearchViewController: UIViewController {
 
-    var postContentModels = [PostContentsModel]()
+    var allContents: [ContentModel] = []
     
     @IBOutlet weak var searchCollectionView: UICollectionView!
     
@@ -24,54 +24,50 @@ class SearchViewController: UIViewController {
                 let puid = uidSnapshot.key
                 print(puid)
                 for cuidSnapshot in uidSnapshot.children.allObjects as! [DataSnapshot]{
-                    
+
                     let values = cuidSnapshot.value as! [String: Any]
-                    let postContentsModel = PostContentsModel()
-                    
+                    let content = ContentModel()
+
                     URLSession.shared.dataTask(with: URL(string: values["ImageUrl"] as! String)!) { (data, response, error ) in
+                        content.image = UIImage(data: data!)
+                        content.cuid = values["Cuid"] as? String
+                        content.comment = values["Comment"] as? String
+                        content.time = values["Time"] as? TimeInterval
+
+                        ref.child("userinfo").child(puid).observeSingleEvent(of: .value) { (DataSnapshot) in
+                            let values = DataSnapshot.value as? [String: Any]
+
+                            content.userInfo.email = values?["email"] as? String ?? "nil"
+                            content.userInfo.id = values?["id"] as? String ?? "nil"
+                            content.userInfo.name = values?["name"] as? String ?? "nil"
+                            content.userInfo.follower = values?["follower"] as? Int ?? -1
+                            content.userInfo.follow = values?["follow"] as? Int ?? -1
+                        }
+
+                        self.allContents.append(content)
                         DispatchQueue.main.async {
-                            postContentsModel.image = UIImage(data: data!)
-                            postContentsModel.cuid = values["Cuid"] as? String
-                            postContentsModel.comment = values["Comment"] as? String
-                            print("@@@@@", values["Cuid"] as? String)
+                            self.searchCollectionView.reloadData()
                         }
                     }.resume()
-                    
-                    ref.child("user").child(puid).child("userinfo").observeSingleEvent(of: .value) { (DataSnapshot) in
-                        let values = DataSnapshot.value as? [String: Any]
-                        DispatchQueue.main.async {
-                            postContentsModel.userInfo.email = values?["email"] as? String ?? "nil"
-                            postContentsModel.userInfo.id = values?["id"] as? String ?? "nil"
-                            postContentsModel.userInfo.name = values?["name"] as? String ?? "nil"
-                            postContentsModel.userInfo.follower = values?["follower"] as? Int ?? -1
-                            postContentsModel.userInfo.follow = values?["follow"] as? Int ?? -1
-                            print("@@@@@", values?["id"] as? String ?? "nil")
-                        }
-                    }
-                    self.postContentModels.append(postContentsModel)
-                    self.searchCollectionView.reloadData()
                 }
             }
         }
-    
         
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.searchCollectionView.reloadData()
-    }
+
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return postContentModels.count
+        return allContents.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCell", for: indexPath) as! SearchCell
-        cell.searchImage.image = postContentModels[indexPath.item].image
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCell", for: indexPath) as? SearchCell else {
+            return UICollectionViewCell()
+        }
+        cell.searchImage.image = allContents[indexPath.item].image
         return cell
     }
     

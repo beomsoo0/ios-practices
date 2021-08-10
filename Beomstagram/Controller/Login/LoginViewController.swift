@@ -36,8 +36,6 @@ extension LoginViewController {
         AuthManager.shared.loginUser(email: email.text!, password: password.text!) { success in
             DispatchQueue.main.async {
                 if success {
-                    DatabaseManager.shared.loadUserInfo()
-                    DatabaseManager.shared.loadContents()
                     let TabBarVC = self.storyboard?.instantiateViewController(identifier: "TabBarVC")
                     TabBarVC?.modalPresentationStyle = .fullScreen
                     self.present(TabBarVC!, animated: true, completion: nil)

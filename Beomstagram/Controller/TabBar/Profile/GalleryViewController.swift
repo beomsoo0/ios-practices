@@ -1,37 +1,27 @@
 //
-//  AddContentViewController.swift
+//  GalleryViewController.swift
 //  Beomstagram
 //
-//  Created by 김범수 on 2021/08/02.
+//  Created by 김범수 on 2021/08/10.
 //
 
 import UIKit
 import Photos
 import PhotosUI
 
-class NewContentViewController: UIViewController {
+class GalleryViewController: UIViewController {
 
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var mainImage: UIImageView!
-
-    @IBAction func cancelSeleted(_ sender: Any) {
-        self.tabBarController?.selectedIndex = 0
-    }
-    
     var allPhotos: PHFetchResult<PHAsset>!
     let imageManager = PHImageManager()
     
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var mainImage: UIImageView!
     var images: [UIImage] = []
     var mainImageVar: UIImage?
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nextVC = segue.destination as! PushContentViewController
-        nextVC.contentImage = mainImageVar
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.allPhotos = PHAsset.fetchAssets(with: nil)
         
         switch PHPhotoLibrary.authorizationStatus(){
@@ -47,7 +37,19 @@ class NewContentViewController: UIViewController {
         default:
             return
         }
+        
     }
+    
+    @IBAction func completeSeleted(_ sender: Any) {
+        guard let editVC = self.storyboard?.instantiateViewController(identifier: "EditVC") as? EditProfileViewController else { return }
+        editVC.receiveImage = mainImageVar
+        print(editVC.receiveImage)
+        //editVC.modalPresentationStyle = .fullScreen
+        //present(editVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(editVC, animated: true)
+        //popViewController(animated: true)
+    }
+    
     private func fetchAllPhotos() {
         let allPhotosOptions = PHFetchOptions()
         allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -55,7 +57,7 @@ class NewContentViewController: UIViewController {
     }
 }
 
-extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allPhotos.count
@@ -63,7 +65,7 @@ extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let assetCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as? ImageCell else {
+        guard let assetCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GalleryCell", for: indexPath) as? GalleryCell else {
             return UICollectionViewCell()
         }
         let asset = allPhotos.object(at: indexPath.item)
@@ -75,11 +77,11 @@ extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDa
         DispatchQueue.main.async {
             self.imageManager.requestImage(for: asset, targetSize: imgSize, contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
                 if assetCell.representedAssetIdentifier == asset.localIdentifier {
-                    assetCell.imageView.image = image
+                    assetCell.photo.image = image
                     self.images.append(image!)
                     if indexPath.item == 0 {
                         self.mainImageVar = image
-                        self.mainImage.image = self.mainImageVar
+                        self.mainImage.image = image
                     }
                 }
             })
@@ -101,17 +103,9 @@ extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
 }
+
+class GalleryCell: UICollectionViewCell {
     
-class ImageCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    
+    @IBOutlet weak var photo: UIImageView!
     var representedAssetIdentifier: String!
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        self.representedAssetIdentifier = .none
-        self.imageView.image = .none
-    }
-
 }
