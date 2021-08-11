@@ -21,56 +21,25 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var postCollectionView: UICollectionView!
     @IBOutlet weak var profileView: UIView!
     
-    var userModel = UserModel()
+   
     let curUserInfo = UserInfoModel.shared
+    var contents = [ContentModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Profile ViewDidLoad")
-        
-        //profileImage.image = self?.userModel.profileContent.image
-        //contentsCount.text = String(self?.userModel.contents.count ?? -1)
-        
-        /*
-        DatabaseManager.shared.fetchUserModel { [weak self] userModel in
-            self?.userModel = userModel
-            DispatchQueue.main.async {
-                self?.id.text = self?.userModel.userInfo.id
-                self?.profileImage.image = self?.userModel.profileContent.image
-                self?.contentsCount.text = String(self?.userModel.contents.count ?? -1)
-                self?.followerCount.text = String(self?.userModel.userInfo.follower ?? -1)
-                self?.followCount.text = String(self?.userModel.userInfo.follow ?? -1)
-            }
-        }
-        
-        DatabaseManager.shared.fetchProfile { [weak self] profile in
-            self?.userModel.profileContent = profile
-            DispatchQueue.main.async {
-                if self?.userModel.profileContent.image != nil {
-                    self?.profileImage.image = self?.userModel.profileContent.image
-                    //comment
-                } else {
-                    self?.profileImage.image = UIImage(named: "default_profile")
-                }
-            }
-        
-        DatabaseManager.shared.fetchUserContents { [weak self] contentsModel in
-            self?.userModel.contents = contentsModel
-            DispatchQueue.main.async {
-                self?.postCollectionView.reloadData()
-                }
-            }
-        }*/
-        
+        print("Profile viewDidLoad")
+ 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("@@@@@")
-        print(curUserInfo.email)
-        print(curUserInfo.id)
-        print(curUserInfo.name)
-        print(curUserInfo.profile.comment)
-        setProfileInfo()
+        print("Profile viewWillAppear")
+        DatabaseManager.shared.fetchUserContents { [weak self] Contents in
+            self?.contents = Contents
+            DispatchQueue.main.async {
+                self?.setProfileInfo()
+                self?.postCollectionView.reloadData()
+            }
+        }
     }
     func setProfileInfo() {
         id.text = curUserInfo.id
@@ -78,24 +47,22 @@ class ProfileViewController: UIViewController {
         followCount.text = String(curUserInfo.follow ?? -1)
         profileImage.image = curUserInfo.profile.image
         profileComment.text = curUserInfo.profile.comment
-        //contentsCount.text = String(curUserInfo.profile.count ?? -1)
+        contentsCount.text = String(contents.count ?? -1)
     }
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return userModel.contents.count
-        return 0
+        return contents.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileContentsCell", for: indexPath) as? ProfileContentsCell else {
-//            return UICollectionViewCell()
-//        }
-//        cell.contentImage.image = userModel.contents[indexPath.item].image
-//        return cell
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileContentsCell", for: indexPath) as? ProfileContentsCell else {
+            return UICollectionViewCell()
+        }
+        cell.contentImage.image = contents[indexPath.item].image
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemSpacing: CGFloat = 1

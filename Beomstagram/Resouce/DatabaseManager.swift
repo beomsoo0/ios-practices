@@ -106,8 +106,7 @@ public class DatabaseManager {
     
     func fetchUserContents(completion: @escaping ([ContentModel]) -> Void) {
         let uid = AuthManager.shared.currentUid()
-        var contents: [ContentModel] = []
-        
+        var contents = [ContentModel]()
         ref.child("contents").child(uid!).observeSingleEvent(of: DataEventType.value) { (CuidSnapshot) in
             for items in CuidSnapshot.children.allObjects as! [DataSnapshot] {
                 let values = items.value as! [String: Any]
@@ -116,7 +115,6 @@ public class DatabaseManager {
                 URLSession.shared.dataTask(with: URL(string: values["imageUrl"] as! String)!) { (data, response, error ) in
                     content.image = UIImage(data: data!)
                     content.cuid = values["cuid"] as? String ?? "nil"
-                    
                     content.comment = values["comment"] as? String ?? "nil"
                     content.time = values["time"] as? TimeInterval
                     contents.append(content)

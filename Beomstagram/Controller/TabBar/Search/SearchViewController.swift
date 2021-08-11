@@ -19,7 +19,11 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Search ViewDidLoad")
+        print("Search viewDidLoad")
+            }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Search viewWillAppear")
         DatabaseManager.shared.fetchAllContents { [weak self] allContentsModel in
             self?.allContentsModel = allContentsModel
             DispatchQueue.main.async {
@@ -27,7 +31,6 @@ class SearchViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

@@ -27,7 +27,7 @@ class HomeViewController: UIViewController {
        
         titleBarInsert()
     }
-
+    
     func titleBarInsert () {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
         imageView.contentMode = .scaleAspectFit
