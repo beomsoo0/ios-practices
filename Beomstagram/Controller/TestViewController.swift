@@ -13,11 +13,11 @@ class TestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("## test View Load")
-        DatabaseManager.shared.fetchUserModel { userModel in
-            self.currentModel = userModel
-            print("## IN CLOSURE MODEL : \(self.currentModel)")
-        }
+//        print("## test View Load")
+//        DatabaseManager.shared.fetchUserModel { userModel in
+//            self.currentModel = userModel
+//            print("## IN CLOSURE MODEL : \(self.currentModel)")
+//        }
 
     }
 

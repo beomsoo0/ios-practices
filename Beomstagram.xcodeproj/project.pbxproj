@@ -27,6 +27,7 @@
 		D82259FA26BA713C002E4B01 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82259F926BA713C002E4B01 /* DatabaseManager.swift */; };
 		D82259FC26BA7488002E4B01 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82259FB26BA7488002E4B01 /* SettingViewController.swift */; };
 		D82259FE26BA81C7002E4B01 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82259FD26BA81C7002E4B01 /* StorageManager.swift */; };
+		D82C912D26C3FE6C0095B2FA /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82C912C26C3FE6C0095B2FA /* PhotoManager.swift */; };
 		D83547A626B945CC008A22BC /* PushContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83547A526B945CC008A22BC /* PushContentViewController.swift */; };
 		D835C8DC26C25B6800026500 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835C8DB26C25B6800026500 /* EditProfileViewController.swift */; };
 		D835C8DE26C25DFC00026500 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835C8DD26C25DFC00026500 /* GalleryViewController.swift */; };
@@ -58,6 +59,7 @@
 		D82259F926BA713C002E4B01 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		D82259FB26BA7488002E4B01 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D82259FD26BA81C7002E4B01 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		D82C912C26C3FE6C0095B2FA /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		D83547A526B945CC008A22BC /* PushContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushContentViewController.swift; sourceTree = "<group>"; };
 		D835C8DB26C25B6800026500 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		D835C8DD26C25DFC00026500 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				D81FD2D326B7F2DC001360F5 /* AuthManager.swift */,
 				D82259F926BA713C002E4B01 /* DatabaseManager.swift */,
 				D82259FD26BA81C7002E4B01 /* StorageManager.swift */,
+				D82C912C26C3FE6C0095B2FA /* PhotoManager.swift */,
 				D81FD2D726B7FBFE001360F5 /* Extension.swift */,
 			);
 			path = Resouce;
@@ -177,9 +180,9 @@
 		D81FD2DB26B8048C001360F5 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				D81FD2D926B80233001360F5 /* HomeViewController.swift */,
+				D82C912926C3E8C20095B2FA /* Home */,
+				D82C912B26C3E8D80095B2FA /* Search */,
 				D82A764126BB6E0500C057FC /* Profile */,
-				D81FD2DE26B804AE001360F5 /* SearchViewController.swift */,
 				D82A764226BB6E2000C057FC /* NewContent */,
 				D81FD2E226B804D2001360F5 /* HistoryViewController.swift */,
 			);
@@ -204,6 +207,22 @@
 				D83547A526B945CC008A22BC /* PushContentViewController.swift */,
 			);
 			path = NewContent;
+			sourceTree = "<group>";
+		};
+		D82C912926C3E8C20095B2FA /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2D926B80233001360F5 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D82C912B26C3E8D80095B2FA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D81FD2DE26B804AE001360F5 /* SearchViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,6 +358,7 @@
 				D83547A626B945CC008A22BC /* PushContentViewController.swift in Sources */,
 				D81FD2CD26B7EFBF001360F5 /* UserModel.swift in Sources */,
 				D81FD2B126B7EC63001360F5 /* SceneDelegate.swift in Sources */,
+				D82C912D26C3FE6C0095B2FA /* PhotoManager.swift in Sources */,
 				D82259FE26BA81C7002E4B01 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

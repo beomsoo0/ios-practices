@@ -13,10 +13,11 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var postTableView: UITableView!
     
     var allContentsModel = [AllContentModel]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Home ViewDidLoad")
+
         DatabaseManager.shared.fetchAllContents { [weak self] allContentsModel in
             self?.allContentsModel = allContentsModel
             DispatchQueue.main.async {

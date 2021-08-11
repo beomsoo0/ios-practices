@@ -13,6 +13,8 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var id: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
+    
+    @IBOutlet weak var profileComment: UILabel!
     @IBOutlet weak var contentsCount: UILabel!
     @IBOutlet weak var followCount: UILabel!
     @IBOutlet weak var followerCount: UILabel!
@@ -20,10 +22,16 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileView: UIView!
     
     var userModel = UserModel()
+    let curUserInfo = UserInfoModel.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Profile ViewDidLoad")
+        
+        //profileImage.image = self?.userModel.profileContent.image
+        //contentsCount.text = String(self?.userModel.contents.count ?? -1)
+        
+        /*
         DatabaseManager.shared.fetchUserModel { [weak self] userModel in
             self?.userModel = userModel
             DispatchQueue.main.async {
@@ -52,23 +60,42 @@ class ProfileViewController: UIViewController {
                 self?.postCollectionView.reloadData()
                 }
             }
-        }
+        }*/
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("@@@@@")
+        print(curUserInfo.email)
+        print(curUserInfo.id)
+        print(curUserInfo.name)
+        print(curUserInfo.profile.comment)
+        setProfileInfo()
+    }
+    func setProfileInfo() {
+        id.text = curUserInfo.id
+        followerCount.text = String(curUserInfo.follower ?? -1)
+        followCount.text = String(curUserInfo.follow ?? -1)
+        profileImage.image = curUserInfo.profile.image
+        profileComment.text = curUserInfo.profile.comment
+        //contentsCount.text = String(curUserInfo.profile.count ?? -1)
     }
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userModel.contents.count
+        //return userModel.contents.count
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileContentsCell", for: indexPath) as? ProfileContentsCell else {
-            return UICollectionViewCell()
-        }
-        cell.contentImage.image = userModel.contents[indexPath.item].image
-        return cell
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileContentsCell", for: indexPath) as? ProfileContentsCell else {
+//            return UICollectionViewCell()
+//        }
+//        cell.contentImage.image = userModel.contents[indexPath.item].image
+//        return cell
+        return UICollectionViewCell()
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemSpacing: CGFloat = 1

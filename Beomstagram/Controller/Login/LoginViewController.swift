@@ -10,6 +10,8 @@ import UIKit
 //View
 class LoginViewController: UIViewController {
 
+    var curUserInfo = UserInfoModel.shared
+    
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     
@@ -44,23 +46,26 @@ class LoginViewController: UIViewController {
             print("@@@nil 발견@@@")
             return
         }
-        DispatchQueue.main.async {
+        
             AuthManager.shared.loginUser(email: email!, password: password!) { success in
                 if success {
-                    let TabBarVC = self.storyboard?.instantiateViewController(identifier: "TabBarVC")
-                    TabBarVC?.modalPresentationStyle = .fullScreen
-                    self.present(TabBarVC!, animated: true, completion: nil)
-//                    let TestVC = self.storyboard?.instantiateViewController(identifier: "TestVC")
-//                    TestVC?.modalPresentationStyle = .fullScreen
-//                    self.present(TestVC!, animated: true, completion: nil)
+                    DatabaseManager.shared.fetchUserInfo(userInfo: self.curUserInfo) {
+                        DispatchQueue.main.async {
+                            let TabBarVC = self.storyboard?.instantiateViewController(identifier: "TabBarVC")
+                            TabBarVC?.modalPresentationStyle = .fullScreen
+                            self.present(TabBarVC!, animated: true, completion: nil)
+                        }
+                    }
                 }
                 else {
-                    let alert = UIAlertController(title: "로그인 실패", message: "아이디 또는 비밀번호가 일치하지 않습니다.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "로그인 실패", message: "아이디 또는 비밀번호가 일치하지 않습니다.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 }
             }
         }
     }
     
-}
+

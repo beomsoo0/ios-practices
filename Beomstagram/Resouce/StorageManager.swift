@@ -39,13 +39,5 @@ public class StorageManager {
         }
     }
     
-//    public func downloadImage(url: String, completion: @escaping (Result<URL, StorageManagerError> -> Void)) {
-//        guard let url = url, error == nil else {
-//            completion(.failure(<#T##Error#>))
-//            return
-//        }
-//        completion(.success(url))
-//        return
-//    }
-    
+
 }

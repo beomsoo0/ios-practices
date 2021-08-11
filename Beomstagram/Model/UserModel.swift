@@ -8,17 +8,24 @@
 import UIKit
 
 class UserModel {
-    var userInfo = UserInfo()
+    var userInfo = UserInfoModel()
     var profileContent = ContentModel()
     var contents: [ContentModel] = []
 }
 
-class UserInfo {
+class UserInfoModel {
+    
+    static var shared = UserInfoModel()
+    
     var email: String?
     var id: String?
     var name: String?
     var follower: Int?
     var follow: Int?
+    var profile = ContentModel()
+//    private init() {
+//
+//    }
 }
 
 class ContentModel {
@@ -29,6 +36,6 @@ class ContentModel {
 }
 
 class AllContentModel {
-    var userInfo = UserInfo()
+    var userInfo = UserInfoModel()
     var content = ContentModel()
 }

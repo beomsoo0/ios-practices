@@ -38,7 +38,7 @@ public class DatabaseManager {
         })
     }
     
-    public func uploadProfile(image: UIImage, comment: String, completion: @escaping (Bool) -> Void) {
+    public func editProfile(image: UIImage, comment: String, name: String, id: String, completion: @escaping (Bool) -> Void) {
         let uid = AuthManager.shared.currentUid()
         let cuid = ref.child("contents").child(uid!).childByAutoId().key
         
@@ -49,7 +49,7 @@ public class DatabaseManager {
         StorageManager.shared.uploadImageToStorage(cuid: cuid!, uid: uid!, image: image, completion: { result in
             switch result {
             case .success(let url):
-                self.ref.child("userInfo").child(uid!).setValue(["cuid": cuid!, "imageUrl": url.absoluteString, "comment": comment, "time": ServerValue.timestamp()])
+                self.ref.child("userinfo").child(uid!).updateChildValues(["cuid": cuid!, "imageUrl": url.absoluteString, "comment": comment, "time": ServerValue.timestamp(), "name": name, "id": id])
                 completion(true)
                 return
             case .failure(let error):
@@ -60,47 +60,46 @@ public class DatabaseManager {
         })
     }
 
-    func fetchUserModel(completion: @escaping (UserModel) -> Void) {
+    func fetchUserInfo(userInfo: UserInfoModel, completion: @escaping () -> Void) {
         let uid = AuthManager.shared.currentUid()
-        let model = UserModel()
+        //let userInfo = UserInfo()
 
         ref.child("userinfo").child(uid!).observeSingleEvent(of: .value) { (UidSnapshot) in
             let values = UidSnapshot.value as? [String: Any]
-            model.userInfo.email = values?["email"] as? String ?? "No Email"
-            model.userInfo.id = values?["id"] as? String ?? "No ID"
-            model.userInfo.name = values?["name"] as? String ?? "No Name"
-            model.userInfo.follower = values?["follower"] as? Int ?? -1
-            model.userInfo.follow = values?["follow"] as? Int ?? -1
-            
-            let url = URL(string: values?["imageUrl"] as? String ?? "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.snsboom.co.kr%2Fannouncement%2F%3Fq%3DYToyOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjtzOjQ6InBhZ2UiO2k6MTt9%26bmode%3Dview%26idx%3D2472131%26t%3Dboard&psig=AOvVaw015-5DDP9COCaRd-X2jC0k&ust=1628745880155000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCODJja-dqPICFQAAAAAdAAAAABAO")
-
-            URLSession.shared.dataTask(with: url!) { (data, response, error ) in
-                if error != nil {
-                    print("image error")
-                    completion(model)
+            userInfo.email = values?["email"] as? String ?? "No Email"
+            userInfo.id = values?["id"] as? String ?? "No ID"
+            userInfo.name = values?["name"] as? String ?? "No Name"
+            userInfo.follower = values?["follower"] as? Int ?? -1
+            userInfo.follow = values?["follow"] as? Int ?? -1
+            self.fetchProfile(userInfo: userInfo) { success in
+                if success {
+                    completion()
+                } else {
+                    userInfo.profile.image = UIImage(named: "default_profile")
+                    userInfo.profile.cuid = ""
+                    userInfo.profile.comment = ""
+                    userInfo.profile.time = .none
+                    completion()
                 }
-                model.profileContent.image = UIImage(data: data!)
-                model.profileContent.comment = values?["cuid"] as? String ?? "No Cuid"
-                model.profileContent.comment = values?["comment"] as? String ?? "No Comment"
-                model.profileContent.time = values?["time"] as? TimeInterval ?? .none
-                completion(model)
-            }.resume()
+            }
         }
     }
     
-    func fetchProfile(completion: @escaping (ContentModel) -> Void) {
+    func fetchProfile(userInfo: UserInfoModel, completion: @escaping (Bool) -> Void) {
         let uid = AuthManager.shared.currentUid()
-        let profile = ContentModel()
 
         ref.child("userinfo").child(uid!).observeSingleEvent(of: .value) { (UidSnapshot) in
             let values = UidSnapshot.value as? [String: Any]
-            guard let urlString = values?["imageUrl"] as? String else { return }
+            guard let urlString = values?["imageUrl"] as? String else {
+                completion(false)
+                return
+            }
             URLSession.shared.dataTask(with: URL(string: urlString)!) { (data, response, error ) in
-                profile.image = UIImage(data: data!)
-                profile.cuid = values?["cuid"] as? String ?? "No Cuid"
-                profile.comment = values?["comment"] as? String ?? "No Comment"
-                profile.time = values?["time"] as? TimeInterval ?? .none
-                completion(profile)
+                userInfo.profile.image = UIImage(data: data!)
+                userInfo.profile.cuid = values?["cuid"] as? String ?? "No Cuid"
+                userInfo.profile.comment = values?["comment"] as? String ?? "No Comment"
+                userInfo.profile.time = values?["time"] as? TimeInterval ?? .none
+                completion(true)
             }.resume()
         }
     }
