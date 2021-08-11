@@ -31,7 +31,7 @@ class NewContentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("NewContent ViewDidLoad")
         self.allPhotos = PHAsset.fetchAssets(with: nil)
         
         switch PHPhotoLibrary.authorizationStatus(){

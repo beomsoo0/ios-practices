@@ -24,43 +24,51 @@ class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         print("viewDidLoad")
+        setProfileImage()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear")
-        print(receiveImage)
-        profileImage.image = receiveImage
-    }
-
     @IBAction func completeSeleted(_ sender: Any) {
-        
-        let uid = AuthManager.shared.currentUid()
-        let cuid = ref.child("profileImage").child(uid!).childByAutoId().key
-        let dataImage = (receiveImage?.jpegData(compressionQuality: 0.1)!)!
-        let imageRef = Storage.storage().reference().child("profileImage").child(uid!).child(cuid!)
-        
-        // Upload Storage
-        imageRef.putData(dataImage, metadata: nil) { (StorageMetadata, error) in
-            guard error == nil else {
-                print(error.debugDescription)
-                return
+        DatabaseManager.shared.uploadProfile(image: receiveImage!, comment: comment.text ?? "") { success in
+            if success {
+                let profileVC = self.storyboard?.instantiateViewController(identifier: "ProfileVC") as! ProfileViewController
+                profileVC.viewDidLoad()
+                self.navigationController?.popToRootViewController(animated: true)
+                self.tabBarController?.selectedIndex = 4
             }
-            imageRef.downloadURL { (url, error) in
-                guard let url = url, error == nil else {
-                    print(error.debugDescription)
-                    return
-                }
-                self.url = url
-                return
+            else {
+                let alert = UIAlertController(title: "업로드 실패", message: "프로필 업로드에 실패했습니다", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
-  
-        ref.child("userinfo").child(uid!).updateChildValues(["name": self.name.text as Any, "id": self.id.text, "comment": self.comment.text, "profileImageUrl": self.url?.absoluteString])
-        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @IBAction func cancelSeleted(_ sender: Any) {
         self.tabBarController?.selectedIndex = 0
     }
     
     @IBAction func photoSeleted(_ sender: Any) {
     }
+    
+    func otherViewDidLoad() {
+        let homeVC = self.storyboard?.instantiateViewController(identifier: "HomeVC") as! HomeViewController
+        let searchVC = self.storyboard?.instantiateViewController(identifier: "SearchVC") as! SearchViewController
+        let profileVC = self.storyboard?.instantiateViewController(identifier: "ProfileVC") as! ProfileViewController
+        homeVC.viewDidLoad()
+        searchVC.viewDidLoad()
+        profileVC.viewDidLoad()
+    }
+    
+    func setProfileImage() {
+        DispatchQueue.main.async {
+            if self.receiveImage == nil {
+                self.profileImage.image = UIImage(named: "default_profile")
+            } else {
+                self.profileImage.image = self.receiveImage
+            }
+        }
+    }
+    
 }

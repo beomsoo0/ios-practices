@@ -7,28 +7,18 @@
 
 import UIKit
 
-struct UserInfoModel {
-    
-    static var shared = UserModel()
-    
-    var email: String?
-    var id: String?
-    var name: String?
-    var follower: Int?
-    var follow: Int?
-    var profileImage: UIImage?
-    var comment: String?
+class UserModel {
+    var userInfo = UserInfo()
+    var profileContent = ContentModel()
+    var contents: [ContentModel] = []
 }
 
-struct UserModel {
-    
+class UserInfo {
     var email: String?
     var id: String?
     var name: String?
     var follower: Int?
     var follow: Int?
-    var profileImage: UIImage?
-    var comment: String?
 }
 
 class ContentModel {
@@ -36,6 +26,9 @@ class ContentModel {
     var cuid: String?
     var comment: String?
     var time: TimeInterval?
-    
-    var userInfo = UserModel()
+}
+
+class AllContentModel {
+    var userInfo = UserInfo()
+    var content = ContentModel()
 }

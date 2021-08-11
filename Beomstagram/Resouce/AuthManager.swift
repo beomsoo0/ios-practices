@@ -12,14 +12,13 @@ public class AuthManager {
     static let shared = AuthManager()
     
     public func createNewUser(email: String, password: String, name: String, id: String, completion: @escaping (Bool) -> Void) {
-        
         guard email.contains("@"), email.contains("."), password.count >= 8, !name.isEmpty, !id.isEmpty  else {
             completion(false)
             return
         }
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             guard let authResult = authResult, error == nil else {
-                print(error.debugDescription)
+                print("계정 생성 실패 \(error.debugDescription)")
                 completion(false)
                 return
             }

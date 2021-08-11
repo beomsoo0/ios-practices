@@ -30,6 +30,7 @@
 		D83547A626B945CC008A22BC /* PushContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83547A526B945CC008A22BC /* PushContentViewController.swift */; };
 		D835C8DC26C25B6800026500 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835C8DB26C25B6800026500 /* EditProfileViewController.swift */; };
 		D835C8DE26C25DFC00026500 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835C8DD26C25DFC00026500 /* GalleryViewController.swift */; };
+		D8A8470C26C39EB700A3FB42 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A8470B26C39EB700A3FB42 /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		D83547A526B945CC008A22BC /* PushContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushContentViewController.swift; sourceTree = "<group>"; };
 		D835C8DB26C25B6800026500 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		D835C8DD26C25DFC00026500 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		D8A8470B26C39EB700A3FB42 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			children = (
 				D81FD2DB26B8048C001360F5 /* TabBar */,
 				D81FD2D026B7F22F001360F5 /* Login */,
+				D8A8470B26C39EB700A3FB42 /* TestViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -187,9 +190,9 @@
 			isa = PBXGroup;
 			children = (
 				D81FD2DC26B804A2001360F5 /* ProfileViewController.swift */,
-				D82259FB26BA7488002E4B01 /* SettingViewController.swift */,
 				D835C8DB26C25B6800026500 /* EditProfileViewController.swift */,
 				D835C8DD26C25DFC00026500 /* GalleryViewController.swift */,
+				D82259FB26BA7488002E4B01 /* SettingViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D81FD2DF26B804AE001360F5 /* SearchViewController.swift in Sources */,
+				D8A8470C26C39EB700A3FB42 /* TestViewController.swift in Sources */,
 				D81FD2C826B7EDFC001360F5 /* LoginViewController.swift in Sources */,
 				D81FD2D426B7F2DC001360F5 /* AuthManager.swift in Sources */,
 				D81FD2E326B804D2001360F5 /* HistoryViewController.swift in Sources */,

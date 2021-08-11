@@ -21,15 +21,10 @@ class PushContentViewController: UIViewController {
     }
     
     @IBAction func shareSelected(_ sender: Any) {
-        shareContent()
-    }
-}
-
-// View Model
-extension PushContentViewController {
-    private func shareContent() {
+        
         DatabaseManager.shared.uploadContent(image: pushedImage.image!, comment: pushedComment.text!) { success in
             if success {
+                self.otherViewDidLoad()
                 self.navigationController?.popToRootViewController(animated: true)
                 self.tabBarController?.selectedIndex = 0
             }
@@ -39,5 +34,14 @@ extension PushContentViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    func otherViewDidLoad() {
+        let homeVC = self.storyboard?.instantiateViewController(identifier: "HomeVC") as! HomeViewController
+        let searchVC = self.storyboard?.instantiateViewController(identifier: "SearchVC") as! SearchViewController
+        let profileVC = self.storyboard?.instantiateViewController(identifier: "ProfileVC") as! ProfileViewController
+        homeVC.viewDidLoad()
+        searchVC.viewDidLoad()
+        profileVC.viewDidLoad()
     }
 }

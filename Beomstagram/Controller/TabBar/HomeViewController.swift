@@ -10,55 +10,21 @@ import Firebase
 
 class HomeViewController: UIViewController {
 
-    var allContents: [ContentModel] = []
-    
     @IBOutlet weak var postTableView: UITableView!
     
+    var allContentsModel = [AllContentModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let ref = Database.database().reference()
-
-        ref.child("contents").observeSingleEvent(of: DataEventType.value) { (UidSnapshot) in
-            for uidSnapshot in UidSnapshot.children.allObjects as! [DataSnapshot]{
-                let puid = uidSnapshot.key
-                print(puid)
-                for cuidSnapshot in uidSnapshot.children.allObjects as! [DataSnapshot]{
-
-                    let values = cuidSnapshot.value as! [String: Any]
-                    var content = ContentModel()
-
-                    URLSession.shared.dataTask(with: URL(string: values["ImageUrl"] as! String)!) { (data, response, error ) in
-                        content.image = UIImage(data: data!)
-                        content.cuid = values["Cuid"] as? String
-                        content.comment = values["Comment"] as? String
-                        content.time = values["Time"] as! TimeInterval
-
-                        ref.child("userinfo").child(puid).observeSingleEvent(of: .value) { (DataSnapshot) in
-                            let values = DataSnapshot.value as? [String: Any]
-
-                            content.userInfo.email = values?["email"] as? String ?? "nil"
-                            content.userInfo.id = values?["id"] as? String ?? "nil"
-                            content.userInfo.name = values?["name"] as? String ?? "nil"
-                            content.userInfo.follower = values?["follower"] as? Int ?? -1
-                            content.userInfo.follow = values?["follow"] as? Int ?? -1
-                        }
-                        self.allContents.append(content)
-                        DispatchQueue.main.async {
-                            self.postTableView.reloadData()
-                        }
-                    }.resume()
-                }
+        print("Home ViewDidLoad")
+        DatabaseManager.shared.fetchAllContents { [weak self] allContentsModel in
+            self?.allContentsModel = allContentsModel
+            DispatchQueue.main.async {
+                self?.postTableView.reloadData()
             }
         }
-
+       
         titleBarInsert()
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.postTableView.reloadData()
     }
 
     func titleBarInsert () {
@@ -76,7 +42,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allContents.count
+        return allContentsModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,16 +51,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.profileImage.image = UIImage(named: "ong")
-        cell.profileID.text = allContents[indexPath.row].userInfo.id
-        cell.postImage.image = allContents[indexPath.row].image
+        cell.profileID.text = allContentsModel[indexPath.row].userInfo.id
+        cell.postImage.image = allContentsModel[indexPath.row].content.image
         cell.likeCount.text = "좋아요 \(indexPath.row)개"
-        cell.postComment.text = allContents[indexPath.row].comment
-        
+        cell.postComment.text = allContentsModel[indexPath.row].content.comment
+
 
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "yyyy.MM.dd HH:mm"
-        let date = Date(timeIntervalSince1970: allContents[indexPath.row].time ?? 0)
+        let date = Date(timeIntervalSince1970: allContentsModel[indexPath.row].content.time ?? 0)
         cell.postTime.text = dateFormatter.string(from: date)
 
         return cell

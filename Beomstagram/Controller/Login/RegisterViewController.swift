@@ -9,34 +9,37 @@ import UIKit
 
 class RegisterViewController: UIViewController {
 
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var id: UITextField!
+
+
+    @IBAction func backSelected(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func registerSelected(_ sender: Any) {
+        resignKeyBoard(email, password, name, id)
+        register(email: email.text, password: password.text, name: name.text, id: id.text)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var password: UITextField!
-
-    @IBOutlet weak var name: UITextField!
-    
-    @IBOutlet weak var id: UITextField!
-    @IBAction func registerSelected(_ sender: Any) {
-        resignKeyBoardRegister()
-        register()
-    }
-}
-
-extension RegisterViewController {
-    
-    private func resignKeyBoardRegister() {
-        password.resignFirstResponder()
-        email.resignFirstResponder()
-        name.resignFirstResponder()
-        id.resignFirstResponder()
+    func resignKeyBoard(_ textFields: UITextField...) {
+        for textField in textFields {
+            textField.resignFirstResponder()
+        }
     }
     
-    private func register() {
-        AuthManager.shared.createNewUser(email: email.text!, password: password.text!, name: name.text!, id: id.text!) {success in
+    func register(email: String?, password: String?, name: String?, id: String?) {
+        guard email != nil, password != nil, name != nil, id != nil else {
+            print("@@@ nil 발견 @@@")
+            return
+        }
+        AuthManager.shared.createNewUser(email: email!, password: password!, name: name!, id: id!) { success in
             DispatchQueue.main.async {
                 if success {
                     self.dismiss(animated: true, completion: nil)
@@ -51,4 +54,3 @@ extension RegisterViewController {
     }
     
 }
-
