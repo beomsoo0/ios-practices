@@ -10,7 +10,7 @@ import UIKit
 //View
 class LoginViewController: UIViewController {
 
-    var curUserInfo = UserInfoModel.shared
+    var currentUser = UserModel.shared
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
         
             AuthManager.shared.loginUser(email: email!, password: password!) { success in
                 if success {
-                    DatabaseManager.shared.fetchUserInfo(userInfo: self.curUserInfo) {
+                    DatabaseManager.shared.fetchCurrentUserModel(userModel: self.currentUser) {
                         DispatchQueue.main.async {
                             let TabBarVC = self.storyboard?.instantiateViewController(identifier: "TabBarVC")
                             TabBarVC?.modalPresentationStyle = .fullScreen

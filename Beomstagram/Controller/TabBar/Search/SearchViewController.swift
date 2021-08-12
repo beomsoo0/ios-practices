@@ -15,35 +15,36 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchCollectionView: UICollectionView!
     
 
-    var allContentsModel = [AllContentModel]()
+    var searchViewModel = SearchViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Search viewDidLoad")
-            }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("Search viewWillAppear")
-        DatabaseManager.shared.fetchAllContents { [weak self] allContentsModel in
-            self?.allContentsModel = allContentsModel
+        searchViewModel.loadPostModel {
             DispatchQueue.main.async {
-                self?.searchCollectionView.reloadData()
+                self.searchCollectionView.reloadData()
             }
         }
     }
+    
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allContentsModel.count
+        return searchViewModel.postModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCell", for: indexPath) as? SearchCell else {
             return UICollectionViewCell()
         }
-        cell.searchImage.image = allContentsModel[indexPath.item].content.image
+        cell.searchImage.image = searchViewModel.postModel[indexPath.item].content.image
         return cell
     }
     

@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseStorage
 
 class EditProfileViewController: UIViewController {
 
@@ -16,7 +14,7 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var id: UITextField!
     @IBOutlet weak var comment: UITextField!
     
-    let curUserInfo = UserInfoModel.shared
+    let currentUser = UserModel.shared
     var changeImage: UIImage?
 
     override func viewDidLoad() {
@@ -42,12 +40,12 @@ class EditProfileViewController: UIViewController {
        
         DatabaseManager.shared.editProfile(image: profileImage.image!, comment: comment.text!, name: name.text!, id: id.text!) { success in
             if success {
-                DatabaseManager.shared.fetchUserInfo(userInfo: self.curUserInfo) {
+                DatabaseManager.shared.fetchCurrentUserModel(userModel: self.currentUser, completion: {
                     DispatchQueue.main.async {
                         self.navigationController?.popToRootViewController(animated: true)
                         self.tabBarController?.selectedIndex = 4
                     }
-                }
+                })
             }
             else {
                 DispatchQueue.main.async {
@@ -74,11 +72,11 @@ class EditProfileViewController: UIViewController {
     }
     
     func setDefaultProfile() {
-        changeImage = curUserInfo.profile.image
-        profileImage.image = curUserInfo.profile.image
-        name.text = curUserInfo.name
-        id.text = curUserInfo.id
-        comment.text = curUserInfo.profile.comment
+        changeImage = currentUser.content.image
+        profileImage.image = currentUser.content.image
+        name.text = currentUser.userInfo.name
+        id.text = currentUser.userInfo.id
+        comment.text = currentUser.content.comment
     }
     
 }

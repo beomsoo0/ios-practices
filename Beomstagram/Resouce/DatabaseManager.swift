@@ -60,32 +60,30 @@ public class DatabaseManager {
         })
     }
 
-    func fetchUserInfo(userInfo: UserInfoModel, completion: @escaping () -> Void) {
+    func fetchCurrentUserModel(userModel: UserModel, completion: @escaping () -> Void) {
         let uid = AuthManager.shared.currentUid()
-        //let userInfo = UserInfo()
 
         ref.child("userinfo").child(uid!).observeSingleEvent(of: .value) { (UidSnapshot) in
             let values = UidSnapshot.value as? [String: Any]
-            userInfo.email = values?["email"] as? String ?? "No Email"
-            userInfo.id = values?["id"] as? String ?? "No ID"
-            userInfo.name = values?["name"] as? String ?? "No Name"
-            userInfo.follower = values?["follower"] as? Int ?? -1
-            userInfo.follow = values?["follow"] as? Int ?? -1
-            self.fetchProfile(userInfo: userInfo) { success in
+            userModel.userInfo.email = values?["email"] as? String ?? "No Email"
+            userModel.userInfo.id = values?["id"] as? String ?? "No ID"
+            userModel.userInfo.name = values?["name"] as? String ?? "No Name"
+            userModel.userInfo.follower = values?["follower"] as? Int ?? -1
+            userModel.userInfo.follow = values?["follow"] as? Int ?? -1
+            self.fetchCurrentProfile(content: userModel.content) { success in
                 if success {
                     completion()
                 } else {
-                    userInfo.profile.image = UIImage(named: "default_profile")
-                    userInfo.profile.cuid = ""
-                    userInfo.profile.comment = ""
-                    userInfo.profile.time = .none
+                    userModel.content.image = UIImage(named: "default_profile")
+                    userModel.content.cuid = ""
+                    userModel.content.comment = ""
+                    userModel.content.time = .none
                     completion()
                 }
             }
         }
     }
-    
-    func fetchProfile(userInfo: UserInfoModel, completion: @escaping (Bool) -> Void) {
+    func fetchCurrentProfile(content: ContentModel, completion: @escaping (Bool) -> Void) {
         let uid = AuthManager.shared.currentUid()
 
         ref.child("userinfo").child(uid!).observeSingleEvent(of: .value) { (UidSnapshot) in
@@ -95,16 +93,16 @@ public class DatabaseManager {
                 return
             }
             URLSession.shared.dataTask(with: URL(string: urlString)!) { (data, response, error ) in
-                userInfo.profile.image = UIImage(data: data!)
-                userInfo.profile.cuid = values?["cuid"] as? String ?? "No Cuid"
-                userInfo.profile.comment = values?["comment"] as? String ?? "No Comment"
-                userInfo.profile.time = values?["time"] as? TimeInterval ?? .none
+                content.image = UIImage(data: data!)
+                content.cuid = values?["cuid"] as? String ?? "No Cuid"
+                content.comment = values?["comment"] as? String ?? "No Comment"
+                content.time = values?["time"] as? TimeInterval ?? .none
                 completion(true)
             }.resume()
         }
     }
     
-    func fetchUserContents(completion: @escaping ([ContentModel]) -> Void) {
+    func fetchCurrentUserContents(completion: @escaping ([ContentModel]) -> Void) {
         let uid = AuthManager.shared.currentUid()
         var contents = [ContentModel]()
         ref.child("contents").child(uid!).observeSingleEvent(of: DataEventType.value) { (CuidSnapshot) in
@@ -124,37 +122,73 @@ public class DatabaseManager {
         }
     }
     
-    func fetchAllContents(completion: @escaping ([AllContentModel]) -> Void) {
-        var allContentsModel: [AllContentModel] = []
+    func fetchAllContentModel(completion: @escaping ([UserModel]) -> Void) {
+        var userModels: [UserModel] = []
         
         ref.child("contents").observeSingleEvent(of: DataEventType.value) { (UidSnapshot) in
             for uidSnapshot in UidSnapshot.children.allObjects as! [DataSnapshot]{
                 let puid = uidSnapshot.key
                 for cuidSnapshot in uidSnapshot.children.allObjects as! [DataSnapshot]{
                     let values = cuidSnapshot.value as! [String: Any]
-                    let allContentModel = AllContentModel()
+                    let userModel = UserModel()
 
                     URLSession.shared.dataTask(with: URL(string: values["imageUrl"] as! String)!) { (data, response, error ) in
-                        allContentModel.content.image = UIImage(data: data!)
-                        allContentModel.content.cuid = values["cuid"] as? String
-                        allContentModel.content.comment = values["comment"] as? String
-                        allContentModel.content.time = values["time"] as? TimeInterval
+                        userModel.content.image = UIImage(data: data!)
+                        userModel.content.cuid = values["cuid"] as? String
+                        userModel.content.comment = values["comment"] as? String
+                        userModel.content.time = values["time"] as? TimeInterval
                         
                         self.ref.child("userinfo").child(puid).observeSingleEvent(of: .value) { (DataSnapshot) in
                             let values = DataSnapshot.value as? [String: Any]
                 
-                            allContentModel.userInfo.email = values?["email"] as? String ?? "nil"
-                            allContentModel.userInfo.id = values?["id"] as? String ?? "nil"
-                            allContentModel.userInfo.name = values?["name"] as? String ?? "nil"
-                            allContentModel.userInfo.follower = values?["follower"] as? Int ?? -1
-                            allContentModel.userInfo.follow = values?["follow"] as? Int ?? -1
+                            userModel.userInfo.email = values?["email"] as? String ?? "nil"
+                            userModel.userInfo.id = values?["id"] as? String ?? "nil"
+                            userModel.userInfo.name = values?["name"] as? String ?? "nil"
+                            userModel.userInfo.follower = values?["follower"] as? Int ?? -1
+                            userModel.userInfo.follow = values?["follow"] as? Int ?? -1
                         }
-                        allContentsModel.append(allContentModel)
-                        completion(allContentsModel)
+                        userModels.append(userModel)
+                        completion(userModels)
                     }.resume()
                 }
             }
         }
     }
+    
+    func fetchAllUserModel(completion: @escaping ([UserModel]) -> Void) {
+        var userModels: [UserModel] = []
+        
+        ref.child("userinfo").observeSingleEvent(of: DataEventType.value) { (UidSnapshot) in
+            //let uid = UidSnapshot.key
+            for infoSnapshot in UidSnapshot.children.allObjects as! [DataSnapshot]{
+                let values = infoSnapshot.value as! [String: Any]
+                let userModel = UserModel()
+                
+                userModel.userInfo.email = values["email"] as? String ?? "nil"
+                userModel.userInfo.id = values["id"] as? String ?? "nil"
+                userModel.userInfo.name = values["name"] as? String ?? "nil"
+                userModel.userInfo.follower = values["follower"] as? Int ?? -1
+                userModel.userInfo.follow = values["follow"] as? Int ?? -1
+                if let urlString = values["imageUrl"] as? String {
+                    URLSession.shared.dataTask(with: URL(string: urlString)!) { (data, response, error ) in
+                        userModel.content.image = UIImage(data: data!)
+                        userModel.content.cuid = values["cuid"] as? String
+                        userModel.content.comment = values["comment"] as? String
+                        userModel.content.time = values["time"] as? TimeInterval
+                        userModels.append(userModel)
+                        completion(userModels)
+                    }.resume()
+                }else {
+                    userModel.content.image = UIImage(named: "default_profile")
+                    userModel.content.cuid = ""
+                    userModel.content.comment = ""
+                    userModel.content.time = .none
+                    userModels.append(userModel)
+                    completion(userModels)
+                }
+            }
+        }
+    }
+        
     
 }

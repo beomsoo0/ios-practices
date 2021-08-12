@@ -31,6 +31,9 @@
 		D83547A626B945CC008A22BC /* PushContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83547A526B945CC008A22BC /* PushContentViewController.swift */; };
 		D835C8DC26C25B6800026500 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835C8DB26C25B6800026500 /* EditProfileViewController.swift */; };
 		D835C8DE26C25DFC00026500 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835C8DD26C25DFC00026500 /* GalleryViewController.swift */; };
+		D845EDBD26C4D00400DF9ACD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D845EDBC26C4D00400DF9ACD /* HomeViewModel.swift */; };
+		D845EDBF26C4D82C00DF9ACD /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D845EDBE26C4D82C00DF9ACD /* SearchViewModel.swift */; };
+		D845EDC126C4D8AA00DF9ACD /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D845EDC026C4D8AA00DF9ACD /* ProfileViewModel.swift */; };
 		D8A8470C26C39EB700A3FB42 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A8470B26C39EB700A3FB42 /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +66,9 @@
 		D83547A526B945CC008A22BC /* PushContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushContentViewController.swift; sourceTree = "<group>"; };
 		D835C8DB26C25B6800026500 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		D835C8DD26C25DFC00026500 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		D845EDBC26C4D00400DF9ACD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D845EDBE26C4D82C00DF9ACD /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		D845EDC026C4D8AA00DF9ACD /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		D8A8470B26C39EB700A3FB42 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -193,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				D81FD2DC26B804A2001360F5 /* ProfileViewController.swift */,
+				D845EDC026C4D8AA00DF9ACD /* ProfileViewModel.swift */,
 				D835C8DB26C25B6800026500 /* EditProfileViewController.swift */,
 				D835C8DD26C25DFC00026500 /* GalleryViewController.swift */,
 				D82259FB26BA7488002E4B01 /* SettingViewController.swift */,
@@ -213,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				D81FD2D926B80233001360F5 /* HomeViewController.swift */,
+				D845EDBC26C4D00400DF9ACD /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -221,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				D81FD2DE26B804AE001360F5 /* SearchViewController.swift */,
+				D845EDBE26C4D82C00DF9ACD /* SearchViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -340,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D845EDBF26C4D82C00DF9ACD /* SearchViewModel.swift in Sources */,
 				D81FD2DF26B804AE001360F5 /* SearchViewController.swift in Sources */,
 				D8A8470C26C39EB700A3FB42 /* TestViewController.swift in Sources */,
 				D81FD2C826B7EDFC001360F5 /* LoginViewController.swift in Sources */,
@@ -354,8 +364,10 @@
 				D81FD2CF26B7F229001360F5 /* RegisterViewController.swift in Sources */,
 				D835C8DC26C25B6800026500 /* EditProfileViewController.swift in Sources */,
 				D81FD2AF26B7EC63001360F5 /* AppDelegate.swift in Sources */,
+				D845EDC126C4D8AA00DF9ACD /* ProfileViewModel.swift in Sources */,
 				D81FD2DD26B804A2001360F5 /* ProfileViewController.swift in Sources */,
 				D83547A626B945CC008A22BC /* PushContentViewController.swift in Sources */,
+				D845EDBD26C4D00400DF9ACD /* HomeViewModel.swift in Sources */,
 				D81FD2CD26B7EFBF001360F5 /* UserModel.swift in Sources */,
 				D81FD2B126B7EC63001360F5 /* SceneDelegate.swift in Sources */,
 				D82C912D26C3FE6C0095B2FA /* PhotoManager.swift in Sources */,

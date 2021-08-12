@@ -9,7 +9,7 @@ import UIKit
 
 class TestViewController: UIViewController {
 
-    var currentModel = UserModel()
+//    var currentModel = UserModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()

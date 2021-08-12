@@ -7,35 +7,26 @@
 
 import UIKit
 
-class UserModel {
-    var userInfo = UserInfoModel()
-    var profileContent = ContentModel()
-    var contents: [ContentModel] = []
-}
-
-class UserInfoModel {
-    
-    static var shared = UserInfoModel()
-    
-    var email: String?
-    var id: String?
-    var name: String?
-    var follower: Int?
-    var follow: Int?
-    var profile = ContentModel()
-//    private init() {
-//
-//    }
-}
-
+//게시물
 class ContentModel {
     var image: UIImage?
     var cuid: String?
     var comment: String?
     var time: TimeInterval?
 }
+class UserInfoModel {
+    var email: String?
+    var id: String?
+    var name: String?
+    var follower: Int?
+    var follow: Int?
+}
 
-class AllContentModel {
+//유저정보 && 해당 유저의 게시물들
+class UserModel {
+    
+    static var shared = UserModel() // cur User
+    
     var userInfo = UserInfoModel()
     var content = ContentModel()
 }

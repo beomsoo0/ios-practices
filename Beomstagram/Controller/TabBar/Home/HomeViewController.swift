@@ -11,21 +11,42 @@ import Firebase
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var postTableView: UITableView!
+    @IBOutlet weak var storyCollectionView: UICollectionView!
     
-    var allContentsModel = [AllContentModel]()
-
+    var homeViewModel = HomeViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Home ViewDidLoad")
 
-        DatabaseManager.shared.fetchAllContents { [weak self] allContentsModel in
-            self?.allContentsModel = allContentsModel
+        homeViewModel.loadPostModel {
             DispatchQueue.main.async {
-                self?.postTableView.reloadData()
+                self.postTableView.reloadData()
             }
         }
-       
+        homeViewModel.loadStoryModel {
+            DispatchQueue.main.async {
+                self.storyCollectionView.reloadData()
+            }
+        }
         titleBarInsert()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Home viewWillAppear")
+        DispatchQueue.main.async {
+            self.postTableView.reloadData()
+            self.storyCollectionView.reloadData()
+        }
+    }
+
+    @IBAction func profileIDSeleted(_ sender: UIButton) {
+        let profileView = sender.superview
+        let contentView = profileView?.superview
+        let cell = contentView?.superview as! PostCell//UITableViewCell
+        let idx = cell.idx
+        print("@@@", idx)
+    
     }
     
     func titleBarInsert () {
@@ -34,6 +55,9 @@ class HomeViewController: UIViewController {
         imageView.image = UIImage(named: "title")
         navigationItem.titleView = imageView
     }
+    
+    
+    
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -43,7 +67,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allContentsModel.count
+        return homeViewModel.postModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -52,31 +76,85 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.profileImage.image = UIImage(named: "ong")
-        cell.profileID.text = allContentsModel[indexPath.row].userInfo.id
-        cell.postImage.image = allContentsModel[indexPath.row].content.image
+        //둥글게
+        cell.profileImage.layer.cornerRadius = cell.profileImage.frame.width/3
+        cell.profileImage.clipsToBounds = true
+        
+        cell.profileID.setTitle(homeViewModel.postModel[indexPath.row].userInfo.id, for: .normal)
+        //text = homeViewModel.postModel[indexPath.row].userInfo.id
+        cell.postImage.image = homeViewModel.postModel[indexPath.row].content.image
         cell.likeCount.text = "좋아요 \(indexPath.row)개"
-        cell.postComment.text = allContentsModel[indexPath.row].content.comment
+        cell.postComment.text = homeViewModel.postModel[indexPath.row].content.comment
 
 
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "yyyy.MM.dd HH:mm"
-        let date = Date(timeIntervalSince1970: allContentsModel[indexPath.row].content.time ?? 0)
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일 HH시 mm분"
+        let date = Date(timeIntervalSince1970: homeViewModel.postModel[indexPath.row].content.time ?? 0)
         cell.postTime.text = dateFormatter.string(from: date)
 
+        cell.idx = indexPath.row
+        
         return cell
     }
     
 }
 
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return homeViewModel.storyModel.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoryCell", for: indexPath) as? StoryCell else {
+            return UICollectionViewCell()
+        }
+        cell.storyProfile.image = homeViewModel.storyModel[indexPath.item].content.image
+        cell.storyID.text = homeViewModel.storyModel[indexPath.item].userInfo.id
+
+        //둥글게
+        cell.storyProfile.layer.cornerRadius = cell.storyProfile.frame.width/3
+        cell.storyProfile.clipsToBounds = true
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        //let itemSpacing: CGFloat = 10
+        let height: CGFloat = collectionView.bounds.height * 2 / 3
+        let width = height
+        return CGSize(width: width, height: height)
+    }
+    
+    
+    
+}
+
+protocol PostCellDelegate {
+    func profileIDSeleted()
+}
 
 class PostCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var profileID: UILabel!
+    @IBOutlet weak var profileID: UIButton!
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var likeCount: UILabel!
     @IBOutlet weak var postComment: UILabel!
-    
     @IBOutlet weak var postTime: UILabel!
+    
+    var idx: Int = 0
+    var delegate: PostCellDelegate?
+    
 }
 
+class StoryCell: UICollectionViewCell {
+    
+    @IBOutlet weak var storyProfile: UIImageView!
+    @IBOutlet weak var storyID: UILabel!
+    
+    
+}
