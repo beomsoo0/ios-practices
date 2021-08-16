@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		032DD5FE8A60F26BE495E56B /* Pods_Beomstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F571872E2964945E3592A40 /* Pods_Beomstagram.framework */; };
 		D81FD2AF26B7EC63001360F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2AE26B7EC63001360F5 /* AppDelegate.swift */; };
 		D81FD2B126B7EC63001360F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FD2B026B7EC63001360F5 /* SceneDelegate.swift */; };
 		D81FD2B626B7EC63001360F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D81FD2B426B7EC63001360F5 /* Main.storyboard */; };
@@ -28,6 +27,8 @@
 		D82259FC26BA7488002E4B01 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82259FB26BA7488002E4B01 /* SettingViewController.swift */; };
 		D82259FE26BA81C7002E4B01 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82259FD26BA81C7002E4B01 /* StorageManager.swift */; };
 		D82C912D26C3FE6C0095B2FA /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82C912C26C3FE6C0095B2FA /* PhotoManager.swift */; };
+		D833EECC26CA7AE30017B5B0 /* Pods_Beomstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F571872E2964945E3592A40 /* Pods_Beomstagram.framework */; };
+		D833EECD26CA7AE30017B5B0 /* Pods_Beomstagram.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F571872E2964945E3592A40 /* Pods_Beomstagram.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D83547A626B945CC008A22BC /* PushContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83547A526B945CC008A22BC /* PushContentViewController.swift */; };
 		D835C8DC26C25B6800026500 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835C8DB26C25B6800026500 /* EditProfileViewController.swift */; };
 		D835C8DE26C25DFC00026500 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835C8DD26C25DFC00026500 /* GalleryViewController.swift */; };
@@ -36,6 +37,20 @@
 		D845EDC126C4D8AA00DF9ACD /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D845EDC026C4D8AA00DF9ACD /* ProfileViewModel.swift */; };
 		D8A8470C26C39EB700A3FB42 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A8470B26C39EB700A3FB42 /* TestViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D833EECE26CA7AE30017B5B0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D833EECD26CA7AE30017B5B0 /* Pods_Beomstagram.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		155483A3F803B935A1519F80 /* Pods-Beomstagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beomstagram.release.xcconfig"; path = "Target Support Files/Pods-Beomstagram/Pods-Beomstagram.release.xcconfig"; sourceTree = "<group>"; };
@@ -77,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				032DD5FE8A60F26BE495E56B /* Pods_Beomstagram.framework in Frameworks */,
+				D833EECC26CA7AE30017B5B0 /* Pods_Beomstagram.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +261,7 @@
 				D81FD2A826B7EC63001360F5 /* Frameworks */,
 				D81FD2A926B7EC63001360F5 /* Resources */,
 				DE8BD8032463B6CE700A0B56 /* [CP] Embed Pods Frameworks */,
+				D833EECE26CA7AE30017B5B0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
