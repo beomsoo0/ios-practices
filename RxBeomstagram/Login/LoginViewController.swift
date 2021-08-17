@@ -1,0 +1,41 @@
+//
+//  ViewController.swift
+//  RxBeomstagram
+//
+//  Created by 김범수 on 2021/08/17.
+//
+
+import UIKit
+
+class LoginViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.hideKeyboard()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.resignKeyBoard(emailField, passwordField)
+    }
+    
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    
+    @IBAction func loginSelected(_ sender: Any) {
+        AuthManager.shared.loginUser(email: emailField.text!, password: passwordField.text!) { success in
+            if success {
+                self.modalPresentation(vcName: "TabbarVC")
+            } else {
+                self.alertMessage(title: "로그인 오류", message: "로그인 정보를 확인해주세요.")
+            }
+        }
+        
+    }
+    
+    @IBAction func registerSelected(_ sender: Any) {
+        self.modalPresentation(vcName: "RegisterVC")
+    }
+    
+}
+
