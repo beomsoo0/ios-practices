@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D484DFF878CB4401A4960F37 /* Pods_RxBeomstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A881AD5A46C0654405418E /* Pods_RxBeomstagram.framework */; };
+		D81FAD3C26CCBD0100B4BFFC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD3B26CCBD0100B4BFFC /* HomeViewController.swift */; };
+		D81FAD3F26CCBD1000B4BFFC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD3E26CCBD1000B4BFFC /* SearchViewController.swift */; };
+		D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */; };
+		D81FAD4426CCC39800B4BFFC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD4326CCC39800B4BFFC /* HomeViewModel.swift */; };
+		D81FAD6626CD097B00B4BFFC /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD6526CD097A00B4BFFC /* ProfileViewModel.swift */; };
 		D86132F126CB767F00E4D718 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F026CB767F00E4D718 /* AppDelegate.swift */; };
 		D86132F326CB767F00E4D718 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F226CB767F00E4D718 /* SceneDelegate.swift */; };
 		D86132F526CB767F00E4D718 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F426CB767F00E4D718 /* LoginViewController.swift */; };
@@ -30,6 +35,11 @@
 		80C78C6C38AB22A4F540108D /* Pods-RxBeomstagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxBeomstagram.release.xcconfig"; path = "Target Support Files/Pods-RxBeomstagram/Pods-RxBeomstagram.release.xcconfig"; sourceTree = "<group>"; };
 		867CEA01B4C220967E861BCC /* Pods-RxBeomstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxBeomstagram.debug.xcconfig"; path = "Target Support Files/Pods-RxBeomstagram/Pods-RxBeomstagram.debug.xcconfig"; sourceTree = "<group>"; };
 		B6A881AD5A46C0654405418E /* Pods_RxBeomstagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxBeomstagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D81FAD3B26CCBD0100B4BFFC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D81FAD3E26CCBD1000B4BFFC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D81FAD4326CCC39800B4BFFC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D81FAD6526CD097A00B4BFFC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		D86132ED26CB767F00E4D718 /* RxBeomstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxBeomstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D86132F026CB767F00E4D718 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D86132F226CB767F00E4D718 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +81,44 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D81FAD3926CCBCDC00B4BFFC /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				D81FAD3A26CCBCF900B4BFFC /* Home */,
+				D81FAD3D26CCBD0900B4BFFC /* Search */,
+				D861331D26CBBA1300E4D718 /* NewContent */,
+				D81FAD4026CCBD1700B4BFFC /* Profile */,
+				D861330726CB77A400E4D718 /* Login */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		D81FAD3A26CCBCF900B4BFFC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D81FAD3B26CCBD0100B4BFFC /* HomeViewController.swift */,
+				D81FAD4326CCC39800B4BFFC /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D81FAD3D26CCBD0900B4BFFC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D81FAD3E26CCBD1000B4BFFC /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		D81FAD4026CCBD1700B4BFFC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */,
+				D81FAD6526CD097A00B4BFFC /* ProfileViewModel.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		D86132E426CB767F00E4D718 = {
 			isa = PBXGroup;
 			children = (
@@ -97,8 +145,7 @@
 				D861330426CB777B00E4D718 /* Resources */,
 				D861331226CBAAFA00E4D718 /* Manager */,
 				D861330526CB779400E4D718 /* Model */,
-				D861330726CB77A400E4D718 /* Login */,
-				D861331D26CBBA1300E4D718 /* NewContent */,
+				D81FAD3926CCBCDC00B4BFFC /* Tabbar */,
 				D861330626CB779E00E4D718 /* ViewModel */,
 			);
 			path = RxBeomstagram;
@@ -287,14 +334,19 @@
 				D861331626CBABAB00E4D718 /* Model.swift in Sources */,
 				D861332126CBC9AF00E4D718 /* UploadViewController.swift in Sources */,
 				D86132F526CB767F00E4D718 /* LoginViewController.swift in Sources */,
+				D81FAD4426CCC39800B4BFFC /* HomeViewModel.swift in Sources */,
 				D86132F126CB767F00E4D718 /* AppDelegate.swift in Sources */,
 				D861331126CBAAEB00E4D718 /* Extension.swift in Sources */,
 				D861330F26CBAAD800E4D718 /* DatabaseManager.swift in Sources */,
 				D86132F326CB767F00E4D718 /* SceneDelegate.swift in Sources */,
 				D861330926CB791300E4D718 /* RegisterViewController.swift in Sources */,
+				D81FAD3F26CCBD1000B4BFFC /* SearchViewController.swift in Sources */,
 				D861330D26CBAA9700E4D718 /* AuthManager.swift in Sources */,
 				D861331F26CBBA3300E4D718 /* NewContentViewController.swift in Sources */,
 				D861331C26CBB9F000E4D718 /* PhotoManager.swift in Sources */,
+				D81FAD6626CD097B00B4BFFC /* ProfileViewModel.swift in Sources */,
+				D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */,
+				D81FAD3C26CCBD0100B4BFFC /* HomeViewController.swift in Sources */,
 				D861331426CBAB6000E4D718 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

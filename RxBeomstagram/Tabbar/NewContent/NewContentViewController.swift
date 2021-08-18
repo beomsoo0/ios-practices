@@ -10,9 +10,8 @@ import UIKit
 class NewContentViewController: UIViewController {
 
     let photoManager = PhotoManager.shared
+    var passingImage: UIImage?
     var images: [UIImage] = []
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,19 +19,14 @@ class NewContentViewController: UIViewController {
         collectionView.reloadData()
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nextVC = segue.destination as! UploadViewController
-        nextVC.uploadImage = mainPhoto.image!
-    }
-    
-    
     @IBAction func cancelSelected(_ sender: Any) {
         self.tabBarController?.selectedIndex = 0
     }
     
     @IBAction func nextSelected(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "UploadVC") else { return }
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "UploadVC") as? UploadViewController else { return }
         nextVC.modalPresentationStyle = .fullScreen
+        nextVC.recieveImage = passingImage
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -61,7 +55,10 @@ extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDa
             self.photoManager.imageManager.requestImage(for: asset, targetSize: imgSize, contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
                 imageCell.photo.image = image
                 self.images.append(image!)
-                if indexPath.item == 0 { self.mainPhoto.image = image }
+                if indexPath.item == 0 {
+                    self.mainPhoto.image = image
+                    self.passingImage = image
+                }
             })
         }
         return imageCell
@@ -76,6 +73,7 @@ extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         mainPhoto.image = images[indexPath.item]
+        passingImage = images[indexPath.item]
     }
 }
 

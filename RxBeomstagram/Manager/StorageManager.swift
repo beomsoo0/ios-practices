@@ -18,9 +18,10 @@ public class StorageManager {
         case urlDownloadError
     }
     
-    public func uploadImageToStorage(cuid: String, uid: String, image: UIImage, completion: @escaping (Result<URL, StorageManagerError>) -> Void) {
+    public func uploadImageToStorage(cuid: String, image: UIImage, completion: @escaping (Result<URL, StorageManagerError>) -> Void) {
         let dataImage = image.jpegData(compressionQuality: 0.1)!
-        let imageRef = ref.child("contents").child(uid).child(cuid)
+        let uid = AuthManager.shared.currentUid()
+        let imageRef = ref.child("posts").child(uid!).child(cuid)
     
         // Upload Storage
         imageRef.putData(dataImage, metadata: nil) { (StorageMetadata, error) in
