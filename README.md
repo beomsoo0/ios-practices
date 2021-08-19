@@ -7,3 +7,7 @@
 # Project2_StopWatch
 ![Simulator Screen Shot - iPhone 11 - 2021-08-19 at 13 28 34](https://user-images.githubusercontent.com/73675540/130008074-f3381d22-217f-4ef3-9747-df45d19fc300.png)
 
+# Project5_Artistry
+![Simulator Screen Shot - iPhone 11 - 2021-08-19 at 16 57 37](https://user-images.githubusercontent.com/73675540/130030707-16df6bd0-838e-446e-878a-6cb4f29743d7.png)
+![Simulator Screen Shot - iPhone 11 - 2021-08-19 at 16 57 41](https://user-images.githubusercontent.com/73675540/130030711-8debd36a-439a-4f02-b537-8544c0bf2fcb.png)
+
