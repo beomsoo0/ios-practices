@@ -26,7 +26,7 @@ class RegisterViewController: UIViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
-                self.alertMessage(title: "회원가입 실패", message: "회원 가입 정보를 확인해주세요.")
+                self.alertMessage(message: "회원 가입에 실패하였습니다.")
             }
         }
     }

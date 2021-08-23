@@ -10,12 +10,6 @@ import RxSwift
 
 class ProfileViewModel {
 
-    var currentUser = User()
+    var user = User.currentUser
     
-    init() {
-        DatabaseManager.fetchCurrentUser { [weak self] user in
-            self?.currentUser = user
-        }
-        
-    }
 }

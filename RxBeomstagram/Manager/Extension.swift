@@ -18,18 +18,18 @@ extension String {
 
 extension UIViewController {
     
-    func modalPresentation(vcName: String) {
+    func presentModalVC(vcName: String) {
         DispatchQueue.main.async {
             guard let nextVC = self.storyboard?.instantiateViewController(identifier: vcName) else { return }
             nextVC.modalPresentationStyle = .fullScreen
             self.present(nextVC, animated: true, completion: nil)
         }
     }
-    
 
-    func alertMessage(title: String, message: String) {
+    
+    func alertMessage(message: String) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: "오류", message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -42,16 +42,15 @@ extension UIViewController {
         }
     }
     
-    func hideKeyboard()
-      {
-          let tap: UITapGestureRecognizer = UITapGestureRecognizer(
-              target: self,
-              action: #selector(UIViewController.dismissKeyboard))
-          view.addGestureRecognizer(tap)
-      }
-      @objc func dismissKeyboard()
-      {
-          view.endEditing(true)
-      }
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    @objc func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
     
 }

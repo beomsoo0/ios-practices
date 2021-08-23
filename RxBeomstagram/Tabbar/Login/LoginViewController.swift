@@ -25,16 +25,15 @@ class LoginViewController: UIViewController {
     @IBAction func loginSelected(_ sender: Any) {
         AuthManager.shared.loginUser(email: emailField.text!, password: passwordField.text!) { success in
             if success {
-                self.modalPresentation(vcName: "TabbarVC")
+                DatabaseManager.shared.fetchCurrentUser { self.presentModalVC(vcName: "TabbarVC") }
             } else {
-                self.alertMessage(title: "로그인 오류", message: "로그인 정보를 확인해주세요.")
+                self.alertMessage(message: "로그인 정보를 확인해주세요.")
             }
         }
-        
     }
     
     @IBAction func registerSelected(_ sender: Any) {
-        self.modalPresentation(vcName: "RegisterVC")
+        self.presentModalVC(vcName: "RegisterVC")
     }
     
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D484DFF878CB4401A4960F37 /* Pods_RxBeomstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A881AD5A46C0654405418E /* Pods_RxBeomstagram.framework */; };
 		D81FAD3C26CCBD0100B4BFFC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD3B26CCBD0100B4BFFC /* HomeViewController.swift */; };
 		D81FAD3F26CCBD1000B4BFFC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD3E26CCBD1000B4BFFC /* SearchViewController.swift */; };
 		D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */; };
@@ -25,10 +24,15 @@
 		D861330F26CBAAD800E4D718 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861330E26CBAAD800E4D718 /* DatabaseManager.swift */; };
 		D861331126CBAAEB00E4D718 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861331026CBAAEB00E4D718 /* Extension.swift */; };
 		D861331426CBAB6000E4D718 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861331326CBAB6000E4D718 /* StorageManager.swift */; };
-		D861331626CBABAB00E4D718 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861331526CBABAB00E4D718 /* Model.swift */; };
+		D861331626CBABAB00E4D718 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861331526CBABAB00E4D718 /* Models.swift */; };
 		D861331C26CBB9F000E4D718 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861331B26CBB9F000E4D718 /* PhotoManager.swift */; };
 		D861331F26CBBA3300E4D718 /* NewContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861331E26CBBA3300E4D718 /* NewContentViewController.swift */; };
 		D861332126CBC9AF00E4D718 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861332026CBC9AF00E4D718 /* UploadViewController.swift */; };
+		D8627DE326D3500000B4E347 /* Pods_RxBeomstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A881AD5A46C0654405418E /* Pods_RxBeomstagram.framework */; };
+		D8627DE826D3562E00B4E347 /* NewContentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */; };
+		D8627DEA26D357E400B4E347 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DE926D357E400B4E347 /* PhotoCollectionViewCell.swift */; };
+		D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */; };
+		D8627DEE26D38AF100B4E347 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DED26D38AF100B4E347 /* PostCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,10 +58,14 @@
 		D861330E26CBAAD800E4D718 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		D861331026CBAAEB00E4D718 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D861331326CBAB6000E4D718 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
-		D861331526CBABAB00E4D718 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		D861331526CBABAB00E4D718 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		D861331B26CBB9F000E4D718 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		D861331E26CBBA3300E4D718 /* NewContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentViewController.swift; sourceTree = "<group>"; };
 		D861332026CBC9AF00E4D718 /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
+		D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentCollectionViewController.swift; sourceTree = "<group>"; };
+		D8627DE926D357E400B4E347 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewController.swift; sourceTree = "<group>"; };
+		D8627DED26D38AF100B4E347 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D484DFF878CB4401A4960F37 /* Pods_RxBeomstagram.framework in Frameworks */,
+				D8627DE326D3500000B4E347 /* Pods_RxBeomstagram.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */,
+				D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */,
+				D8627DED26D38AF100B4E347 /* PostCollectionViewCell.swift */,
 				D81FAD6526CD097A00B4BFFC /* ProfileViewModel.swift */,
 			);
 			path = Profile;
@@ -166,7 +176,7 @@
 		D861330526CB779400E4D718 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D861331526CBABAB00E4D718 /* Model.swift */,
+				D861331526CBABAB00E4D718 /* Models.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -203,9 +213,19 @@
 			isa = PBXGroup;
 			children = (
 				D861331E26CBBA3300E4D718 /* NewContentViewController.swift */,
-				D861332026CBC9AF00E4D718 /* UploadViewController.swift */,
+				D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */,
+				D8627DE926D357E400B4E347 /* PhotoCollectionViewCell.swift */,
+				D8627DE626D3560F00B4E347 /* Upload */,
 			);
 			path = NewContent;
+			sourceTree = "<group>";
+		};
+		D8627DE626D3560F00B4E347 /* Upload */ = {
+			isa = PBXGroup;
+			children = (
+				D861332026CBC9AF00E4D718 /* UploadViewController.swift */,
+			);
+			path = Upload;
 			sourceTree = "<group>";
 		};
 		EB6A91C42D50E5CC2B51B295 /* Frameworks */ = {
@@ -331,13 +351,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D861331626CBABAB00E4D718 /* Model.swift in Sources */,
+				D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */,
+				D861331626CBABAB00E4D718 /* Models.swift in Sources */,
 				D861332126CBC9AF00E4D718 /* UploadViewController.swift in Sources */,
 				D86132F526CB767F00E4D718 /* LoginViewController.swift in Sources */,
 				D81FAD4426CCC39800B4BFFC /* HomeViewModel.swift in Sources */,
+				D8627DEE26D38AF100B4E347 /* PostCollectionViewCell.swift in Sources */,
+				D8627DEA26D357E400B4E347 /* PhotoCollectionViewCell.swift in Sources */,
 				D86132F126CB767F00E4D718 /* AppDelegate.swift in Sources */,
 				D861331126CBAAEB00E4D718 /* Extension.swift in Sources */,
 				D861330F26CBAAD800E4D718 /* DatabaseManager.swift in Sources */,
+				D8627DE826D3562E00B4E347 /* NewContentCollectionViewController.swift in Sources */,
 				D86132F326CB767F00E4D718 /* SceneDelegate.swift in Sources */,
 				D861330926CB791300E4D718 /* RegisterViewController.swift in Sources */,
 				D81FAD3F26CCBD1000B4BFFC /* SearchViewController.swift in Sources */,
@@ -506,6 +530,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -526,6 +551,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};

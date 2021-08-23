@@ -9,33 +9,46 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    var user: User?
+    // MARK - Variables
+    var profileViewModel = ProfileViewModel()
     
+    // MARK - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
-        DatabaseManager.fetchCurrentUser { user in
-            self.user = user
-            self.updateUI()
-        }
+        //updateUI()
+        //profileViewModel.fetchCurrentModel { [self] in updateUI() }
         
     }
     
-    func updateUI() {
-        idLabel.setTitle(user?.id, for: .normal)
-        profileImage.image = user?.profileImage
-        nameLabel.text = user?.name
-        postCount.text = "0"
-        followerCount.text = "0"
-        followCount.text = "0"
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("@@@@@@@")
+        dump(profileViewModel.user)
+        updateUI()
     }
+    // MARK - UI functions
+    func updateUI() {
+        collectionView.reloadData()
+        
+        idLabel.setTitle(profileViewModel.user.id, for: .normal)
+        profileImage.image = profileViewModel.user.profileImage
+        descriptionLabel.text = profileViewModel.user.description
+        nameLabel.text = profileViewModel.user.name
+        postCount.text = "\(profileViewModel.user.posts.count)"
+        followerCount.text = "\(profileViewModel.user.followers.count)"
+        followCount.text = "\(profileViewModel.user.follows.count)"
+    }
+    
+    // MARK - Outlets
     @IBOutlet weak var idLabel: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
+    
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var postCount: UILabel!
     @IBOutlet weak var followerCount: UILabel!
     @IBOutlet weak var followCount: UILabel!
-    
+    @IBOutlet weak var collectionView: UICollectionView!
 }
-
-

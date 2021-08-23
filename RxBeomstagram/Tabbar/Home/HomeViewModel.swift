@@ -9,8 +9,5 @@ import Foundation
 
 class HomeViewModel {
     
-//    var currentUser = User()
-//    
-//    
-    
+
 }
