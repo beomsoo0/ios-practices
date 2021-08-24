@@ -1,13 +1,13 @@
 //
-//  HomeViewModel.swift
+//  SearchViewModel.swift
 //  RxBeomstagram
 //
-//  Created by 김범수 on 2021/08/18.
+//  Created by 김범수 on 2021/08/24.
 //
 
 import Foundation
 
-class HomeViewModel {
+class SearchViewModel {
     
     var posts = [Post]()
     

@@ -17,13 +17,11 @@ public class DatabaseManager {
         ref.child("userinfo").child(uid).setValue(["email": email.safetyEmail(), "name": name, "id": id])
     }
     
-    func fetchCurrentUser(completion: @escaping () -> Void) {
-        guard let uid = AuthManager.shared.currentUid() else { return }
-        
+    func fetchUser(uid: String, completion: @escaping (User) -> Void) {
         ref.child("userinfo").child(uid).observeSingleEvent(of: .value) { (uidSnapShot) in
             let values = uidSnapShot.value as? [String: Any]
             let user = User()
-            // email[o], id[o], name[o], profileImage[x], description[x], followers[x], follows[x], posts[x]
+            // email[o], id[o], name[o], profileImage[o], description[x], followers[x], follows[x], posts[o]
             
             // email, id, name
             if let email = values?["email"] as? String,
@@ -35,12 +33,13 @@ public class DatabaseManager {
             }
             // profileImage
             if let imgURL = values?["profileImageURL"] as? String {
+                print("#### #####", imgURL)
                 URLSession.shared.dataTask(with: URL(string: imgURL)!) {
                     data, _, error in
                     if let data = data {
                         user.profileImage = UIImage(data: data)!
                     }
-                }
+                }.resume()
             }
             // description
             if let description = values?["description"] as? String { user.description = description }
@@ -48,10 +47,7 @@ public class DatabaseManager {
             self.fetchUserPosts(uid: uid) { posts in
                 user.posts = posts
             }
-
-            dump(user)
-            User.currentUser = user
-            completion()
+            completion(user)
         }
     }
     
@@ -101,6 +97,62 @@ public class DatabaseManager {
     }
     
     
+    func fetchAllPosts(completion: @escaping ([Post]) -> Void) {
+        var posts = [Post]()
+        ref.child("userinfo").observeSingleEvent(of: .value) { userinfoSnapShot in
+            // uid마다
+            for uidSnapShot in userinfoSnapShot.children.allObjects as! [DataSnapshot]{
+                let uid = uidSnapShot.key
+                let userinfoDic = uidSnapShot.value as? [String: Any]
+                guard let cuidDic = userinfoDic?["posts"] as? [String: [String: Any]] else {
+                    completion(posts)
+                    return
+                }
+                for dic in cuidDic {
+                    if let imgURL = dic.value["imageURL"] as? String {
+                        URLSession.shared.dataTask(with: URL(string: imgURL)!) {
+                            data, _, error in
+                            guard data != nil, error == nil else {
+                                completion(posts)
+                                return
+                            }
+                            var post = Post()
+                            post.image = UIImage(data: data!)!
+                            post.content = dic.value["content"] as? String ?? ""
+                            //post.postTime = values?["time"] as? CVTimeStamp
+                            self.fetchUser(uid: uid) { user in
+                                post.user = user
+                                posts.append(post)
+                                completion(posts)
+                            }
+                        }.resume()
+                    }
+                }
+                
+            }
+            
+        }
+    }
+    
+    public func editProfile(image: UIImage, description: String, name: String, id: String, completion: @escaping (Bool) -> Void) {
+        guard let uid = AuthManager.shared.currentUid(),
+              let cuid = ref.child("contents").child(uid).childByAutoId().key else {
+            completion(false)
+            return
+        }
+        StorageManager.shared.uploadImageToStorage(cuid: cuid, image: image, completion: { result in
+            switch result {
+            case .success(let url):
+                self.ref.child("userinfo").child(uid).updateChildValues(["profileImageURL": url.absoluteString, "description": description, "name": name, "id": id])
+                completion(true)
+                return
+            case .failure(let error):
+                print(error)
+                completion(false)
+                return
+            }
+        })
+    }
     
 //    func fetchFollower(completion: @escaping (User) -> Void) {
 //        let uid = AuthManager.shared.currentUid()

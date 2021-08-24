@@ -33,6 +33,7 @@ class User {
 }
 
 struct Post {
+    var user: User?
     var image: UIImage
     var content: String
     //var comment: [String]

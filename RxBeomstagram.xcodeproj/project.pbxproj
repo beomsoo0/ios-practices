@@ -12,6 +12,17 @@
 		D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */; };
 		D81FAD4426CCC39800B4BFFC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD4326CCC39800B4BFFC /* HomeViewModel.swift */; };
 		D81FAD6626CD097B00B4BFFC /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD6526CD097A00B4BFFC /* ProfileViewModel.swift */; };
+		D837D94126D4841F00F34743 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94026D4841F00F34743 /* SearchViewModel.swift */; };
+		D837D94326D4B02500F34743 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94226D4B02500F34743 /* HomeTableViewController.swift */; };
+		D837D94826D4B64800F34743 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94726D4B64800F34743 /* SettingViewController.swift */; };
+		D837D94B26D4B93500F34743 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94A26D4B93500F34743 /* EditProfileViewController.swift */; };
+		D837D94E26D4B94900F34743 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94D26D4B94900F34743 /* GalleryViewController.swift */; };
+		D837D95226D4CDAE00F34743 /* GalleryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95126D4CDAE00F34743 /* GalleryCollectionViewController.swift */; };
+		D837D95426D4CDB700F34743 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95326D4CDB700F34743 /* GalleryCell.swift */; };
+		D837D95626D4CE2000F34743 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95526D4CE2000F34743 /* SettingTableViewController.swift */; };
+		D837D95826D4CE5100F34743 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95726D4CE5100F34743 /* SettingViewModel.swift */; };
+		D837D95B26D4D88300F34743 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95A26D4D88300F34743 /* ContentViewController.swift */; };
+		D837D95D26D4E18500F34743 /* SearchCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95C26D4E18500F34743 /* SearchCollectionViewController.swift */; };
 		D86132F126CB767F00E4D718 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F026CB767F00E4D718 /* AppDelegate.swift */; };
 		D86132F326CB767F00E4D718 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F226CB767F00E4D718 /* SceneDelegate.swift */; };
 		D86132F526CB767F00E4D718 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F426CB767F00E4D718 /* LoginViewController.swift */; };
@@ -32,7 +43,6 @@
 		D8627DE826D3562E00B4E347 /* NewContentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */; };
 		D8627DEA26D357E400B4E347 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DE926D357E400B4E347 /* PhotoCollectionViewCell.swift */; };
 		D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */; };
-		D8627DEE26D38AF100B4E347 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DED26D38AF100B4E347 /* PostCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +54,17 @@
 		D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D81FAD4326CCC39800B4BFFC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D81FAD6526CD097A00B4BFFC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		D837D94026D4841F00F34743 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		D837D94226D4B02500F34743 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		D837D94726D4B64800F34743 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		D837D94A26D4B93500F34743 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		D837D94D26D4B94900F34743 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		D837D95126D4CDAE00F34743 /* GalleryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewController.swift; sourceTree = "<group>"; };
+		D837D95326D4CDB700F34743 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
+		D837D95526D4CE2000F34743 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		D837D95726D4CE5100F34743 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		D837D95A26D4D88300F34743 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		D837D95C26D4E18500F34743 /* SearchCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewController.swift; sourceTree = "<group>"; };
 		D86132ED26CB767F00E4D718 /* RxBeomstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxBeomstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D86132F026CB767F00E4D718 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D86132F226CB767F00E4D718 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,7 +86,6 @@
 		D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentCollectionViewController.swift; sourceTree = "<group>"; };
 		D8627DE926D357E400B4E347 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewController.swift; sourceTree = "<group>"; };
-		D8627DED26D38AF100B4E347 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +116,6 @@
 				D81FAD3D26CCBD0900B4BFFC /* Search */,
 				D861331D26CBBA1300E4D718 /* NewContent */,
 				D81FAD4026CCBD1700B4BFFC /* Profile */,
-				D861330726CB77A400E4D718 /* Login */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -106,6 +125,7 @@
 			children = (
 				D81FAD3B26CCBD0100B4BFFC /* HomeViewController.swift */,
 				D81FAD4326CCC39800B4BFFC /* HomeViewModel.swift */,
+				D837D94226D4B02500F34743 /* HomeTableViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -114,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				D81FAD3E26CCBD1000B4BFFC /* SearchViewController.swift */,
+				D837D94026D4841F00F34743 /* SearchViewModel.swift */,
+				D837D95C26D4E18500F34743 /* SearchCollectionViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -122,11 +144,49 @@
 			isa = PBXGroup;
 			children = (
 				D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */,
-				D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */,
-				D8627DED26D38AF100B4E347 /* PostCollectionViewCell.swift */,
 				D81FAD6526CD097A00B4BFFC /* ProfileViewModel.swift */,
+				D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */,
+				D837D94926D4B92300F34743 /* EditProfile */,
+				D837D94626D4B61600F34743 /* Setting */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		D837D94626D4B61600F34743 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				D837D94726D4B64800F34743 /* SettingViewController.swift */,
+				D837D95726D4CE5100F34743 /* SettingViewModel.swift */,
+				D837D95526D4CE2000F34743 /* SettingTableViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		D837D94926D4B92300F34743 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				D837D94A26D4B93500F34743 /* EditProfileViewController.swift */,
+				D837D94C26D4B93B00F34743 /* Gallery */,
+			);
+			path = EditProfile;
+			sourceTree = "<group>";
+		};
+		D837D94C26D4B93B00F34743 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				D837D94D26D4B94900F34743 /* GalleryViewController.swift */,
+				D837D95126D4CDAE00F34743 /* GalleryCollectionViewController.swift */,
+				D837D95326D4CDB700F34743 /* GalleryCell.swift */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		D837D95926D4D85A00F34743 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				D837D95A26D4D88300F34743 /* ContentViewController.swift */,
+			);
+			path = Content;
 			sourceTree = "<group>";
 		};
 		D86132E426CB767F00E4D718 = {
@@ -156,6 +216,8 @@
 				D861331226CBAAFA00E4D718 /* Manager */,
 				D861330526CB779400E4D718 /* Model */,
 				D81FAD3926CCBCDC00B4BFFC /* Tabbar */,
+				D837D95926D4D85A00F34743 /* Content */,
+				D861330726CB77A400E4D718 /* Login */,
 				D861330626CB779E00E4D718 /* ViewModel */,
 			);
 			path = RxBeomstagram;
@@ -351,22 +413,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D837D94B26D4B93500F34743 /* EditProfileViewController.swift in Sources */,
+				D837D95826D4CE5100F34743 /* SettingViewModel.swift in Sources */,
+				D837D94126D4841F00F34743 /* SearchViewModel.swift in Sources */,
 				D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */,
 				D861331626CBABAB00E4D718 /* Models.swift in Sources */,
 				D861332126CBC9AF00E4D718 /* UploadViewController.swift in Sources */,
 				D86132F526CB767F00E4D718 /* LoginViewController.swift in Sources */,
+				D837D95426D4CDB700F34743 /* GalleryCell.swift in Sources */,
 				D81FAD4426CCC39800B4BFFC /* HomeViewModel.swift in Sources */,
-				D8627DEE26D38AF100B4E347 /* PostCollectionViewCell.swift in Sources */,
 				D8627DEA26D357E400B4E347 /* PhotoCollectionViewCell.swift in Sources */,
 				D86132F126CB767F00E4D718 /* AppDelegate.swift in Sources */,
+				D837D94826D4B64800F34743 /* SettingViewController.swift in Sources */,
 				D861331126CBAAEB00E4D718 /* Extension.swift in Sources */,
 				D861330F26CBAAD800E4D718 /* DatabaseManager.swift in Sources */,
+				D837D95B26D4D88300F34743 /* ContentViewController.swift in Sources */,
 				D8627DE826D3562E00B4E347 /* NewContentCollectionViewController.swift in Sources */,
+				D837D94E26D4B94900F34743 /* GalleryViewController.swift in Sources */,
 				D86132F326CB767F00E4D718 /* SceneDelegate.swift in Sources */,
 				D861330926CB791300E4D718 /* RegisterViewController.swift in Sources */,
 				D81FAD3F26CCBD1000B4BFFC /* SearchViewController.swift in Sources */,
+				D837D95D26D4E18500F34743 /* SearchCollectionViewController.swift in Sources */,
+				D837D95226D4CDAE00F34743 /* GalleryCollectionViewController.swift in Sources */,
 				D861330D26CBAA9700E4D718 /* AuthManager.swift in Sources */,
 				D861331F26CBBA3300E4D718 /* NewContentViewController.swift in Sources */,
+				D837D94326D4B02500F34743 /* HomeTableViewController.swift in Sources */,
+				D837D95626D4CE2000F34743 /* SettingTableViewController.swift in Sources */,
 				D861331C26CBB9F000E4D718 /* PhotoManager.swift in Sources */,
 				D81FAD6626CD097B00B4BFFC /* ProfileViewModel.swift in Sources */,
 				D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */,

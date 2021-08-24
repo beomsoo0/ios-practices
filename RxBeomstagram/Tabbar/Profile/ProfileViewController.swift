@@ -15,15 +15,13 @@ class ProfileViewController: UIViewController {
     // MARK - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
-        //updateUI()
-        //profileViewModel.fetchCurrentModel { [self] in updateUI() }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
         print("@@@@@@@")
         dump(profileViewModel.user)
         updateUI()
@@ -34,6 +32,7 @@ class ProfileViewController: UIViewController {
         
         idLabel.setTitle(profileViewModel.user.id, for: .normal)
         profileImage.image = profileViewModel.user.profileImage
+        profileImage.layer.cornerRadius = profileImage.bounds.width * 0.5
         descriptionLabel.text = profileViewModel.user.description
         nameLabel.text = profileViewModel.user.name
         postCount.text = "\(profileViewModel.user.posts.count)"
@@ -44,11 +43,22 @@ class ProfileViewController: UIViewController {
     // MARK - Outlets
     @IBOutlet weak var idLabel: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
-    
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var postCount: UILabel!
     @IBOutlet weak var followerCount: UILabel!
     @IBOutlet weak var followCount: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBAction func onAddContent(_ sender: Any) {
+        self.tabBarController?.selectedIndex = 2
+    }
+    @IBAction func onSetting(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "SettingVC") as? SettingViewController else { return }
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    @IBAction func onEditProfile(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "EditVC") as? EditProfileViewController else { return }
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
 }

@@ -1,22 +1,21 @@
 //
-//  ProfileCollectionViewController.swift
+//  SearchCollectionViewController.swift
 //  RxBeomstagram
 //
-//  Created by 김범수 on 2021/08/23.
+//  Created by 김범수 on 2021/08/24.
 //
 
 import UIKit
 
-extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return profileViewModel.user.posts.count
+        return searchViewModel.posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCollectionViewCell", for: indexPath) as? PostCollectionViewCell else { return UICollectionViewCell() }
-        cell.postImage.image = profileViewModel.user.posts[indexPath.item].image
-        cell.post = profileViewModel.user.posts[indexPath.item]
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
+        cell.postImage.image = searchViewModel.posts[indexPath.item].image
         return cell
     }
     
@@ -29,16 +28,14 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
-        nextVC.user = profileViewModel.user
-        nextVC.index = indexPath.item
+        nextVC.posts = searchViewModel.posts
+        nextVC.index = indexPath.row
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
 }
 
-class PostCollectionViewCell: UICollectionViewCell {
-
+class SearchCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var postImage: UIImageView!
-    var post: Post?
     
 }

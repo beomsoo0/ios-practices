@@ -12,7 +12,6 @@ class NewContentViewController: UIViewController {
     // MARK - Variables
     let photoManager = PhotoManager.shared
     var passingImage: UIImage?
-    var images: [UIImage] = []
     
     // MARK - Life Cycles
     override func viewDidLoad() {

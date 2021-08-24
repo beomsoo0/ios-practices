@@ -34,7 +34,10 @@ class UploadViewController: UIViewController {
         DatabaseManager.shared.uploadContent(image: image, content: content) { success in
             if success {
                 //curUser reparsing
-                DatabaseManager.shared.fetchCurrentUser{
+                guard let uid = AuthManager.shared.currentUid() else { return }
+                
+                DatabaseManager.shared.fetchUser(uid: uid) { user in
+                    User.currentUser = user
                     DispatchQueue.main.async {
                         self.navigationController?.popToRootViewController(animated: true)
                         self.tabBarController?.selectedIndex = 0

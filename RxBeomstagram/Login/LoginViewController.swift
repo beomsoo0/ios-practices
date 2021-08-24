@@ -25,7 +25,11 @@ class LoginViewController: UIViewController {
     @IBAction func loginSelected(_ sender: Any) {
         AuthManager.shared.loginUser(email: emailField.text!, password: passwordField.text!) { success in
             if success {
-                DatabaseManager.shared.fetchCurrentUser { self.presentModalVC(vcName: "TabbarVC") }
+                guard let uid = AuthManager.shared.currentUid() else { return }
+                DatabaseManager.shared.fetchUser(uid: uid) {user in
+                    User.currentUser = user
+                    self.presentModalVC(vcName: "TabbarVC")
+                }
             } else {
                 self.alertMessage(message: "로그인 정보를 확인해주세요.")
             }

@@ -20,8 +20,8 @@ public class StorageManager {
     
     public func uploadImageToStorage(cuid: String, image: UIImage, completion: @escaping (Result<URL, StorageManagerError>) -> Void) {
         let dataImage = image.jpegData(compressionQuality: 0.1)!
-        let uid = AuthManager.shared.currentUid()
-        let imageRef = ref.child("posts").child(uid!).child(cuid)
+        guard let uid = AuthManager.shared.currentUid() else { return }
+        let imageRef = ref.child("posts").child(uid).child(cuid)
     
         // Upload Storage
         imageRef.putData(dataImage, metadata: nil) { (StorageMetadata, error) in

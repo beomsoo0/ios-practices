@@ -27,7 +27,6 @@ extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDa
         
         self.photoManager.imageManager.requestImage(for: asset, targetSize: imgSize, contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
             imageCell.photo.image = image
-            self.images.append(image!)
             if indexPath.item == 0 {
                 self.mainPhoto.image = image
                 self.passingImage = image
@@ -44,7 +43,9 @@ extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        mainPhoto.image = images[indexPath.item]
-        passingImage = images[indexPath.item]
+        let imageCell = collectionView.cellForItem(at: indexPath) as? PhotoCollectionViewCell
+        
+        mainPhoto.image = imageCell?.photo.image
+        passingImage = imageCell?.photo.image
     }
 }
