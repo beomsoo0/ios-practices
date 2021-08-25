@@ -29,7 +29,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
         nextVC.posts = searchViewModel.posts
-        nextVC.index = indexPath.row
+        nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

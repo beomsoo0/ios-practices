@@ -19,12 +19,16 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell") as? HomeTableViewCell else { return UITableViewCell() }
-        cell.profileImage.image = homeViewModel.posts[indexPath.row].user?.profileImage
+        guard let user = homeViewModel.posts[indexPath.row].user
+              else { return  UITableViewCell() }
+        let post = homeViewModel.posts[indexPath.row]
+
+        cell.profileImage.image = user.profileImage
         cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
-        cell.profileID.setTitle(homeViewModel.posts[indexPath.row].user?.id, for: .normal)
-        cell.postImage.image = homeViewModel.posts[indexPath.row].image
+        cell.profileID.setTitle(user.id, for: .normal)
+        cell.postImage.image = post.image
         //cell.postLikeLabel.text
-        cell.postContentLabel.text = homeViewModel.posts[indexPath.row].content
+        cell.postContentLabel.text = user.id + "  " + post.content
         //cell.commentButton
         //cell.curProfileImage.image
         return cell
@@ -40,5 +44,8 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var postContentLabel: UITextView!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var curProfileImage: UIImageView!
+    @IBOutlet weak var likeButton: UIButton!
+    var isLike = false
+    
 }
 

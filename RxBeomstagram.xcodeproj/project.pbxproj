@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D81A715826D63BB700083CB0 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A715726D63BB700083CB0 /* FriendViewController.swift */; };
 		D81FAD3C26CCBD0100B4BFFC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD3B26CCBD0100B4BFFC /* HomeViewController.swift */; };
 		D81FAD3F26CCBD1000B4BFFC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD3E26CCBD1000B4BFFC /* SearchViewController.swift */; };
 		D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */; };
@@ -49,6 +50,7 @@
 		80C78C6C38AB22A4F540108D /* Pods-RxBeomstagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxBeomstagram.release.xcconfig"; path = "Target Support Files/Pods-RxBeomstagram/Pods-RxBeomstagram.release.xcconfig"; sourceTree = "<group>"; };
 		867CEA01B4C220967E861BCC /* Pods-RxBeomstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxBeomstagram.debug.xcconfig"; path = "Target Support Files/Pods-RxBeomstagram/Pods-RxBeomstagram.debug.xcconfig"; sourceTree = "<group>"; };
 		B6A881AD5A46C0654405418E /* Pods_RxBeomstagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxBeomstagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D81A715726D63BB700083CB0 /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
 		D81FAD3B26CCBD0100B4BFFC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D81FAD3E26CCBD1000B4BFFC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				D837D95A26D4D88300F34743 /* ContentViewController.swift */,
+				D81A715726D63BB700083CB0 /* FriendViewController.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D81A715826D63BB700083CB0 /* FriendViewController.swift in Sources */,
 				D837D94B26D4B93500F34743 /* EditProfileViewController.swift in Sources */,
 				D837D95826D4CE5100F34743 /* SettingViewModel.swift in Sources */,
 				D837D94126D4841F00F34743 /* SearchViewModel.swift in Sources */,

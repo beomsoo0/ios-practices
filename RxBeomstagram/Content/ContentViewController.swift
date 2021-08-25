@@ -11,22 +11,50 @@ class ContentViewController: UIViewController {
 
     var user: User?
     var posts: [Post]?
-    var index: Int?
+    var indexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.title = "게시물"
+//        tableView.reloadData()
+       // tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationItem.title = "게시물"
-        tableView.reloadData()
-        dump(user)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.scrollToRow(at: indexPath!, at: .top, animated: false)
     }
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func onID(_ sender: UIButton) {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FriendVC") as? FriendViewController else { return }
+        
+        var superview = sender.superview
+        while let view = superview, !(view is UITableViewCell) {
+            superview = view.superview
+        }
+        guard let cell = superview as? UITableViewCell else {
+            print("button is not contained in a table view cell")
+            return
+        }
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            print("failed to get index path for cell containing button")
+            return
+        }
+        if let user = posts?[indexPath.row].user {
+            nextVC.user = user
+        } else {
+            nextVC.user = self.user
+        }
+        //nextVC.user = posts?[indexPath.row].user
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
 }
 
 extension ContentViewController: UITableViewDataSource, UITableViewDelegate {

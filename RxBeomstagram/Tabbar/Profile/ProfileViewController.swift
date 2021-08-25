@@ -15,15 +15,11 @@ class ProfileViewController: UIViewController {
     // MARK - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        print("@@@@@@@")
-        dump(profileViewModel.user)
         updateUI()
     }
     // MARK - UI functions

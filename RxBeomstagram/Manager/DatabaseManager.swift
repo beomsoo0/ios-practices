@@ -13,6 +13,7 @@ public class DatabaseManager {
     static let shared = DatabaseManager()
     let ref = Database.database().reference()
     
+    // MARK - User
     func insertNewUser(uid: String, email: String, name: String, id: String) {
         ref.child("userinfo").child(uid).setValue(["email": email.safetyEmail(), "name": name, "id": id])
     }
@@ -33,7 +34,6 @@ public class DatabaseManager {
             }
             // profileImage
             if let imgURL = values?["profileImageURL"] as? String {
-                print("#### #####", imgURL)
                 URLSession.shared.dataTask(with: URL(string: imgURL)!) {
                     data, _, error in
                     if let data = data {
@@ -51,6 +51,46 @@ public class DatabaseManager {
         }
     }
     
+    func fetchAllUser(completion: @escaping ([User]) -> Void) {
+        ref.child("userinfo").observeSingleEvent(of: .value) { (infoSnapShot) in
+            var users = [User]()
+            for uidSnapShot in infoSnapShot.children.allObjects as! [DataSnapshot] {
+                let uid = uidSnapShot.key
+                let values = uidSnapShot.value as? [String: Any]
+                let user = User()
+                // email[o], id[o], name[o], profileImage[o], description[x], followers[x], follows[x], posts[o]
+                
+                // email, id, name
+                if let email = values?["email"] as? String,
+                   let id = values?["id"] as? String,
+                   let name = values?["name"] as? String {
+                    user.email = email
+                    user.id = id
+                    user.name = name
+                }
+                // profileImage
+                if let imgURL = values?["profileImageURL"] as? String {
+                    URLSession.shared.dataTask(with: URL(string: imgURL)!) {
+                        data, _, error in
+                        if let data = data {
+                            user.profileImage = UIImage(data: data)!
+                        }
+                    }.resume()
+                }
+                // description
+                if let description = values?["description"] as? String { user.description = description }
+                // posts
+                self.fetchUserPosts(uid: uid) { posts in
+                    user.posts = posts
+                }
+                users.append(user)
+                
+            }
+            completion(users)
+        }
+    }
+    
+    // MARK - Post
     func uploadContent(image: UIImage, content: String?, completion: @escaping (Bool) -> Void) {
         guard let uid = AuthManager.shared.currentUid(),
               let cuid = ref.child("posts").child(uid).childByAutoId().key else {
@@ -134,6 +174,7 @@ public class DatabaseManager {
         }
     }
     
+    // MARK - Profile
     public func editProfile(image: UIImage, description: String, name: String, id: String, completion: @escaping (Bool) -> Void) {
         guard let uid = AuthManager.shared.currentUid(),
               let cuid = ref.child("contents").child(uid).childByAutoId().key else {

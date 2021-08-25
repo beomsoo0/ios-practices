@@ -19,7 +19,10 @@ class NewContentViewController: UIViewController {
         photoManager.fetchAllPhotos()
         collectionView.reloadData()
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
     
     //MARK - Outlets
     @IBOutlet weak var mainPhoto: UIImageView!
