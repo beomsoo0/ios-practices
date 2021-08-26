@@ -31,7 +31,7 @@ class UploadViewController: UIViewController {
         guard let image = recieveImage else { return }
         let content = contentField.text
         
-        DatabaseManager.shared.uploadContent(image: image, content: content) { success in
+        DatabaseManager.shared.uploadPost(image: image, content: content) { success in
             if success {
                 //curUser reparsing
                 guard let uid = AuthManager.shared.currentUid() else { return }

@@ -27,10 +27,22 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
         cell.profileID.setTitle(user.id, for: .normal)
         cell.postImage.image = post.image
-        //cell.postLikeLabel.text
+        cell.postLikeLabel.text = "좋아요 \(post.likes.count)개"
         cell.postContentLabel.text = user.id + "  " + post.content
-        //cell.commentButton
-        //cell.curProfileImage.image
+        
+        cell.isLike = false
+        for like in post.likes {
+            print("@@@@@", like)
+            if like == User.currentUser.uid {
+                cell.isLike = true
+            }
+        }
+        if cell.isLike == true {
+            cell.likeButton.setImage(UIImage(named: "heartFill"), for: .normal)
+        } else {
+            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        
         return cell
     }
     
@@ -45,7 +57,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var curProfileImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
-    var isLike = false
+    var isLike: Bool!
     
 }
 

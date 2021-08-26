@@ -9,7 +9,6 @@ import UIKit
 
 class ContentViewController: UIViewController {
 
-    var user: User?
     var posts: [Post]?
     var indexPath: IndexPath?
     
@@ -47,14 +46,46 @@ class ContentViewController: UIViewController {
             print("failed to get index path for cell containing button")
             return
         }
-        if let user = posts?[indexPath.row].user {
-            nextVC.user = user
-        } else {
-            nextVC.user = self.user
-        }
+        nextVC.user = posts?[indexPath.row].user
+
         //nextVC.user = posts?[indexPath.row].user
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
+    
+    @IBAction func onLikeButton(_ sender: UIButton) {
+        
+        var superview = sender.superview
+        while let view = superview, !(view is UITableViewCell) {
+            superview = view.superview
+        }
+        guard let cell = superview as? UITableViewCell else {
+            print("button is not contained in a table view cell")
+            return
+        }
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            print("failed to get index path for cell containing button")
+            return
+        }
+        guard let posts = posts else { return }
+        
+        guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else { return }
+        
+        if cell.isLike == true {
+            DatabaseManager.shared.deleteLike(from: User.currentUser, to: posts[indexPath.row].user!, cuid: posts[indexPath.row].cuid) {
+                
+            }
+            cell.postLikeLabel.text = "좋아요 \(posts[indexPath.row].likes.count - 1)개"
+            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        } else {
+            DatabaseManager.shared.updateLike(from: User.currentUser, to: posts[indexPath.row].user!, cuid: posts[indexPath.row].cuid) {
+                
+            }
+            cell.postLikeLabel.text = "좋아요 \(posts[indexPath.row].likes.count + 1)개"
+            cell.likeButton.setImage(UIImage(named: "heartFill"), for: .normal)
+        }
+        cell.isLike = !cell.isLike
+    }
+    
 }
 
 extension ContentViewController: UITableViewDataSource, UITableViewDelegate {
@@ -63,43 +94,43 @@ extension ContentViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let user = user {
-            return user.posts.count
-        } else if let posts = posts {
-            return posts.count
-        } else {
-            return 0
-        }
+        return posts?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell") as? ContentTableViewCell else { return UITableViewCell() }
-        var profileImage = UIImage(named: "default_profile")
-        var profileID = "No ID"
-        var postImage = UIImage(named: "default_profile")
-        var postContent = "No Content"
+        guard let posts = posts else { return UITableViewCell() }
         
-        if let user = user {
-            profileImage = user.profileImage
-            profileID = user.id
-            postImage = user.posts[indexPath.row].image
-            postContent = user.posts[indexPath.row].content
-        } else if let posts = posts {
-            profileImage = posts[indexPath.row].user?.profileImage
-            profileID = posts[indexPath.row].user?.id ?? "No ID"
-            postImage = posts[indexPath.row].image
-            postContent = posts[indexPath.row].content
-        }
-        cell.profileImageView.image = profileImage
+        let post = posts[indexPath.row]
+        
+        cell.profileImageView.image = post.user?.profileImage
         cell.profileImageView.layer.cornerRadius = cell.profileImageView.bounds.width * 0.5
-        cell.profileIDButton.setTitle(profileID, for: .normal)
-        cell.postImageView.image = postImage
+        cell.profileIDButton.setTitle(post.user?.id, for: .normal)
+        cell.postImageView.image = post.image
         //cell.postLikeLabel.text
-        cell.postContentTextView.text = postContent
-        //cell.commentButton
-        //cell.curProfileImage.image
+
+        cell.postLikeLabel.text = "좋아요 \(post.likes.count)개"
+        cell.postContentTextView.text = post.user?.id ?? "" + "  " + post.content
+
+        cell.isLike = false
+        for like in post.likes {
+            if like == User.currentUser.uid {
+                cell.isLike = true
+            }
+        }
+        if cell.isLike == true {
+            cell.likeButton.setImage(UIImage(named: "heartFill"), for: .normal)
+        } else {
+            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+
+
+        
+        
         return cell
     }
+    
+    
 }
 
 class ContentTableViewCell: UITableViewCell {
@@ -108,4 +139,6 @@ class ContentTableViewCell: UITableViewCell {
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var postLikeLabel: UILabel!
     @IBOutlet weak var postContentTextView: UITextView!
+    @IBOutlet weak var likeButton: UIButton!
+    var isLike: Bool!
 }

@@ -221,7 +221,6 @@
 				D81FAD3926CCBCDC00B4BFFC /* Tabbar */,
 				D837D95926D4D85A00F34743 /* Content */,
 				D861330726CB77A400E4D718 /* Login */,
-				D861330626CB779E00E4D718 /* ViewModel */,
 			);
 			path = RxBeomstagram;
 			sourceTree = "<group>";
@@ -244,13 +243,6 @@
 				D861331526CBABAB00E4D718 /* Models.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		D861330626CB779E00E4D718 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D861330726CB77A400E4D718 /* Login */ = {

@@ -20,9 +20,9 @@ class HomeViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         tableView.reloadData()
         collectionView.reloadData()
-        print("$$$")
-        dump(homeViewModel.users)
+        print("$$$$$$  HOME  $$$$$")
     }
+
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -63,15 +63,24 @@ class HomeViewController: UIViewController {
             print("failed to get index path for cell containing button")
             return
         }
-        guard let curCell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else { return }
-        if curCell.isLike == false {
-            curCell.isLike = true
-            curCell.likeButton.backgroundColor = .systemRed
+        guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else { return }
+        
+        if cell.isLike == true {
+            DatabaseManager.shared.deleteLike(from: User.currentUser, to: homeViewModel.posts[indexPath.row].user!, cuid: homeViewModel.posts[indexPath.row].cuid) {
+                
+            }
+            cell.postLikeLabel.text = "좋아요 \(homeViewModel.posts[indexPath.row].likes.count - 1)개"
+            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         } else {
-            curCell.isLike = false
-            curCell.likeButton.backgroundColor = .systemBackground
+            DatabaseManager.shared.updateLike(from: User.currentUser, to: homeViewModel.posts[indexPath.row].user!, cuid: homeViewModel.posts[indexPath.row].cuid) {
+                
+            }
+            cell.postLikeLabel.text = "좋아요 \(homeViewModel.posts[indexPath.row].likes.count + 1)개"
+            cell.likeButton.setImage(UIImage(named: "heartFill"), for: .normal)
         }
+        cell.isLike = !cell.isLike
     }
+    
     
 }
 

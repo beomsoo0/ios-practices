@@ -15,7 +15,7 @@ public class DatabaseManager {
     
     // MARK - User
     func insertNewUser(uid: String, email: String, name: String, id: String) {
-        ref.child("userinfo").child(uid).setValue(["email": email.safetyEmail(), "name": name, "id": id])
+        ref.child("userinfo").child(uid).setValue(["uid": uid, "email": email.safetyEmail(), "name": name, "id": id])
     }
     
     func fetchUser(uid: String, completion: @escaping (User) -> Void) {
@@ -25,9 +25,11 @@ public class DatabaseManager {
             // email[o], id[o], name[o], profileImage[o], description[x], followers[x], follows[x], posts[o]
             
             // email, id, name
-            if let email = values?["email"] as? String,
+            if let uid = values?["uid"] as? String,
+               let email = values?["email"] as? String,
                let id = values?["id"] as? String,
                let name = values?["name"] as? String {
+                user.uid = uid
                 user.email = email
                 user.id = id
                 user.name = name
@@ -43,6 +45,25 @@ public class DatabaseManager {
             }
             // description
             if let description = values?["description"] as? String { user.description = description }
+            
+            // follower
+            var followers = [String]()
+            if let followerDic = values?["follower"] as? [String: String] {
+                for fuidDic in followerDic {
+                    let followerUid = fuidDic.value
+                    followers.append(followerUid)
+                }
+            }
+            user.followers = followers
+            // follow
+            var follows = [String]()
+            if let followDic = values?["follow"] as? [String: String] {
+                for fuidDic in followDic {
+                    let followUid = fuidDic.value
+                    follows.append(followUid)
+                }
+            }
+            user.follows = follows
             // posts
             self.fetchUserPosts(uid: uid) { posts in
                 user.posts = posts
@@ -58,12 +79,14 @@ public class DatabaseManager {
                 let uid = uidSnapShot.key
                 let values = uidSnapShot.value as? [String: Any]
                 let user = User()
-                // email[o], id[o], name[o], profileImage[o], description[x], followers[x], follows[x], posts[o]
+                // email[o], id[o], name[o], profileImage[o], description[o], followers[x], follows[x], posts[o]
                 
                 // email, id, name
-                if let email = values?["email"] as? String,
+                if let uid = values?["uid"] as? String,
+                   let email = values?["email"] as? String,
                    let id = values?["id"] as? String,
                    let name = values?["name"] as? String {
+                    user.uid = uid
                     user.email = email
                     user.id = id
                     user.name = name
@@ -79,6 +102,26 @@ public class DatabaseManager {
                 }
                 // description
                 if let description = values?["description"] as? String { user.description = description }
+                
+                // follower
+                var followers = [String]()
+                if let followerDic = values?["follower"] as? [String: String] {
+                    for fuidDic in followerDic {
+                        let followerUid = fuidDic.value
+                        followers.append(followerUid)
+                    }
+                }
+                user.followers = followers
+                // follow
+                var follows = [String]()
+                if let followDic = values?["follow"] as? [String: String] {
+                    for fuidDic in followDic {
+                        let followUid = fuidDic.value
+                        follows.append(followUid)
+                    }
+                }
+                user.follows = follows
+                
                 // posts
                 self.fetchUserPosts(uid: uid) { posts in
                     user.posts = posts
@@ -91,7 +134,7 @@ public class DatabaseManager {
     }
     
     // MARK - Post
-    func uploadContent(image: UIImage, content: String?, completion: @escaping (Bool) -> Void) {
+    func uploadPost(image: UIImage, content: String?, completion: @escaping (Bool) -> Void) {
         guard let uid = AuthManager.shared.currentUid(),
               let cuid = ref.child("posts").child(uid).childByAutoId().key else {
             completion(false)
@@ -100,7 +143,7 @@ public class DatabaseManager {
         StorageManager.shared.uploadImageToStorage(cuid: cuid, image: image, completion: { result in
             switch result {
             case .success(let url):
-                self.ref.child("userinfo").child(uid).child("posts").child(cuid).setValue(["imageURL": url.absoluteString, "content": content ?? ""/*, "time": ServerValue.timestamp()*/])
+                self.ref.child("userinfo").child(uid).child("posts").child(cuid).setValue(["cuid": cuid, "imageURL": url.absoluteString, "content": content ?? ""/*, "time": ServerValue.timestamp()*/])
                 completion(true)
                 return
             case .failure(let error):
@@ -123,12 +166,33 @@ public class DatabaseManager {
                             completion(posts)
                             return
                         }
+                        
                         var post = Post()
+                        
+                        
+                        post.cuid = values?["cuid"] as? String ?? ""
                         post.image = UIImage(data: data!)!
                         post.content = values?["content"] as? String ?? ""
                         //post.postTime = values?["time"] as? CVTimeStamp
-                        posts.append(post)
-                        completion(posts)
+                        
+                        // likes
+                        var likes = [String]()
+                        if let likesDic = values?["likes"] as? [String: String] {
+                            for likeDic in likesDic {
+                                let likeUid = likeDic.value
+                                likes.append(likeUid)
+                            }
+                        }
+                        post.likes = likes
+                        
+                        self.fetchUser(uid: uid) { user in
+                            post.user = user
+                            posts.append(post)
+                            completion(posts)
+                        }
+
+                        
+                        
                     }.resume()
                 }
             }
@@ -157,9 +221,21 @@ public class DatabaseManager {
                                 return
                             }
                             var post = Post()
+                            
+                            post.cuid = dic.value["cuid"] as? String ?? ""
                             post.image = UIImage(data: data!)!
                             post.content = dic.value["content"] as? String ?? ""
                             //post.postTime = values?["time"] as? CVTimeStamp
+                            // likes
+                            var likes = [String]()
+                            if let likesDic = dic.value["likes"] as? [String: String] {
+                                for likeDic in likesDic {
+                                    let likeUid = likeDic.value
+                                    likes.append(likeUid)
+                                }
+                            }
+                            post.likes = likes
+                            
                             self.fetchUser(uid: uid) { user in
                                 post.user = user
                                 posts.append(post)
@@ -195,29 +271,29 @@ public class DatabaseManager {
         })
     }
     
-//    func fetchFollower(completion: @escaping (User) -> Void) {
-//        let uid = AuthManager.shared.currentUid()
-//        let ref = Database.database().reference()
-//
-//        ref.child("userinfo").child(uid!).child("follower").observeSingleEvent(of: .value) { (UidSnapshot) in
-//            for followerSnapshot in UidSnapshot.children.allObjects as! [DataSnapshot]{
-//                let values = followerSnapshot.value as! [String: Any]
-//            let follower = values?["name"] as? String ?? "No Name"
-//
-//    func userInfo
-//    
-//    
-//    
-//    static func fetchCurrentUserRx() -> Observable<User> {
-//        return Observable.create { emitter in
-//            
-//            fetchCurrentUser(completion: { user in
-//                emitter.onNext(user)
-//            })
-//            return Disposables.create()
-//        }
-//    }
-//            
+    func updateFollow(from: User, to: User, completion: @escaping () -> Void) {
+        // follower
+        let followerRef = ref.child("userinfo").child(to.uid).child("follower")
+        followerRef.setValue([from.name: from.uid])
+        // follow
+        let followRef = ref.child("userinfo").child(from.uid).child("follow")
+        followRef.setValue([to.name: to.uid])
+    }
+    
+    func deleteFollow(from: User, to: User, completion: @escaping () -> Void) {
+        // follower
+        ref.child("userinfo").child(to.uid).child("follower").child(from.name).removeValue()
+        // follow
+        ref.child("userinfo").child(from.uid).child("follow").child(to.name).removeValue()
+    }
+    
+    func updateLike(from: User, to: User, cuid: String, completion: @escaping () -> Void) {
+        ref.child("userinfo").child(to.uid).child("posts").child(cuid).child("likes").setValue([from.name: from.uid])
+    }
+    
+    func deleteLike(from: User, to: User, cuid: String, completion: @escaping () -> Void) {
+        ref.child("userinfo").child(to.uid).child("posts").child(cuid).child("likes").child(from.name).removeValue()
+    }
 
 
 }

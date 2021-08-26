@@ -20,6 +20,7 @@ class SearchViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         collectionView.reloadData()
+        print("$$$$$$  Search  $$$$$")
     }
     
     @IBOutlet weak var collectionView: UICollectionView!

@@ -1176,6 +1176,9 @@
                                                                                         <imageReference key="image" image="heart" catalog="system" renderingMode="template"/>
                                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="22"/>
                                                                                     </state>
+                                                                                    <connections>
+                                                                                        <action selector="onLikeButton:" destination="emd-4e-Em5" eventType="touchUpInside" id="G3x-Th-RB3"/>
+                                                                                    </connections>
                                                                                 </button>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65W-Dn-Gtj">
                                                                                     <rect key="frame" x="50" y="0.0" width="50" height="50"/>
@@ -1259,6 +1262,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="likeButton" destination="0KU-fD-8ks" id="t3c-bh-fpr"/>
                                             <outlet property="postContentTextView" destination="IXX-Ki-AHA" id="mFn-IK-fcj"/>
                                             <outlet property="postImageView" destination="041-YZ-bdO" id="DLO-D6-lZa"/>
                                             <outlet property="postLikeLabel" destination="I2e-lR-G8A" id="DZH-LK-m9F"/>
@@ -2623,6 +2627,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MvD-CR-4Br" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2529" y="2085"/>
+        </scene>
+        <!--Item 2-->
+        <scene sceneID="rpS-qM-Cq1">
+            <objects>
+                <viewController id="O5O-Ir-YGG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b95-eH-I6d">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="02T-xW-rfQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="NEq-dy-nde"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="clv-BS-h3x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5065" y="2932"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="v2h-RL-aEW">
+            <objects>
+                <viewController id="ofT-Oa-FhL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5s4-kp-PdB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="xea-8q-Qiu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="DUd-JF-tdp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NQ5-k2-zFc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3461" y="2933"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="giq-Hb-4Rv">
+            <objects>
+                <tabBarController id="rEX-IQ-2XS" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6Ti-LK-PG7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ofT-Oa-FhL" kind="relationship" relationship="viewControllers" id="b6m-iC-OOg"/>
+                        <segue destination="O5O-Ir-YGG" kind="relationship" relationship="viewControllers" id="joQ-bx-jzv"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M3J-LE-niH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4261" y="2192"/>
         </scene>
     </scenes>
     <resources>

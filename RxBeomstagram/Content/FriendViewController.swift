@@ -10,8 +10,8 @@ import UIKit
 class FriendViewController: UIViewController {
 
     // MARK - Variables
-    var user: User?
-    var followFlag = false
+    var user: User!
+    var isFollowing: Bool!
     
     // MARK - Life Cycles
     override func viewDidLoad() {
@@ -23,6 +23,7 @@ class FriendViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        isFollowing = checkIsFollowing()
         updateUI()
         followButtonUI()
     }
@@ -34,7 +35,6 @@ class FriendViewController: UIViewController {
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
         
-        guard let user = user else { return }
         self.navigationItem.title = "\(user.id)"
         profileImage.image = user.profileImage
         profileImage.layer.cornerRadius = profileImage.bounds.width * 0.5
@@ -45,37 +45,26 @@ class FriendViewController: UIViewController {
         followCount.text = "\(user.follows.count)"
     }
     
-    func followButtonUI() {
-        guard let user = user else { return }
+    func checkIsFollowing() -> Bool {
+        guard let user = user else { return false }
         
-        // 1. Model에서 이름으로 유저 비교하는 메소드 만들기
-        // 2. user의 follower 목록에서 curUser 있는지 확인
-        // 3. 있으면 팔로잉 / 없으면 팔로우 표시 // flag 변수
-        // 4. curUser의 follow목록도 업데이트
-        
-        
-//        user.followers.contains { <#User#> in
-//            <#code#>
-//        }
-        
-        if followFlag == true {
-            isFollowing()
-        } else {
-            isNonFollowing()
+        for follower in user.followers {
+            if follower == User.currentUser.uid{
+                return true
+            }
         }
-        
+        return false
     }
-    
-    func isFollowing() {
-        followButton.setTitle("팔로잉", for: .normal)
-        followButton.backgroundColor = .systemBackground
-        followFlag = true
+    func followButtonUI() {
+        if isFollowing == true {
+            followButton.setTitle("팔로잉", for: .normal)
+            followButton.backgroundColor = .systemBackground
+        } else {
+            followButton.setTitle("팔로우", for: .normal)
+            followButton.backgroundColor = .systemBlue
+        }
     }
-    func isNonFollowing() {
-        followButton.setTitle("팔로우", for: .normal)
-        followButton.backgroundColor = .systemBlue
-        followFlag = false
-    }
+
     
     
     // MARK - Outlets
@@ -89,20 +78,21 @@ class FriendViewController: UIViewController {
     
     @IBOutlet weak var followButton: UIButton!
     @IBAction func onFollowButton(_ sender: Any) {
-        // 1. 위에서 만든 flag 이용
-        // 2. follow 누르면 DB에 curUser 추가
-        // 3. following 누르면 DB에 curUser 제거
-        // 4. curUser의 follow목록도 업데이트
-        
-        followFlag = !followFlag
-        if followFlag == true {
-            followerCount.text = "\(Int(followerCount.text!)! + 1)"
-            isFollowing()
-        } else {
+
+        if isFollowing == true {
+            DatabaseManager.shared.deleteFollow(from: User.currentUser, to: user) {
+                
+            }
             followerCount.text = "\(Int(followerCount.text!)! - 1)"
-            isNonFollowing()
+            
+        } else {
+            DatabaseManager.shared.updateFollow(from: User.currentUser, to: user) {
+                // 모델 정보 reload && UI reload
+            }
+            followerCount.text = "\(Int(followerCount.text!)! + 1)"
         }
-        
+        isFollowing = !isFollowing
+        followButtonUI()
     }
     
 }
@@ -130,7 +120,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
-        nextVC.user = user
+        nextVC.posts = user?.posts
         nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
