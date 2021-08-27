@@ -38,10 +38,7 @@ class UploadViewController: UIViewController {
                 
                 DatabaseManager.shared.fetchUser(uid: uid) { user in
                     User.currentUser = user
-                    DispatchQueue.main.async {
-                        self.navigationController?.popToRootViewController(animated: true)
-                        self.tabBarController?.selectedIndex = 0
-                    }
+                    self.navigationPopToTabbarIdx(idx: 0)
                 }
             }
             else {

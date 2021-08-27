@@ -26,9 +26,8 @@ class LoginViewController: UIViewController {
         AuthManager.shared.loginUser(email: emailField.text!, password: passwordField.text!) { success in
             if success {
                 guard let uid = AuthManager.shared.currentUid() else { return }
-                DatabaseManager.shared.fetchUser(uid: uid) {user in
+                DatabaseManager.shared.fetchUser(uid: uid) { user in
                     User.currentUser = user
-                    print("$$$$$$  Login  $$$$$")
                     self.presentModalVC(vcName: "TabbarVC")
                 }
             } else {

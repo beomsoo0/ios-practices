@@ -10,12 +10,13 @@ import UIKit
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchViewModel.posts.count
+        return allPosts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
-        cell.postImage.image = searchViewModel.posts[indexPath.item].image
+        let post = allPosts[indexPath.item]
+        cell.postImage.image = post.image
         return cell
     }
     
@@ -28,7 +29,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
-        nextVC.posts = searchViewModel.posts
+        nextVC.allPosts = allPosts
         nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

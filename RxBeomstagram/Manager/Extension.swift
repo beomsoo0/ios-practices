@@ -25,7 +25,13 @@ extension UIViewController {
             self.present(nextVC, animated: true, completion: nil)
         }
     }
-
+    
+    func navigationPopToTabbarIdx(idx: Int) {
+        DispatchQueue.main.async {
+            self.navigationController?.popToRootViewController(animated: true)
+            self.tabBarController?.selectedIndex = idx
+        }
+    }
     
     func alertMessage(message: String) {
         DispatchQueue.main.async {

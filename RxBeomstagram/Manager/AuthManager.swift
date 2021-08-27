@@ -11,6 +11,7 @@ public class AuthManager {
     
     static let shared = AuthManager()
     
+    // Create User
     public func createNewUser(email: String, password: String, name: String, id: String, completion: @escaping (Bool) -> Void) {
         guard !email.isEmpty, email.contains("@"), email.contains("."), !password.isEmpty, password.count >= 8, !name.isEmpty, !id.isEmpty  else {
             completion(false)
@@ -28,7 +29,7 @@ public class AuthManager {
             return
         }
     }
-    
+    // Login User
     public func loginUser(email: String, password: String, completion: @escaping (Bool) -> Void) {
         guard !email.isEmpty, !password.isEmpty else {
             completion(false)
@@ -44,7 +45,7 @@ public class AuthManager {
             return
         }
     }
-    
+    // Logout
     public func logOutUser(completion: @escaping (Bool) -> Void) {
         do {
             try Auth.auth().signOut()
@@ -58,6 +59,7 @@ public class AuthManager {
         }
     }
     
+    // return uid
     public func currentUid() -> String? {
         return Auth.auth().currentUser?.uid
     }

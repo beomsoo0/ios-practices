@@ -10,7 +10,7 @@ import UIKit
 class EditProfileViewController: UIViewController {
 
     // MARK - Variables
-    var user = User.currentUser
+    var user = User.currentUser!
     var changeImage: UIImage?
 
     // MARK - Life Cycles
@@ -55,10 +55,7 @@ class EditProfileViewController: UIViewController {
                 guard let uid = AuthManager.shared.currentUid() else { return }
                 DatabaseManager.shared.fetchUser(uid: uid) { user in
                     self.user = user
-                    DispatchQueue.main.async {
-                        self.navigationController?.popToRootViewController(animated: true)
-                        self.tabBarController?.selectedIndex = 4
-                    }
+                    self.navigationPopToTabbarIdx(idx: 4)
                 }
             } else {
                 self.alertMessage(message: "프로필 업로드에 실패했습니다")

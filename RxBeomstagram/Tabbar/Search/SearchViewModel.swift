@@ -9,7 +9,7 @@ import Foundation
 
 class SearchViewModel {
     
-    var posts = [Post]()
+    
     
     init() {
         DatabaseManager.shared.fetchAllPosts { [weak self] posts in

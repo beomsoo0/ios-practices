@@ -18,7 +18,7 @@ extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let imageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as? PhotoCollectionViewCell else {
+        guard let imageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as? NewContentCollectionViewCell else {
             return UICollectionViewCell()
         }
         let asset = photoManager.allPhotos.object(at: indexPath.item)
@@ -43,9 +43,13 @@ extension NewContentViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let imageCell = collectionView.cellForItem(at: indexPath) as? PhotoCollectionViewCell
+        let imageCell = collectionView.cellForItem(at: indexPath) as? NewContentCollectionViewCell
         
         mainPhoto.image = imageCell?.photo.image
         passingImage = imageCell?.photo.image
     }
+}
+
+class NewContentCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var photo: UIImageView!
 }

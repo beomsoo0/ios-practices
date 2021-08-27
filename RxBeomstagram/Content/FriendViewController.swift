@@ -16,8 +16,6 @@ class FriendViewController: UIViewController {
     // MARK - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,9 +38,17 @@ class FriendViewController: UIViewController {
         profileImage.layer.cornerRadius = profileImage.bounds.width * 0.5
         descriptionLabel.text = user.description
         nameLabel.text = user.name
-        postCount.text = "\(user.posts.count)"
-        followerCount.text = "\(user.followers.count)"
-        followCount.text = "\(user.follows.count)"
+        
+        
+        postCountButton.setTitle("\(user.posts.count)\n\n게시물", for: .normal)
+        postCountButton.titleLabel?.lineBreakMode = .byWordWrapping
+        postCountButton.titleLabel?.textAlignment = .center
+        followerCountButton.setTitle("\(user.followers.count)\n\n팔로워", for: .normal)
+        followerCountButton.titleLabel?.lineBreakMode = .byWordWrapping
+        followerCountButton.titleLabel?.textAlignment = .center
+        followCountButton.setTitle("\(user.follows.count)\n\n팔로우", for: .normal)
+        followCountButton.titleLabel?.lineBreakMode = .byWordWrapping
+        followCountButton.titleLabel?.textAlignment = .center
     }
     
     func checkIsFollowing() -> Bool {
@@ -71,28 +77,45 @@ class FriendViewController: UIViewController {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var postCount: UILabel!
-    @IBOutlet weak var followerCount: UILabel!
-    @IBOutlet weak var followCount: UILabel!
+    @IBOutlet weak var postCountButton: UIButton!
+    @IBOutlet weak var followerCountButton: UIButton!
+    @IBOutlet weak var followCountButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var followButton: UIButton!
+    
     @IBAction func onFollowButton(_ sender: Any) {
 
         if isFollowing == true {
             DatabaseManager.shared.deleteFollow(from: User.currentUser, to: user) {
                 
             }
-            followerCount.text = "\(Int(followerCount.text!)! - 1)"
+            followerCountButton.setTitle("\(user.followers.count - 1)\n\n팔로워", for: .normal)
             
         } else {
             DatabaseManager.shared.updateFollow(from: User.currentUser, to: user) {
                 // 모델 정보 reload && UI reload
             }
-            followerCount.text = "\(Int(followerCount.text!)! + 1)"
+            followCountButton.setTitle("\(user.follows.count + 1)\n\n팔로우", for: .normal)
         }
         isFollowing = !isFollowing
         followButtonUI()
+    }
+    
+    
+    @IBAction func onFollower(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
+        nextVC.isFollow = false
+        nextVC.followUids = user.follows
+        nextVC.followerUids = user.followers
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @IBAction func onFollow(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
+        nextVC.isFollow = true
+        nextVC.followUids = user.follows
+        nextVC.followerUids = user.followers
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
 }
@@ -120,7 +143,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
-        nextVC.posts = user?.posts
+        nextVC.allPosts = user.posts
         nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

@@ -9,18 +9,22 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
-    var searchViewModel = SearchViewModel()
+    var allPosts = [Post]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.reloadData()
+        DatabaseManager.shared.fetchAllPosts { [weak self] posts in
+            self?.allPosts = posts
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        collectionView.reloadData()
-        print("$$$$$$  Search  $$$$$")
     }
     
     @IBOutlet weak var collectionView: UICollectionView!

@@ -14,15 +14,16 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return homeViewModel.posts.count
+        return allPosts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell") as? HomeTableViewCell else { return UITableViewCell() }
-        guard let user = homeViewModel.posts[indexPath.row].user
-              else { return  UITableViewCell() }
-        let post = homeViewModel.posts[indexPath.row]
 
+        let user = allPosts[indexPath.row].user
+        let post = allPosts[indexPath.row]
+        
+        
         cell.profileImage.image = user.profileImage
         cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
         cell.profileID.setTitle(user.id, for: .normal)
@@ -42,6 +43,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         }
+        
+        cell.commentButton.setTitle("댓글 \(post.comment.count)개 모두 보기", for: .normal)
         
         return cell
     }

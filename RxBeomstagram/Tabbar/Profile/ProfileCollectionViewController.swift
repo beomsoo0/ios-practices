@@ -10,13 +10,15 @@ import UIKit
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return profileViewModel.user.posts.count
+        return user.posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCollectionViewCell", for: indexPath) as? PostCollectionViewCell else { return UICollectionViewCell() }
-        cell.postImage.image = profileViewModel.user.posts[indexPath.item].image
-        cell.post = profileViewModel.user.posts[indexPath.item]
+        let post = user.posts[indexPath.item]
+        
+        cell.postImage.image = post.image
+        cell.post = post
         return cell
     }
     
@@ -29,7 +31,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
-        nextVC.posts = profileViewModel.user.posts
+        nextVC.allPosts = user.posts
         nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

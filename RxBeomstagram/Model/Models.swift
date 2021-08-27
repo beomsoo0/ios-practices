@@ -9,9 +9,9 @@ import UIKit
 
 class User {
     
-    static var currentUser = User()
+    static var currentUser: User!
+    
     var uid: String
-    var email: String
     var id: String
     var name: String
     var profileImage: UIImage
@@ -20,13 +20,12 @@ class User {
     var follows: [String] // Uid
     var posts: [Post]
     
-    init() {
-        uid = "default uid"
-        email = "default Email"
-        id = "default ID"
-        name = "default Name"
+    init(uid: String, id: String, name: String) {
+        self.uid = uid
+        self.id = id
+        self.name = name
         profileImage = UIImage(named: "default_profile")!
-        description = "default description"
+        description = ""
         followers = []
         follows = []
         posts = []
@@ -35,24 +34,19 @@ class User {
 }
 
 struct Post {
-    var user: User?
+    var user: User
     var cuid: String
     var image: UIImage
     var content: String
     var likes: [String]
+    var comment: [String: String]
     
-    
-    //var comment: [String]
-    //var like: Int
-    //var postTime: Date
-    
-    init() {
-        cuid = "default cuid"
-        image = UIImage(named: "default_profile")!
-        content = "default content"
+    init(user: User, cuid: String, image: UIImage, content: String) {
+        self.user = user
+        self.cuid = cuid
+        self.image = image
+        self.content = content
         likes = []
-        //comment = []
-        //like = -1
-        //postTime = Date()
+        comment = [:]
     }
 }

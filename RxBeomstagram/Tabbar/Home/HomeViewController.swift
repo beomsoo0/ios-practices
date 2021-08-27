@@ -9,23 +9,36 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    var homeViewModel = HomeViewModel()
-    
+    var allPosts = [Post]()
+    var otherUsers = [User]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        DatabaseManager.shared.fetchAllPosts { [weak self] posts in
+            self?.allPosts = posts
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+                dump(self?.allPosts)
+            }
+            
+        }
+        DatabaseManager.shared.fetchOtherUsers { [weak self] users in
+            self?.otherUsers = users
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        tableView.reloadData()
-        collectionView.reloadData()
-        print("$$$$$$  HOME  $$$$$")
+        
     }
 
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
+    
     @IBAction func onAddContent(_ sender: Any) {
         self.tabBarController?.selectedIndex = 2
     }
@@ -45,7 +58,7 @@ class HomeViewController: UIViewController {
             print("failed to get index path for cell containing button")
             return
         }
-        nextVC.user = homeViewModel.posts[indexPath.row].user
+        nextVC.user = allPosts[indexPath.row].user
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -64,52 +77,44 @@ class HomeViewController: UIViewController {
             return
         }
         guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else { return }
-        
+        let post = allPosts[indexPath.row]
         if cell.isLike == true {
-            DatabaseManager.shared.deleteLike(from: User.currentUser, to: homeViewModel.posts[indexPath.row].user!, cuid: homeViewModel.posts[indexPath.row].cuid) {
+            DatabaseManager.shared.deleteLike(from: User.currentUser, to: post.user, cuid: post.cuid) {
                 
             }
-            cell.postLikeLabel.text = "좋아요 \(homeViewModel.posts[indexPath.row].likes.count - 1)개"
+            cell.postLikeLabel.text = "좋아요 \(post.likes.count - 1)개"
             cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         } else {
-            DatabaseManager.shared.updateLike(from: User.currentUser, to: homeViewModel.posts[indexPath.row].user!, cuid: homeViewModel.posts[indexPath.row].cuid) {
+            DatabaseManager.shared.updateLike(from: User.currentUser, to: post.user, cuid: post.cuid) {
                 
             }
-            cell.postLikeLabel.text = "좋아요 \(homeViewModel.posts[indexPath.row].likes.count + 1)개"
+            cell.postLikeLabel.text = "좋아요 \(post.likes.count + 1)개"
             cell.likeButton.setImage(UIImage(named: "heartFill"), for: .normal)
         }
         cell.isLike = !cell.isLike
     }
     
-    
-}
-
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        homeViewModel.users.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell", for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
-        cell.storyImageView.image = homeViewModel.users[indexPath.row].profileImage
-        cell.storyImageView.layer.cornerRadius = cell.storyImageView.bounds.width * 0.5
-        cell.storyIDLabel.text = homeViewModel.users[indexPath.row].id
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let verticalSpacing: CGFloat = 5
-        let height: CGFloat = collectionView.bounds.height - verticalSpacing
-        let width: CGFloat = height * 0.9
-        return CGSize(width: width, height: height)
+    @IBAction func onComment(_ sender: UIButton) {
+        var superview = sender.superview
+        while let view = superview, !(view is UITableViewCell) {
+            superview = view.superview
+        }
+        guard let cell = superview as? UITableViewCell else {
+            print("button is not contained in a table view cell")
+            return
+        }
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            print("failed to get index path for cell containing button")
+            return
+        }
+        
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CommentVC") as? CommentViewController else { return }
+        let post = allPosts[indexPath.row]
+        nextVC.post = post
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
 }
 
-class HomeCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var storyImageView: UIImageView!
-    @IBOutlet weak var storyIDLabel: UILabel!
-    
-}
 
 
