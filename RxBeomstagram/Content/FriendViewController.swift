@@ -95,7 +95,7 @@ class FriendViewController: UIViewController {
             DatabaseManager.shared.updateFollow(from: User.currentUser, to: user) {
                 // 모델 정보 reload && UI reload
             }
-            followCountButton.setTitle("\(user.follows.count + 1)\n\n팔로우", for: .normal)
+            followerCountButton.setTitle("\(user.followers.count + 1)\n\n팔로워", for: .normal)
         }
         isFollowing = !isFollowing
         followButtonUI()

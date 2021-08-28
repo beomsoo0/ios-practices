@@ -7,47 +7,47 @@
 
 import UIKit
 
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+extension HomeViewController: UITableViewDelegate {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allPosts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell") as? HomeTableViewCell else { return UITableViewCell() }
-
-        let user = allPosts[indexPath.row].user
-        let post = allPosts[indexPath.row]
-        
-        
-        cell.profileImage.image = user.profileImage
-        cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
-        cell.profileID.setTitle(user.id, for: .normal)
-        cell.postImage.image = post.image
-        cell.postLikeLabel.text = "좋아요 \(post.likes.count)개"
-        cell.postContentLabel.text = user.id + "  " + post.content
-        
-        cell.isLike = false
-        for like in post.likes {
-            print("@@@@@", like)
-            if like == User.currentUser.uid {
-                cell.isLike = true
-            }
-        }
-        if cell.isLike == true {
-            cell.likeButton.setImage(UIImage(named: "heartFill"), for: .normal)
-        } else {
-            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        }
-        
-        cell.commentButton.setTitle("댓글 \(post.comment.count)개 모두 보기", for: .normal)
-        
-        return cell
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return allPosts.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell") as? HomeTableViewCell else { return UITableViewCell() }
+//
+//        let user = allPosts[indexPath.row].user
+//        let post = allPosts[indexPath.row]
+//        
+//        
+//        cell.profileImage.image = user.profileImage
+//        cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
+//        cell.profileID.setTitle(user.id, for: .normal)
+//        cell.postImage.image = post.image
+//        cell.postLikeLabel.text = "좋아요 \(post.likes.count)개"
+//        cell.postContentLabel.text = user.id + "  " + post.content
+//        
+//        cell.isLike = false
+//        for like in post.likes {
+//            print("@@@@@", like)
+//            if like == User.currentUser.uid {
+//                cell.isLike = true
+//            }
+//        }
+//        if cell.isLike == true {
+//            cell.likeButton.setImage(UIImage(named: "heartFill"), for: .normal)
+//        } else {
+//            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+//        }
+//        
+//        cell.commentButton.setTitle("댓글 \(post.comments.count)개 모두 보기", for: .normal)
+//        
+//        return cell
+//    }
     
 }
 

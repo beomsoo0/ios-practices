@@ -138,7 +138,7 @@ extension ContentViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         }
-        cell.commentButton.setTitle("댓글 \(post.comment.count)개 모두 보기", for: .normal)
+        cell.commentButton.setTitle("댓글 \(post.comments.count)개 모두 보기", for: .normal)
         return cell
     }
     

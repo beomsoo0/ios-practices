@@ -193,17 +193,18 @@ public class DatabaseManager {
                         }
                         post.likes = likes
                         
-                        var comments = [String:String]()
-                        if let commentsDic = values?["comment"] as? [String: String] {
-                            for commentsDic in commentsDic {
-                                let commentUid = commentsDic.key
-                                let comment = commentsDic.value
-                                
-                                comments.updateValue(comment, forKey: commentUid)
+                        var comments = [Comment]()
+                        if let commentsUids = values?["comment"] as? [String: [String: String]] {
+                            
+                            for commentDic in commentsUids.values {
+                                commentDic.forEach({ key, value in
+                                    let comment = Comment(uid: key, ment: value)
+                                    comments.append(comment)
+                                })
                             }
                         }
-                        post.comment = comments
-
+                        post.comments = comments
+                        
                         posts.append(post)
                         completion(posts)
                     }
@@ -245,16 +246,19 @@ public class DatabaseManager {
                                     }
                                     post.likes = likes
                                     
-                                    var comments = [String:String]()
-                                    if let commentsDic = dic.value["comment"] as? [String: String] {
-                                        for commentsDic in commentsDic {
-                                            let commentUid = commentsDic.key
-                                            let comment = commentsDic.value
-                                            
-                                            comments.updateValue(comment, forKey: commentUid)
+                                    var comments = [Comment]()
+                                    if let commentsUids = dic.value["comment"] as? [String: [String: String]] {
+                                        
+                                        for commentDic in commentsUids.values {
+                                            commentDic.forEach({ key, value in
+                                                let comment = Comment(uid: key, ment: value)
+                                                comments.append(comment)
+                                                
+                                                
+                                            })
                                         }
                                     }
-                                    post.comment = comments
+                                    post.comments = comments
                                     
                                     posts.append(post)
                                     completion(posts)
@@ -293,10 +297,11 @@ public class DatabaseManager {
     func updateFollow(from: User, to: User, completion: @escaping () -> Void) {
         // follower
         let followerRef = ref.child("userinfo").child(to.uid).child("follower")
-        followerRef.setValue([from.name: from.uid])
+        followerRef.updateChildValues([from.name: from.uid])
         // follow
         let followRef = ref.child("userinfo").child(from.uid).child("follow")
-        followRef.setValue([to.name: to.uid])
+        followRef.updateChildValues([to.name: to.uid])
+//        followRef.setValue([to.name: to.uid])
     }
     
     func deleteFollow(from: User, to: User, completion: @escaping () -> Void) {
@@ -307,7 +312,7 @@ public class DatabaseManager {
     }
     
     func updateLike(from: User, to: User, cuid: String, completion: @escaping () -> Void) {
-        ref.child("userinfo").child(to.uid).child("posts").child(cuid).child("likes").setValue([from.name: from.uid])
+        ref.child("userinfo").child(to.uid).child("posts").child(cuid).child("likes").updateChildValues([from.name: from.uid])
     }
     
     func deleteLike(from: User, to: User, cuid: String, completion: @escaping () -> Void) {
@@ -315,8 +320,11 @@ public class DatabaseManager {
     }
 
     func pushComment(from: User, to: Post, comment: String, completion: @escaping () -> Void) {
-        let commendtuid = ref.child("userinfo").child(to.user.uid).child("posts").child(to.cuid).child("comment").childByAutoId()
-        ref.child("userinfo").child(to.user.uid).child("posts").child(to.cuid).child("comment").updateChildValues([from.uid: comment])
+        guard let commentUid = ref.child("userinfo").child(to.user.uid).child("posts").child(to.cuid).child("comment").childByAutoId().key else {
+            completion()
+            return
+        }
+        ref.child("userinfo").child(to.user.uid).child("posts").child(to.cuid).child("comment").child(commentUid).setValue([from.uid: comment])
     }
 
 }

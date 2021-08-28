@@ -39,7 +39,7 @@ struct Post {
     var image: UIImage
     var content: String
     var likes: [String]
-    var comment: [String: String]
+    var comments: [Comment]
     
     init(user: User, cuid: String, image: UIImage, content: String) {
         self.user = user
@@ -47,6 +47,16 @@ struct Post {
         self.image = image
         self.content = content
         likes = []
-        comment = [:]
+        comments = []
+    }
+}
+
+struct Comment {
+    var uid: String
+    var ment: String
+    
+    init(uid: String, ment: String) {
+        self.uid = uid
+        self.ment = ment
     }
 }

@@ -11,20 +11,20 @@ class CommentViewController: UIViewController {
 
     var post: Post!
     var users: [User] = []
-    var comments: [String] = []
+    var comments: [Comment] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-        for dic in post.comment {
-            let uid = dic.key
-            let comment = dic.value
+        dump(post)
+        for comment in post.comments{
+            let uid = comment.uid
+
             comments.append(comment)
+            print("!@!@", comment)
             //tableView.reloadData()
             DatabaseManager.shared.fetchUser(uid: uid) { [weak self] user in
                 self?.users.append(user)
-                dump(user)
-                //print(self.comments)
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
@@ -81,7 +81,7 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as? CommentTableViewCell else { return UITableViewCell() }
         
-        cell.commentText.text = comments[indexPath.row]
+        cell.commentText.text = comments[indexPath.row].ment
         cell.commentProfile.image = users[indexPath.row].profileImage
         cell.commentProfile.layer.cornerRadius = cell.commentProfile.bounds.width * 0.5
 

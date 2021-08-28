@@ -14,6 +14,8 @@
 		D821DC4C26D88C1B00B36CE1 /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4B26D88C1B00B36CE1 /* FollowViewController.swift */; };
 		D821DC4E26D89A4200B36CE1 /* HomeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4D26D89A4200B36CE1 /* HomeCollectionViewController.swift */; };
 		D821DC5026D8DAFA00B36CE1 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4F26D8DAFA00B36CE1 /* CommentViewController.swift */; };
+		D835F5C026DA1D69005A26A9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835F5BF26DA1D69005A26A9 /* HomeViewModel.swift */; };
+		D835F5C226DA218A005A26A9 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835F5C126DA218A005A26A9 /* ProfileViewModel.swift */; };
 		D837D94326D4B02500F34743 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94226D4B02500F34743 /* HomeTableViewController.swift */; };
 		D837D94826D4B64800F34743 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94726D4B64800F34743 /* SettingViewController.swift */; };
 		D837D94B26D4B93500F34743 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94A26D4B93500F34743 /* EditProfileViewController.swift */; };
@@ -56,6 +58,8 @@
 		D821DC4B26D88C1B00B36CE1 /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		D821DC4D26D89A4200B36CE1 /* HomeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewController.swift; sourceTree = "<group>"; };
 		D821DC4F26D8DAFA00B36CE1 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		D835F5BF26DA1D69005A26A9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D835F5C126DA218A005A26A9 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		D837D94226D4B02500F34743 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		D837D94726D4B64800F34743 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D837D94A26D4B93500F34743 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				D81FAD3B26CCBD0100B4BFFC /* HomeViewController.swift */,
+				D835F5BF26DA1D69005A26A9 /* HomeViewModel.swift */,
 				D837D94226D4B02500F34743 /* HomeTableViewController.swift */,
 				D821DC4D26D89A4200B36CE1 /* HomeCollectionViewController.swift */,
 			);
@@ -143,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				D81FAD4126CCBD2200B4BFFC /* ProfileViewController.swift */,
+				D835F5C126DA218A005A26A9 /* ProfileViewModel.swift */,
 				D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */,
 				D837D94926D4B92300F34743 /* EditProfile */,
 				D837D94626D4B61600F34743 /* Setting */,
@@ -408,6 +414,7 @@
 				D821DC4C26D88C1B00B36CE1 /* FollowViewController.swift in Sources */,
 				D81A715826D63BB700083CB0 /* FriendViewController.swift in Sources */,
 				D837D94B26D4B93500F34743 /* EditProfileViewController.swift in Sources */,
+				D835F5C026DA1D69005A26A9 /* HomeViewModel.swift in Sources */,
 				D837D95826D4CE5100F34743 /* SettingViewModel.swift in Sources */,
 				D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */,
 				D861331626CBABAB00E4D718 /* Models.swift in Sources */,
@@ -422,6 +429,7 @@
 				D837D95B26D4D88300F34743 /* ContentViewController.swift in Sources */,
 				D8627DE826D3562E00B4E347 /* NewContentCollectionViewController.swift in Sources */,
 				D837D94E26D4B94900F34743 /* GalleryViewController.swift in Sources */,
+				D835F5C226DA218A005A26A9 /* ProfileViewModel.swift in Sources */,
 				D86132F326CB767F00E4D718 /* SceneDelegate.swift in Sources */,
 				D861330926CB791300E4D718 /* RegisterViewController.swift in Sources */,
 				D81FAD3F26CCBD1000B4BFFC /* SearchViewController.swift in Sources */,

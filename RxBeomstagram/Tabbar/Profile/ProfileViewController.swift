@@ -6,44 +6,92 @@
 //
 
 import UIKit
+import RxSwift
 
 class ProfileViewController: UIViewController {
 
     // MARK - Variables
+    let profileViewModel = ProfileViewModel()
+    var disposeBag = DisposeBag()
+    
     var user = User.currentUser!
     
     // MARK - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.reloadData()
+        
+        // id
+        profileViewModel.idText
+            .subscribe(onNext: {
+                self.idLabel.setTitle($0, for: .normal)
+            })
+            .disposed(by: disposeBag)
+        profileViewModel.idText
+            .bind(to: nameLabel.rx.text)
+            .disposed(by: disposeBag)
+        // profileImage
+        profileViewModel.profileImage
+            .bind(to: profileImage.rx.image)
+            .disposed(by: disposeBag)
+        // description
+        profileViewModel.descriptionText
+            .bind(to: descriptionLabel.rx.text)
+            .dispose()
+        // follower
+        profileViewModel.followersText
+            .subscribe(onNext: {
+                self.followerCountButton.setTitle($0, for: .normal)
+            })
+            .disposed(by: disposeBag)
+        // follow
+        profileViewModel.followsText
+            .subscribe(onNext: {
+                self.followCountButton.setTitle($0, for: .normal)
+            })
+            .disposed(by: disposeBag)
+        // posts
+        profileViewModel.postsCountText
+            .subscribe(onNext: {
+                self.postCountButton.setTitle($0, for: .normal)
+            })
+            .disposed(by: disposeBag)
+     
+        updateUI()
+        
+        collectionView.dataSource = nil
+        
+        profileViewModel.posts
+            .bind(to: collectionView.rx.items(cellIdentifier: "PostCollectionViewCell", cellType: PostCollectionViewCell.self)) { index, item, cell in
+                cell.postImage.image = item.image
+                cell.post = item
+            }
+            .disposed(by: disposeBag)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        updateUI()
+        
+        
         
     }
     
     // MARK - UI functions
     func updateUI() {
-        idLabel.setTitle(user.id, for: .normal)
-        profileImage.image = user.profileImage
         profileImage.layer.cornerRadius = profileImage.bounds.width * 0.5
-        descriptionLabel.text = user.description
-        nameLabel.text = user.name
-        
-        
-        postCountButton.setTitle("\(user.posts.count)\n\n게시물", for: .normal)
-        postCountButton.titleLabel?.lineBreakMode = .byWordWrapping
-        postCountButton.titleLabel?.textAlignment = .center
-        followerCountButton.setTitle("\(user.followers.count)\n\n팔로워", for: .normal)
-        followerCountButton.titleLabel?.lineBreakMode = .byWordWrapping
-        followerCountButton.titleLabel?.textAlignment = .center
-        followCountButton.setTitle("\(user.follows.count)\n\n팔로우", for: .normal)
-        followCountButton.titleLabel?.lineBreakMode = .byWordWrapping
-        followCountButton.titleLabel?.textAlignment = .center
+        buttonUI(postCountButton, followerCountButton, followCountButton)
     }
+    
+    func buttonUI(_ buttons: UIButton...) {
+        buttons.forEach({
+            $0.titleLabel?.lineBreakMode = .byWordWrapping
+            $0.titleLabel?.textAlignment = .center
+        })
+    }
+    
 
     @IBAction func onFollower(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
@@ -52,6 +100,7 @@ class ProfileViewController: UIViewController {
         nextVC.followerUids = user.followers
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
+    
     @IBAction func onFollow(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
         nextVC.isFollow = true
@@ -59,7 +108,6 @@ class ProfileViewController: UIViewController {
         nextVC.followerUids = user.followers
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
-
     
     // MARK - Outlets
     @IBOutlet weak var idLabel: UIButton!
@@ -82,8 +130,5 @@ class ProfileViewController: UIViewController {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "EditVC") as? EditProfileViewController else { return }
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
-    
-    
-    
     
 }
