@@ -16,6 +16,7 @@
 		D821DC5026D8DAFA00B36CE1 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4F26D8DAFA00B36CE1 /* CommentViewController.swift */; };
 		D835F5C026DA1D69005A26A9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835F5BF26DA1D69005A26A9 /* HomeViewModel.swift */; };
 		D835F5C226DA218A005A26A9 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835F5C126DA218A005A26A9 /* ProfileViewModel.swift */; };
+		D836638926DB6BA900ABA6A9 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D836638826DB6BA900ABA6A9 /* SearchViewModel.swift */; };
 		D837D94326D4B02500F34743 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94226D4B02500F34743 /* HomeTableViewController.swift */; };
 		D837D94826D4B64800F34743 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94726D4B64800F34743 /* SettingViewController.swift */; };
 		D837D94B26D4B93500F34743 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D94A26D4B93500F34743 /* EditProfileViewController.swift */; };
@@ -42,6 +43,7 @@
 		D861331C26CBB9F000E4D718 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861331B26CBB9F000E4D718 /* PhotoManager.swift */; };
 		D861331F26CBBA3300E4D718 /* NewContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861331E26CBBA3300E4D718 /* NewContentViewController.swift */; };
 		D861332126CBC9AF00E4D718 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861332026CBC9AF00E4D718 /* UploadViewController.swift */; };
+		D861EB6426DCBBAC00CA0775 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D861EB6326DCBBAC00CA0775 /* FriendViewModel.swift */; };
 		D8627DE326D3500000B4E347 /* Pods_RxBeomstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A881AD5A46C0654405418E /* Pods_RxBeomstagram.framework */; };
 		D8627DE826D3562E00B4E347 /* NewContentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */; };
 		D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */; };
@@ -60,6 +62,7 @@
 		D821DC4F26D8DAFA00B36CE1 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		D835F5BF26DA1D69005A26A9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D835F5C126DA218A005A26A9 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		D836638826DB6BA900ABA6A9 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		D837D94226D4B02500F34743 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		D837D94726D4B64800F34743 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D837D94A26D4B93500F34743 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 		D861331B26CBB9F000E4D718 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		D861331E26CBBA3300E4D718 /* NewContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentViewController.swift; sourceTree = "<group>"; };
 		D861332026CBC9AF00E4D718 /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
+		D861EB6326DCBBAC00CA0775 /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentCollectionViewController.swift; sourceTree = "<group>"; };
 		D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				D81FAD3E26CCBD1000B4BFFC /* SearchViewController.swift */,
+				D836638826DB6BA900ABA6A9 /* SearchViewModel.swift */,
 				D837D95C26D4E18500F34743 /* SearchCollectionViewController.swift */,
 			);
 			path = Search;
@@ -190,6 +195,7 @@
 			children = (
 				D837D95A26D4D88300F34743 /* ContentViewController.swift */,
 				D81A715726D63BB700083CB0 /* FriendViewController.swift */,
+				D861EB6326DCBBAC00CA0775 /* FriendViewModel.swift */,
 				D821DC4B26D88C1B00B36CE1 /* FollowViewController.swift */,
 				D821DC4F26D8DAFA00B36CE1 /* CommentViewController.swift */,
 			);
@@ -425,6 +431,7 @@
 				D86132F126CB767F00E4D718 /* AppDelegate.swift in Sources */,
 				D837D94826D4B64800F34743 /* SettingViewController.swift in Sources */,
 				D861331126CBAAEB00E4D718 /* Extension.swift in Sources */,
+				D836638926DB6BA900ABA6A9 /* SearchViewModel.swift in Sources */,
 				D861330F26CBAAD800E4D718 /* DatabaseManager.swift in Sources */,
 				D837D95B26D4D88300F34743 /* ContentViewController.swift in Sources */,
 				D8627DE826D3562E00B4E347 /* NewContentCollectionViewController.swift in Sources */,
@@ -440,6 +447,7 @@
 				D861331F26CBBA3300E4D718 /* NewContentViewController.swift in Sources */,
 				D837D94326D4B02500F34743 /* HomeTableViewController.swift in Sources */,
 				D837D95626D4CE2000F34743 /* SettingTableViewController.swift in Sources */,
+				D861EB6426DCBBAC00CA0775 /* FriendViewModel.swift in Sources */,
 				D861331C26CBB9F000E4D718 /* PhotoManager.swift in Sources */,
 				D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */,
 				D81FAD3C26CCBD0100B4BFFC /* HomeViewController.swift in Sources */,

@@ -23,6 +23,8 @@ class HomeViewController: UIViewController {
         tableView.dataSource = nil
         collectionView.dataSource = nil
         
+        // story
+
         homeViewModel.usersObservable
             .observe(on: MainScheduler.instance)
             .bind(to: collectionView.rx.items(cellIdentifier: "HomeCollectionViewCell", cellType: HomeCollectionViewCell.self)) { index, item, cell in
@@ -33,6 +35,7 @@ class HomeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        // feed
         homeViewModel.postsObservable
             .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { index, item, cell in
@@ -44,21 +47,24 @@ class HomeViewController: UIViewController {
                 cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
                 cell.profileID.setTitle(user.id, for: .normal)
                 cell.postImage.image = post.image
-                cell.postLikeLabel.text = "좋아요 \(post.likes.count)개"
+                
                 cell.postContentLabel.text = user.id + "  " + post.content
                 
-                cell.isLike = false
-                
+
+                // Like
                 let curUid = AuthManager.shared.currentUid()!
                 cell.isLike = post.likes.contains(curUid) ? true : false
-                
+                cell.post = item
+                cell.postLikeLabel.text = "좋아요 \(post.likes.count)개"
                 let img = cell.isLike == true ? UIImage(named: "heartFill") : UIImage(systemName: "heart")
                 cell.likeButton.setImage(img, for: .normal)
                 
+                // Comment
                 cell.commentButton.setTitle("댓글 \(post.comments.count)개 모두 보기", for: .normal)
             }
             .disposed(by: disposeBag)
         
+
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -92,53 +98,20 @@ class HomeViewController: UIViewController {
     
     @IBAction func onID(_ sender: UIButton) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FriendVC") as? FriendViewController else { return }
-        
         let indexPath = findIndexTableButton(sender)
-        nextVC.user = allPosts[indexPath.row].user
+        guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else { return }
+        let user = cell.post.user
+        
+        let friendViewModel = FriendViewModel(user)
+        nextVC.viewModel = friendViewModel
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func onLikeButton(_ sender: UIButton) {
         let indexPath = findIndexTableButton(sender)
-        
         guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else { return }
         
-        homeViewModel.postsObservable
-            .map { posts in
-                let post = posts[indexPath.row]
-                
-                if cell.isLike == true {
-                    DatabaseManager.shared.deleteLike(from: User.currentUser, to: post.user, cuid: post.cuid) {
-                        
-                    }
-                    
-                    cell.postLikeLabel.text = "좋아요 \(post.likes.count - 1)개"
-                    cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                } else {
-                    DatabaseManager.shared.updateLike(from: User.currentUser, to: post.user, cuid: post.cuid) {
-                        
-                    }
-                    cell.postLikeLabel.text = "좋아요 \(post.likes.count + 1)개"
-                    cell.likeButton.setImage(UIImage(named: "heartFill"), for: .normal)
-                }
-                cell.isLike = !cell.isLike
-                
-            }
-//        let post = allPosts[indexPath.row]
-//        if cell.isLike == true {
-//            DatabaseManager.shared.deleteLike(from: User.currentUser, to: post.user, cuid: post.cuid) {
-//
-//            }
-//            cell.postLikeLabel.text = "좋아요 \(post.likes.count - 1)개"
-//            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-//        } else {
-//            DatabaseManager.shared.updateLike(from: User.currentUser, to: post.user, cuid: post.cuid) {
-//
-//            }
-//            cell.postLikeLabel.text = "좋아요 \(post.likes.count + 1)개"
-//            cell.likeButton.setImage(UIImage(named: "heartFill"), for: .normal)
-//        }
-//        cell.isLike = !cell.isLike
+        homeViewModel.likeObserver.onNext((cell.post, cell.isLike))
     }
     
     @IBAction func onComment(_ sender: UIButton) {

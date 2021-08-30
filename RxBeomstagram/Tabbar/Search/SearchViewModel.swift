@@ -2,18 +2,24 @@
 //  SearchViewModel.swift
 //  RxBeomstagram
 //
-//  Created by 김범수 on 2021/08/24.
+//  Created by 김범수 on 2021/08/29.
 //
 
-import Foundation
+import UIKit
+import RxSwift
+import RxCocoa
 
 class SearchViewModel {
     
-    
+    var postsObservable = BehaviorSubject<[Post]>(value: [])
     
     init() {
+        
         DatabaseManager.shared.fetchAllPosts { [weak self] posts in
-            self?.posts = posts
+            self?.postsObservable.onNext(posts)
         }
+        
     }
+    
+    
 }

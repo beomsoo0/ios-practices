@@ -6,49 +6,91 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class FriendViewController: UIViewController {
 
     // MARK - Variables
+    var viewModel: FriendViewModelType
+    var disposeBag = DisposeBag()
+    
+    init(viewModel: FriendViewModelType = FriendViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        viewModel = FriendViewModel()
+        super.init(coder: aDecoder)
+    }
+    
     var user: User!
     var isFollowing: Bool!
     
     // MARK - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.idText
+            .bind(to: nameLabel.rx.text)
+            .disposed(by: disposeBag)
+        // profileImage
+        viewModel.profileImage
+            .bind(to: profileImage.rx.image)
+            .disposed(by: disposeBag)
+        // description
+        viewModel.descriptionText
+            .bind(to: descriptionLabel.rx.text)
+            .dispose()
+        // follower
+        viewModel.followersText
+            .subscribe(onNext: {
+                self.followerCountButton.setTitle($0, for: .normal)
+            })
+            .disposed(by: disposeBag)
+        // follow
+        viewModel.followsText
+            .subscribe(onNext: {
+                self.followCountButton.setTitle($0, for: .normal)
+            })
+            .disposed(by: disposeBag)
+        // posts
+        viewModel.postsCountText
+            .subscribe(onNext: {
+                self.postCountButton.setTitle($0, for: .normal)
+            })
+            .disposed(by: disposeBag)
+     
+        updateUI()
+        
+        collectionView.dataSource = nil
+        
+        viewModel.posts
+            .bind(to: collectionView.rx.items(cellIdentifier: "PostCollectionViewCell", cellType: PostCollectionViewCell.self)) { index, item, cell in
+                cell.postImage.image = item.image
+                cell.post = item
+            }
+            .disposed(by: disposeBag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         isFollowing = checkIsFollowing()
-        updateUI()
         followButtonUI()
     }
     // MARK - UI functions
     func updateUI() {
-        collectionView.reloadData()
-        
-        self.navigationItem.backButtonTitle = ""
-        self.navigationItem.backButtonTitle = ""
-        self.navigationController?.navigationBar.backgroundColor = .systemBackground
-        
-        self.navigationItem.title = "\(user.id)"
-        profileImage.image = user.profileImage
         profileImage.layer.cornerRadius = profileImage.bounds.width * 0.5
-        descriptionLabel.text = user.description
-        nameLabel.text = user.name
-        
-        
-        postCountButton.setTitle("\(user.posts.count)\n\n게시물", for: .normal)
-        postCountButton.titleLabel?.lineBreakMode = .byWordWrapping
-        postCountButton.titleLabel?.textAlignment = .center
-        followerCountButton.setTitle("\(user.followers.count)\n\n팔로워", for: .normal)
-        followerCountButton.titleLabel?.lineBreakMode = .byWordWrapping
-        followerCountButton.titleLabel?.textAlignment = .center
-        followCountButton.setTitle("\(user.follows.count)\n\n팔로우", for: .normal)
-        followCountButton.titleLabel?.lineBreakMode = .byWordWrapping
-        followCountButton.titleLabel?.textAlignment = .center
+        buttonUI(postCountButton, followerCountButton, followCountButton)
+    }
+    func buttonUI(_ buttons: UIButton...) {
+        buttons.forEach({
+            $0.titleLabel?.lineBreakMode = .byWordWrapping
+            $0.titleLabel?.textAlignment = .center
+        })
     }
     
     func checkIsFollowing() -> Bool {

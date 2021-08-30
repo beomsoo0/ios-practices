@@ -81,8 +81,8 @@ public class DatabaseManager {
                     return
                 }
                 
-                if uid != User.currentUser.uid {
-                    
+//                if uid != User.currentUser.uid {
+//
                     let user = User(uid: uid, id: id, name: name)
 
                     let imgURL = values?["profileImageURL"] as? String
@@ -118,7 +118,7 @@ public class DatabaseManager {
                             completion(users)
                         }
                         users.append(user)
-                    }
+//                    }
                     
                     
                 }

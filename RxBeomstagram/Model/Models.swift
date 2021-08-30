@@ -32,8 +32,13 @@ class User {
     }
     
 }
-
-struct Post {
+extension User: Equatable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.uid == rhs.uid
+    }
+}
+    
+class Post {
     var user: User
     var cuid: String
     var image: UIImage
@@ -48,6 +53,12 @@ struct Post {
         self.content = content
         likes = []
         comments = []
+    }
+}
+
+extension Post: Equatable {
+    static func == (lhs: Post, rhs: Post) -> Bool {
+        return lhs.cuid == rhs.cuid
     }
 }
 

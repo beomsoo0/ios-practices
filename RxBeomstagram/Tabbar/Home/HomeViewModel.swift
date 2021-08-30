@@ -15,46 +15,89 @@ protocol HomeViewModelType {
 //    var posts: Observable<[Post]>? { get }
 ////    var curUser: Observable<User> { get }
 //    var likeCountText: Observable<String> { get }
+    
+    var likeObserver: AnyObserver<(post: Post, isLike: Bool)> { get }
+    
 }
 
 class HomeViewModel : HomeViewModelType {
-    
-//    var users: Observable<[User]>?
-//    var posts: Observable<[Post]>?
 
     let usersObservable = BehaviorSubject<[User]>(value: [])
     let postsObservable = BehaviorSubject<[Post]>(value: [])
     let curUserObservable = BehaviorSubject<User>(value: User(uid: "", id: "", name: ""))
+
+    let disposeBag = DisposeBag()
     
-//    var likeCountText: Observable<String>
+    let likeObserver: AnyObserver<(post: Post, isLike: Bool)>
+//    let feedObserver: AnyObserver<Post>
     
     
     init() {
+
+        // Like
+        let likeSubject = PublishSubject<(post: Post, isLike: Bool)>()
         
-//        let usersObservable = BehaviorSubject<[User]>(value: [])
-//        let postsObservable = BehaviorSubject<[Post]>(value: [])
-//        let curUserObservable = BehaviorSubject<User>(value: User.currentUser!)
+        likeObserver = likeSubject.asObserver()
         
-        // 초기화 안되어있어서 weak self 불가
+        likeSubject.map { self.changeLike($0.post, $0.isLike) }
+            .withLatestFrom(postsObservable) { (updated, originals) -> [Post] in
+                originals.map {
+                    guard $0 == updated else { return $0 }
+                    return updated
+                }
+            }
+            .subscribe(onNext: postsObservable.onNext)
+            .disposed(by: disposeBag)
+        
+//        // feed
+//        let feedSubject = PublishSubject<Post>()
+//
+//        feedObserver = feedSubject.asObserver()
+        
+        
+        
+        
         DatabaseManager.shared.fetchOtherUsers { [weak self] user in
-//            var storyUsers = [User]()
-//            storyUsers.append(User.currentUser)
-//            storyUsers += u
             self?.usersObservable.onNext(user)
-//            self?.users = usersObservable.map { $0 }
+            
+            
+            
         }
         DatabaseManager.shared.fetchAllPosts { [weak self] post in
             self?.postsObservable.onNext(post)
-//            self.posts = postsObservable.map { $0 }
+
         }
 
         let uid = AuthManager.shared.currentUid()!
         DatabaseManager.shared.fetchUser(uid: uid) { [weak self] user in
             self?.curUserObservable.onNext(user)
+            
+           
+            
         }
+
         
-//        likeCountText =
+        
+        
+
     }
+    
+
+    
+    
+    func changeLike(_ post: Post, _ isLike: Bool) -> Post {
+        let curUid = AuthManager.shared.currentUid()!
+        
+        if isLike == true {
+            DatabaseManager.shared.deleteLike(from: User.currentUser, to: post.user, cuid: post.cuid) { }
+            post.likes = post.likes.filter({ $0 != curUid })
+        } else {
+            DatabaseManager.shared.updateLike(from: User.currentUser, to: post.user, cuid: post.cuid) { }
+            post.likes.append(curUid)
+        }
+        return post
+    }
+    
     
     
 }
