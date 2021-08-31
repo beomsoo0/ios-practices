@@ -81,6 +81,7 @@ class FriendViewController: UIViewController {
         isFollowing = checkIsFollowing()
         followButtonUI()
     }
+    
     // MARK - UI functions
     func updateUI() {
         profileImage.layer.cornerRadius = profileImage.bounds.width * 0.5
@@ -103,6 +104,7 @@ class FriendViewController: UIViewController {
         }
         return false
     }
+    
     func followButtonUI() {
         if isFollowing == true {
             followButton.setTitle("팔로잉", for: .normal)
@@ -185,7 +187,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
-        nextVC.allPosts = user.posts
+//        nextVC.allPosts = user.posts
         nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

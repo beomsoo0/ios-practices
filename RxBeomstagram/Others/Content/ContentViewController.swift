@@ -1,44 +1,45 @@
 //
-//  HomeViewController.swift
+//  ContentViewController.swift
 //  RxBeomstagram
 //
-//  Created by 김범수 on 2021/08/18.
+//  Created by 김범수 on 2021/08/24.
 //
 
 import UIKit
 import RxSwift
 import RxCocoa
 
-class HomeViewController: UIViewController {
 
-    var allPosts = [Post]()
-    var otherUsers = [User]()
-    
-    let viewModel = HomeViewModel()
+class ContentViewController: UIViewController {
+
+    var viewModel: ContentViewModelType
     var disposeBag = DisposeBag()
+    
+    init(viewModel: ContentViewModel = ContentViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        viewModel = ContentViewModel()
+        super.init(coder: aDecoder)
+    }
+
+    var allPosts: [Post]!
+    var indexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.title = "게시물"
+//        tableView.reloadData()
         
         tableView.dataSource = nil
-        collectionView.dataSource = nil
-        
-        // story
-
-        viewModel.usersObservable
-            .observe(on: MainScheduler.instance)
-            .bind(to: collectionView.rx.items(cellIdentifier: "HomeCollectionViewCell", cellType: HomeCollectionViewCell.self)) { index, item, cell in
-//                let user = index == 0 ? homeViewModel.curUserObservable.map{ $0 } : item
-                cell.storyImageView.image = item.profileImage
-                cell.storyImageView.layer.cornerRadius = cell.storyImageView.bounds.width * 0.5
-                cell.storyIDLabel.text = item.id
-            }
-            .disposed(by: disposeBag)
-        
         // feed
+        
         viewModel.postsObservable
             .observe(on: MainScheduler.instance)
-            .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { index, item, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: "ContentTableViewCell", cellType: ContentTableViewCell.self)) { index, item, cell in
                 
                 let user = item.user
                 let post = item
@@ -48,7 +49,7 @@ class HomeViewController: UIViewController {
                 cell.profileID.setTitle(user.id, for: .normal)
                 cell.postImage.image = post.image
                 
-                cell.postContentLabel.text = user.id + "  " + post.content
+                cell.postContent.text = user.id + "  " + post.content
                 
 
                 // Like
@@ -64,20 +65,17 @@ class HomeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-
+        
 
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
     }
-
-
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var collectionView: UICollectionView!
     
-    @IBAction func onAddContent(_ sender: Any) {
-        self.tabBarController?.selectedIndex = 2
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.scrollToRow(at: indexPath!, at: .top, animated: false)
     }
     
     func findIndexTableButton(_ sender: UIButton) -> IndexPath {
@@ -96,45 +94,48 @@ class HomeViewController: UIViewController {
         return indexPath
     }
     
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     @IBAction func onID(_ sender: UIButton) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FriendVC") as? FriendViewController else { return }
         let indexPath = findIndexTableButton(sender)
-        guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? ContentTableViewCell else { return }
         let user = cell.post.user
         
         let friendViewModel = FriendViewModel(user)
         nextVC.viewModel = friendViewModel
         self.navigationController?.pushViewController(nextVC, animated: true)
+        
     }
     
     @IBAction func onLikeButton(_ sender: UIButton) {
         let indexPath = findIndexTableButton(sender)
-        guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? ContentTableViewCell else { return }
         
         viewModel.likeObserver.onNext((cell.post, cell.isLike))
     }
     
     @IBAction func onComment(_ sender: UIButton) {
         let indexPath = findIndexTableButton(sender)
+        
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CommentVC") as? CommentViewController else { return }
-        
-        var post = Post()
-        viewModel.postsObservable
-            .map { $0[indexPath.row] }
-            .subscribe(onNext: { post = $0 })
-            .disposed(by: disposeBag)
-        
-        var curUser = User()
-        viewModel.curUserObservable
-            .subscribe(onNext: { curUser = $0 })
-            .disposed(by: disposeBag)
-
-        let commentViewModel = CommentViewModel(post: post, curUser: curUser)
-        nextVC.viewModel = commentViewModel
+        let post = allPosts[indexPath.row]
+        nextVC.post = post
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
 }
 
-
-
+class ContentTableViewCell: UITableViewCell {
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileID: UIButton!
+    @IBOutlet weak var postImage: UIImageView!
+    @IBOutlet weak var postLikeLabel: UILabel!
+    @IBOutlet weak var postContent: UITextView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
+    
+    var isLike: Bool!
+    var post: Post!
+}

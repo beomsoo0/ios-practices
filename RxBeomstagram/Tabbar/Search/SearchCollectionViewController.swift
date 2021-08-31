@@ -7,18 +7,7 @@
 
 import UIKit
 
-extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allPosts.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
-        let post = allPosts[indexPath.item]
-        cell.postImage.image = post.image
-        return cell
-    }
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemSpacing: CGFloat = 1
@@ -29,7 +18,10 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
-        nextVC.allPosts = allPosts
+        
+        let contentViewModel = ContentViewModel(viewModel.postsObservable)
+        nextVC.viewModel = contentViewModel
+//        nextVC.allPosts = allPosts
         nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

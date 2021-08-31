@@ -319,12 +319,12 @@ public class DatabaseManager {
         ref.child("userinfo").child(to.uid).child("posts").child(cuid).child("likes").child(from.name).removeValue()
     }
 
-    func pushComment(from: User, to: Post, comment: String, completion: @escaping () -> Void) {
-        guard let commentUid = ref.child("userinfo").child(to.user.uid).child("posts").child(to.cuid).child("comment").childByAutoId().key else {
+    func pushComment(post: Post, comment: Comment, completion: @escaping () -> Void) {
+        guard let commentUid = ref.child("userinfo").child(post.user.uid).child("posts").child(post.cuid).child("comment").childByAutoId().key else {
             completion()
             return
         }
-        ref.child("userinfo").child(to.user.uid).child("posts").child(to.cuid).child("comment").child(commentUid).setValue([from.uid: comment])
+        ref.child("userinfo").child(post.user.uid).child("posts").child(post.cuid).child("comment").child(commentUid).setValue([comment.uid: comment.ment])
     }
 
 }

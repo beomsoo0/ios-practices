@@ -20,6 +20,17 @@ class User {
     var follows: [String] // Uid
     var posts: [Post]
     
+    init() {
+        uid = ""
+        id = ""
+        name = ""
+        profileImage = UIImage(named: "default_profile")!
+        description = ""
+        followers = []
+        follows = []
+        posts = []
+    }
+    
     init(uid: String, id: String, name: String) {
         self.uid = uid
         self.id = id
@@ -46,6 +57,15 @@ class Post {
     var likes: [String]
     var comments: [Comment]
     
+    init() {
+        user = User()
+        cuid = ""
+        image = UIImage(named: "default_profile")!
+        content = ""
+        likes = []
+        comments = []
+    }
+    
     init(user: User, cuid: String, image: UIImage, content: String) {
         self.user = user
         self.cuid = cuid
@@ -62,7 +82,7 @@ extension Post: Equatable {
     }
 }
 
-struct Comment {
+class Comment {
     var uid: String
     var ment: String
     
