@@ -19,7 +19,12 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
         
-        let contentViewModel = ContentViewModel(viewModel.postsObservable)
+        var posts: [Post] = []
+        do {
+            posts = try viewModel.postsObservable.value()
+        } catch { }
+        
+        let contentViewModel = ContentViewModel(posts)
         nextVC.viewModel = contentViewModel
 //        nextVC.allPosts = allPosts
         nextVC.indexPath = indexPath

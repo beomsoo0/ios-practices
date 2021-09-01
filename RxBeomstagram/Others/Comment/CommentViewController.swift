@@ -106,7 +106,7 @@ extension CommentViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FriendVC") as? FriendViewController else { return }
-        nextVC.user = users[indexPath.row]
+//        nextVC.user = users[indexPath.row]
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

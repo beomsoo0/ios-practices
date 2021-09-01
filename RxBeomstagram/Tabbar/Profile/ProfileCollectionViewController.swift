@@ -18,7 +18,14 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
-        nextVC.allPosts = user.posts
+
+        var posts: [Post] = []
+        do {
+           posts = try viewModel.curUserObservable.value().posts
+        } catch { }
+        
+        let contentViewModel = ContentViewModel(posts)
+        nextVC.viewModel = contentViewModel
         nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

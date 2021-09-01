@@ -18,6 +18,7 @@ protocol ProfileViewModelType {
     var followsText: Observable<String> { get }
     var posts: Observable<[Post]> { get }
     var postsCountText: Observable<String> { get }
+    var curUserObservable: BehaviorSubject<User> { get }
 }
 
 class ProfileViewModel : ProfileViewModelType{
@@ -31,11 +32,11 @@ class ProfileViewModel : ProfileViewModelType{
     var postsCountText: Observable<String>
 
     
-    
+    let curUserObservable: BehaviorSubject<User>
 
     init() {
         
-        let curUserObservable = BehaviorSubject<User>(value: User(uid: "", id: "", name: ""))
+        curUserObservable = BehaviorSubject<User>(value: User(uid: "", id: "", name: ""))
 
         let curUser = User.currentUser!
         curUserObservable.onNext(curUser)

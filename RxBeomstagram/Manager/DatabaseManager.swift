@@ -234,7 +234,7 @@ public class DatabaseManager {
                                 if let cuid = dic.value["cuid"] as? String,
                                    let content = dic.value["content"] as? String {
                                     
-                                    var post = Post(user: user, cuid: cuid, image: image, content: content)
+                                    let post = Post(user: user, cuid: cuid, image: image, content: content)
                                     
                                     // likes
                                     var likes = [String]()

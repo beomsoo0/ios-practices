@@ -26,38 +26,8 @@ class ContentViewModel: ContentViewModelType {
     let likeObserver: AnyObserver<(post: Post, isLike: Bool)>
 
     
-    
-    init() {
-
-        // Like
-        let likeSubject = PublishSubject<(post: Post, isLike: Bool)>()
-        
-        likeObserver = likeSubject.asObserver()
-        
-        likeSubject.map { self.changeLike($0.post, $0.isLike) }
-            .withLatestFrom(postsObservable) { (updated, originals) -> [Post] in
-                originals.map {
-                    guard $0 == updated else { return $0 }
-                    return updated
-                }
-            }
-            .subscribe(onNext: postsObservable.onNext)
-            .disposed(by: disposeBag)
-
-        DatabaseManager.shared.fetchAllPosts { [weak self] post in
-            self?.postsObservable.onNext(post)
-
-        }
-
-        let uid = AuthManager.shared.currentUid()!
-        DatabaseManager.shared.fetchUser(uid: uid) { [weak self] user in
-            self?.curUserObservable.onNext(user)
-        }
-    }
-    
-    init(_ passedPosts: BehaviorSubject<[Post]>) {
-        
-        postsObservable = passedPosts
+    init(_ posts: [Post] = []) {
+        postsObservable = BehaviorSubject<[Post]>(value: posts)
    
         // Like
         let likeSubject = PublishSubject<(post: Post, isLike: Bool)>()
@@ -79,9 +49,7 @@ class ContentViewModel: ContentViewModelType {
         DatabaseManager.shared.fetchUser(uid: uid) { [weak self] user in
             self?.curUserObservable.onNext(user)
         }
-        
-        
-        
+
         
     }
     

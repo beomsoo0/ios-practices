@@ -11,11 +11,9 @@ import RxCocoa
 
 extension HomeViewController: UITableViewDelegate {
     
-    
 }
 
 class HomeTableViewCell: UITableViewCell {
-
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var profileID: UIButton!
     @IBOutlet weak var postImage: UIImageView!
@@ -27,7 +25,6 @@ class HomeTableViewCell: UITableViewCell {
     
     var isLike: Bool!
     var post: Post!
-
 
 }
 

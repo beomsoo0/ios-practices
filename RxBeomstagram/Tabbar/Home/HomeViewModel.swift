@@ -15,7 +15,7 @@ protocol HomeViewModelType {
     
 }
 
-class HomeViewModel : HomeViewModelType {
+class HomeViewModel: HomeViewModelType {
 
     let usersObservable = BehaviorSubject<[User]>(value: [])
     let postsObservable = BehaviorSubject<[Post]>(value: [])
@@ -43,42 +43,20 @@ class HomeViewModel : HomeViewModelType {
             }
             .subscribe(onNext: postsObservable.onNext)
             .disposed(by: disposeBag)
-        
-//        // feed
-//        let feedSubject = PublishSubject<Post>()
-//
-//        feedObserver = feedSubject.asObserver()
-        
-        
-        
-        
+
         DatabaseManager.shared.fetchOtherUsers { [weak self] user in
             self?.usersObservable.onNext(user)
-            
-            
-            
         }
         DatabaseManager.shared.fetchAllPosts { [weak self] post in
             self?.postsObservable.onNext(post)
-
         }
 
         let uid = AuthManager.shared.currentUid()!
         DatabaseManager.shared.fetchUser(uid: uid) { [weak self] user in
             self?.curUserObservable.onNext(user)
-            
-           
-            
         }
 
-        
-        
-        
-
     }
-    
-
-    
     
     func changeLike(_ post: Post, _ isLike: Bool) -> Post {
         let curUid = AuthManager.shared.currentUid()!

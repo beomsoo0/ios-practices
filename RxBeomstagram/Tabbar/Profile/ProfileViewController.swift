@@ -11,7 +11,7 @@ import RxSwift
 class ProfileViewController: UIViewController {
 
     // MARK - Variables
-    let profileViewModel = ProfileViewModel()
+    let viewModel = ProfileViewModel()
     var disposeBag = DisposeBag()
     
     var user = User.currentUser!
@@ -22,36 +22,36 @@ class ProfileViewController: UIViewController {
         collectionView.reloadData()
         
         // id
-        profileViewModel.idText
+        viewModel.idText
             .subscribe(onNext: {
                 self.idLabel.setTitle($0, for: .normal)
             })
             .disposed(by: disposeBag)
-        profileViewModel.idText
+        viewModel.idText
             .bind(to: nameLabel.rx.text)
             .disposed(by: disposeBag)
         // profileImage
-        profileViewModel.profileImage
+        viewModel.profileImage
             .bind(to: profileImage.rx.image)
             .disposed(by: disposeBag)
         // description
-        profileViewModel.descriptionText
+        viewModel.descriptionText
             .bind(to: descriptionLabel.rx.text)
             .dispose()
         // follower
-        profileViewModel.followersText
+        viewModel.followersText
             .subscribe(onNext: {
                 self.followerCountButton.setTitle($0, for: .normal)
             })
             .disposed(by: disposeBag)
         // follow
-        profileViewModel.followsText
+        viewModel.followsText
             .subscribe(onNext: {
                 self.followCountButton.setTitle($0, for: .normal)
             })
             .disposed(by: disposeBag)
         // posts
-        profileViewModel.postsCountText
+        viewModel.postsCountText
             .subscribe(onNext: {
                 self.postCountButton.setTitle($0, for: .normal)
             })
@@ -61,7 +61,7 @@ class ProfileViewController: UIViewController {
         
         collectionView.dataSource = nil
         
-        profileViewModel.posts
+        viewModel.posts
             .bind(to: collectionView.rx.items(cellIdentifier: "PostCollectionViewCell", cellType: PostCollectionViewCell.self)) { index, item, cell in
                 cell.postImage.image = item.image
                 cell.post = item
@@ -74,9 +74,6 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        
-        
-        
     }
     
     // MARK - UI functions
@@ -95,17 +92,41 @@ class ProfileViewController: UIViewController {
 
     @IBAction func onFollower(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
+
+        var followUids: [String] = []
+        var followerUids: [String] = []
+        
+        var user = User(uid: "", id: "", name: "")
+        do {
+            user = try viewModel.curUserObservable.value()
+        } catch {}
+        
+        followUids = user.follows
+        followerUids = user.followers
+        
+        let followViewModel = FollowViewModel(isFollow: false, followUids: followUids, followerUids: followerUids)
+        nextVC.viewModel = followViewModel
         nextVC.isFollow = false
-        nextVC.followUids = user.follows
-        nextVC.followerUids = user.followers
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func onFollow(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
+        
+        var followUids: [String] = []
+        var followerUids: [String] = []
+        
+        var user = User(uid: "", id: "", name: "")
+        do {
+            user = try viewModel.curUserObservable.value()
+        } catch {}
+        
+        followUids = user.follows
+        followerUids = user.followers
+        
+        let followViewModel = FollowViewModel(isFollow: true, followUids: followUids, followerUids: followerUids)
+        nextVC.viewModel = followViewModel
         nextVC.isFollow = true
-        nextVC.followUids = user.follows
-        nextVC.followerUids = user.followers
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

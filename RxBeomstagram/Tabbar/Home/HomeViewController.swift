@@ -24,11 +24,20 @@ class HomeViewController: UIViewController {
         collectionView.dataSource = nil
         
         // story
-
         viewModel.usersObservable
+            .map({ users -> [User] in
+                var u: [User] = []
+                users.forEach { user in
+                    if user.uid == AuthManager.shared.currentUid() {
+                        u.insert(user, at: 0)
+                    } else {
+                        u.append(user)
+                    }
+                }
+                return u
+            })
             .observe(on: MainScheduler.instance)
             .bind(to: collectionView.rx.items(cellIdentifier: "HomeCollectionViewCell", cellType: HomeCollectionViewCell.self)) { index, item, cell in
-//                let user = index == 0 ? homeViewModel.curUserObservable.map{ $0 } : item
                 cell.storyImageView.image = item.profileImage
                 cell.storyImageView.layer.cornerRadius = cell.storyImageView.bounds.width * 0.5
                 cell.storyIDLabel.text = item.id
@@ -64,12 +73,17 @@ class HomeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-
-
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        
+        viewModel.postsObservable
+            .subscribe(onNext: {
+                print("!!!")
+                dump($0)
+            })
+            .disposed(by: disposeBag)
     }
 
 

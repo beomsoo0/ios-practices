@@ -32,9 +32,7 @@ class ContentViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = "게시물"
-//        tableView.reloadData()
-        
-        tableView.dataSource = nil
+
         // feed
         
         viewModel.postsObservable
@@ -71,11 +69,6 @@ class ContentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.scrollToRow(at: indexPath!, at: .top, animated: false)
     }
     
     func findIndexTableButton(_ sender: UIButton) -> IndexPath {
@@ -124,6 +117,10 @@ class ContentViewController: UIViewController {
         nextVC.post = post
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
+    
+}
+
+extension ContentViewController: UITableViewDelegate {
     
 }
 

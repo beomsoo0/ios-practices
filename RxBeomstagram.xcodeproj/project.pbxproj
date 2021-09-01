@@ -49,6 +49,7 @@
 		D8627DE326D3500000B4E347 /* Pods_RxBeomstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A881AD5A46C0654405418E /* Pods_RxBeomstagram.framework */; };
 		D8627DE826D3562E00B4E347 /* NewContentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */; };
 		D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */; };
+		D8FA707426DF7B20000EBAA6 /* FollowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FA707326DF7B20000EBAA6 /* FollowViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		D861EB6326DCBBAC00CA0775 /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentCollectionViewController.swift; sourceTree = "<group>"; };
 		D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewController.swift; sourceTree = "<group>"; };
+		D8FA707326DF7B20000EBAA6 /* FollowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,7 +228,7 @@
 			children = (
 				D8318E6526DDDC6900F346BE /* Content */,
 				D8318E6426DDDC5A00F346BE /* Friend */,
-				D821DC4B26D88C1B00B36CE1 /* FollowViewController.swift */,
+				D8FA707226DF7B12000EBAA6 /* Follow */,
 				D8318E6626DDE4F900F346BE /* Comment */,
 			);
 			path = Others;
@@ -322,6 +324,15 @@
 				D861332026CBC9AF00E4D718 /* UploadViewController.swift */,
 			);
 			path = Upload;
+			sourceTree = "<group>";
+		};
+		D8FA707226DF7B12000EBAA6 /* Follow */ = {
+			isa = PBXGroup;
+			children = (
+				D821DC4B26D88C1B00B36CE1 /* FollowViewController.swift */,
+				D8FA707326DF7B20000EBAA6 /* FollowViewModel.swift */,
+			);
+			path = Follow;
 			sourceTree = "<group>";
 		};
 		EB6A91C42D50E5CC2B51B295 /* Frameworks */ = {
@@ -482,6 +493,7 @@
 				D861331C26CBB9F000E4D718 /* PhotoManager.swift in Sources */,
 				D8318E6326DDDC3700F346BE /* ContentViewModel.swift in Sources */,
 				D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */,
+				D8FA707426DF7B20000EBAA6 /* FollowViewModel.swift in Sources */,
 				D81FAD3C26CCBD0100B4BFFC /* HomeViewController.swift in Sources */,
 				D861331426CBAB6000E4D718 /* StorageManager.swift in Sources */,
 			);

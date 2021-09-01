@@ -25,12 +25,15 @@ class FriendViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    var user: User!
-    var isFollowing: Bool!
-    
     // MARK - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.idText
+            .subscribe(onNext: {
+                self.navigationItem.title = $0
+            })
+            .disposed(by: disposeBag)
         
         viewModel.idText
             .bind(to: nameLabel.rx.text)
@@ -44,13 +47,15 @@ class FriendViewController: UIViewController {
             .bind(to: descriptionLabel.rx.text)
             .dispose()
         // follower
-        viewModel.followersText
+        viewModel.followers
+            .map{ "\($0.count)\n\n팔로우" }
             .subscribe(onNext: {
                 self.followerCountButton.setTitle($0, for: .normal)
             })
             .disposed(by: disposeBag)
         // follow
-        viewModel.followsText
+        viewModel.follows
+            .map{ "\($0.count)\n\n팔로워" }
             .subscribe(onNext: {
                 self.followCountButton.setTitle($0, for: .normal)
             })
@@ -64,8 +69,7 @@ class FriendViewController: UIViewController {
      
         updateUI()
         
-        collectionView.dataSource = nil
-        
+
         viewModel.posts
             .bind(to: collectionView.rx.items(cellIdentifier: "PostCollectionViewCell", cellType: PostCollectionViewCell.self)) { index, item, cell in
                 cell.postImage.image = item.image
@@ -73,13 +77,24 @@ class FriendViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        viewModel.isFollowing
+            .subscribe(onNext: {
+                if $0 == true {
+                    self.followButton.setTitle("팔로잉", for: .normal)
+                    self.followButton.backgroundColor = .systemBackground
+                } else {
+                    self.followButton.setTitle("팔로우", for: .normal)
+                    self.followButton.backgroundColor = .systemBlue
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        isFollowing = checkIsFollowing()
-        followButtonUI()
     }
     
     // MARK - UI functions
@@ -94,29 +109,6 @@ class FriendViewController: UIViewController {
         })
     }
     
-    func checkIsFollowing() -> Bool {
-        guard let user = user else { return false }
-        
-        for follower in user.followers {
-            if follower == User.currentUser.uid{
-                return true
-            }
-        }
-        return false
-    }
-    
-    func followButtonUI() {
-        if isFollowing == true {
-            followButton.setTitle("팔로잉", for: .normal)
-            followButton.backgroundColor = .systemBackground
-        } else {
-            followButton.setTitle("팔로우", for: .normal)
-            followButton.backgroundColor = .systemBlue
-        }
-    }
-
-    
-    
     // MARK - Outlets
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -128,55 +120,55 @@ class FriendViewController: UIViewController {
     @IBOutlet weak var followButton: UIButton!
     
     @IBAction func onFollowButton(_ sender: Any) {
-
-        if isFollowing == true {
-            DatabaseManager.shared.deleteFollow(from: User.currentUser, to: user) {
-                
-            }
-            followerCountButton.setTitle("\(user.followers.count - 1)\n\n팔로워", for: .normal)
-            
-        } else {
-            DatabaseManager.shared.updateFollow(from: User.currentUser, to: user) {
-                // 모델 정보 reload && UI reload
-            }
-            followerCountButton.setTitle("\(user.followers.count + 1)\n\n팔로워", for: .normal)
-        }
-        isFollowing = !isFollowing
-        followButtonUI()
+        viewModel.changeFollowObserver.onNext(AuthManager.shared.currentUid()!)
     }
     
     
     @IBAction func onFollower(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
+
+        var followUids: [String] = []
+        var followerUids: [String] = []
+        
+        var user = User(uid: "", id: "", name: "")
+        do {
+            user = try viewModel.userSubject.value()
+        } catch {}
+        
+        followUids = user.follows
+        followerUids = user.followers
+        
+        let followViewModel = FollowViewModel(isFollow: false, followUids: followUids, followerUids: followerUids)
+        nextVC.viewModel = followViewModel
         nextVC.isFollow = false
-        nextVC.followUids = user.follows
-        nextVC.followerUids = user.followers
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func onFollow(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
+
+        var followUids: [String] = []
+        var followerUids: [String] = []
+        
+        var user = User(uid: "", id: "", name: "")
+        do {
+            user = try viewModel.userSubject.value()
+        } catch {}
+        
+        followUids = user.follows
+        followerUids = user.followers
+        
+        let followViewModel = FollowViewModel(isFollow: true, followUids: followUids, followerUids: followerUids)
+        nextVC.viewModel = followViewModel
         nextVC.isFollow = true
-        nextVC.followUids = user.follows
-        nextVC.followerUids = user.followers
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
 }
 
 
-extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FriendViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return user?.posts.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCollectionViewCell", for: indexPath) as? PostCollectionViewCell else { return UICollectionViewCell() }
-        cell.postImage.image = user?.posts[indexPath.item].image
-        cell.post = user?.posts[indexPath.item]
-        return cell
-    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemSpacing: CGFloat = 1
@@ -187,7 +179,14 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ContentVC") as? ContentViewController else { return }
-//        nextVC.allPosts = user.posts
+
+        var posts: [Post] = []
+        do {
+            posts = try viewModel.userSubject.value().posts
+        } catch { }
+        
+        let contentViewModel = ContentViewModel(posts)
+        nextVC.viewModel = contentViewModel
         nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -195,8 +194,6 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 class FriendCollectionViewCell: UICollectionViewCell {
-
     @IBOutlet weak var postImage: UIImageView!
     var post: Post?
-    
 }

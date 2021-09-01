@@ -36,6 +36,13 @@ class UploadViewController: UIViewController {
                 //curUser reparsing
                 guard let uid = AuthManager.shared.currentUid() else { return }
                 
+                guard let homeVC = self.storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController else { return }
+                
+                // home reload [x]
+                let curUser = User.currentUser!
+                curUser.posts.append(Post(user: curUser, cuid: uid, image: image, content: content ?? ""))
+                homeVC.viewModel.curUserObservable.onNext(curUser)
+ 
                 DatabaseManager.shared.fetchUser(uid: uid) { user in
                     User.currentUser = user
                     self.navigationPopToTabbarIdx(idx: 0)
