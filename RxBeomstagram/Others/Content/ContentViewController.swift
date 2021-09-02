@@ -104,7 +104,7 @@ class ContentViewController: UIViewController {
     
     @IBAction func onLikeButton(_ sender: UIButton) {
         let indexPath = findIndexTableButton(sender)
-        guard let cell = tableView.cellForRow(at: indexPath) as? ContentTableViewCell else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? ContentTableViewCell else { return } 
         
         viewModel.likeObserver.onNext((cell.post, cell.isLike))
     }
@@ -113,8 +113,15 @@ class ContentViewController: UIViewController {
         let indexPath = findIndexTableButton(sender)
         
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CommentVC") as? CommentViewController else { return }
-        let post = allPosts[indexPath.row]
-        nextVC.post = post
+        var post = Post()
+        do {
+            let posts = try viewModel.postsObservable.value()
+            post = posts[indexPath.row]
+        } catch { }
+
+
+        let commentViewModel = CommentViewModel(post: post)
+        nextVC.viewModel = commentViewModel
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

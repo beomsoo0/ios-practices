@@ -10,8 +10,6 @@ import RxSwift
 import RxCocoa
 
 class FollowViewController: UIViewController {
-
-    var isFollow: Bool!
     
     // MARK - Variables
     var viewModel: FollowViewModelType
@@ -32,42 +30,48 @@ class FollowViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         
-        viewModel.followSubject
-            .observe(on: MainScheduler.instance)
-            .map({ $0.count })
+        tableView.dataSource = nil
+        
+        viewModel.userSubject
+            .map({ $0.followUsers.count })
             .subscribe(onNext: {
                 self.followButton.setTitle("\($0) 팔로잉", for: .normal)
             })
             .disposed(by: disposeBag)
-        
-        viewModel.followerSubject
-            .observe(on: MainScheduler.instance)
-            .map({ $0.count })
+
+        viewModel.userSubject
+            .map({ $0.followerUsers.count })
             .subscribe(onNext: {
                 self.followerButton.setTitle("\($0) 팔로워", for: .normal)
             })
             .disposed(by: disposeBag)
         
-        tableView.dataSource = nil
-        if isFollow == true {
-            viewModel.followSubject
-                .observe(on: MainScheduler.instance)
-                .bind(to: tableView.rx.items(cellIdentifier: "FollowTableViewCell", cellType: FollowTableViewCell.self)) { idx, item, cell in
-                    cell.profileImage.image = item.profileImage
-                    cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
-                    cell.profileID.text = item.id
+        
+        viewModel.followState
+            .subscribe(onNext: {
+                if $0 == true {
+                    self.viewModel.userSubject
+                        .map({ $0.followUsers })
+                        .bind(to: self.tableView.rx.items(cellIdentifier: "FollowTableViewCell", cellType: FollowTableViewCell.self)) { idx, item, cell in
+                            cell.profileImage.image = item.profileImage
+                            cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
+                            cell.profileID.text = item.id
+                            self.titleLabel.text = "팔로우"
+                        }
+                        .disposed(by: self.disposeBag)
+                } else {
+                    self.viewModel.userSubject
+                        .map({ $0.followerUsers })
+                        .bind(to: self.tableView.rx.items(cellIdentifier: "FollowTableViewCell", cellType: FollowTableViewCell.self)) { idx, item, cell in
+                            cell.profileImage.image = item.profileImage
+                            cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
+                            cell.profileID.text = item.id
+                            self.titleLabel.text = "팔로워"
+                        }
+                        .disposed(by: self.disposeBag)
                 }
-                .disposed(by: disposeBag)
-        } else {
-            viewModel.followerSubject
-                .observe(on: MainScheduler.instance)
-                .bind(to: tableView.rx.items(cellIdentifier: "FollowTableViewCell", cellType: FollowTableViewCell.self)) { idx, item, cell in
-                    cell.profileImage.image = item.profileImage
-                    cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
-                    cell.profileID.text = item.id
-                }
-                .disposed(by: disposeBag)
-        }
+            }).disposed(by: disposeBag)
+
         
     }
     
@@ -82,24 +86,10 @@ class FollowViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func onFollow(_ sender: Any) {
-//        if isFollow == true {
-//
-//        }
-//        else {
-//            isFollow = !isFollow
-//            updateUI()
-//            self.tableView.reloadData()
-//        }
+        viewModel.followState.onNext(true)
     }
     @IBAction func onFollower(_ sender: Any) {
-//        if isFollow == true {
-//            isFollow = !isFollow
-//            updateUI()
-//            self.tableView.reloadData()
-//        }
-//        else {
-//
-//        }
+        viewModel.followState.onNext(false)
     }
 }
 
@@ -108,9 +98,15 @@ extension FollowViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FriendVC") as? FriendViewController else { return }
   
-//        let users = isFollow == true ? followUsers : followerUsers
-//        let user = users[indexPath.row]
-//        nextVC.user = user
+        var isFollow = Bool()
+        var user = User()
+        do {
+            isFollow = try viewModel.followState.value()
+            let u = try viewModel.userSubject.value()
+            user = isFollow ? u.followUsers[indexPath.row] : u.followerUsers[indexPath.row]
+        } catch { }
+        let friendViewModel = FriendViewModel(user)
+        nextVC.viewModel = friendViewModel
         self.navigationController?.pushViewController(nextVC, animated: true)
         return
     }

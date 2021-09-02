@@ -27,6 +27,7 @@ class ContentViewModel: ContentViewModelType {
 
     
     init(_ posts: [Post] = []) {
+
         postsObservable = BehaviorSubject<[Post]>(value: posts)
    
         // Like
@@ -44,12 +45,7 @@ class ContentViewModel: ContentViewModelType {
             .subscribe(onNext: postsObservable.onNext)
             .disposed(by: disposeBag)
         
-        
-        let uid = AuthManager.shared.currentUid()!
-        DatabaseManager.shared.fetchUser(uid: uid) { [weak self] user in
-            self?.curUserObservable.onNext(user)
-        }
-
+        curUserObservable.onNext(User.currentUser)
         
     }
     

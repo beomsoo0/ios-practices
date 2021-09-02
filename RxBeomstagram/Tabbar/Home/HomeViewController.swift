@@ -20,6 +20,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchUserInfo()
+        fetchPostsInfo()
+        
         tableView.dataSource = nil
         collectionView.dataSource = nil
         
@@ -78,14 +81,49 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         
-        viewModel.postsObservable
-            .subscribe(onNext: {
-                print("!!!")
-                dump($0)
-            })
-            .disposed(by: disposeBag)
     }
 
+    // cur유저 팔로우, comment 유저 정보 fetching
+    func fetchUserInfo() {
+        
+        var user = User()
+        do {
+            user = try viewModel.curUserObservable.value()
+        } catch { }
+        user.fetchFollowUsers() // followUsers Fetching (시간 좀 걸림)
+        user.posts.forEach { post in
+            post.comments.forEach { comment in
+                comment.fetchCommentUser()
+            }
+        }
+        viewModel.curUserObservable.onNext(user)
+    }
+    
+    func fetchPostsInfo() {
+        
+        var posts = [Post]()
+        do {
+            posts = try viewModel.postsObservable.value()
+        } catch { }
+        
+        var uid = [String]()
+        posts.forEach { post in
+            if uid.contains(post.user.uid) == false {
+                post.user.fetchFollowUsers()
+                uid.append(post.user.uid)
+            }
+            post.comments.forEach { comment in
+                comment.fetchCommentUser()
+            }
+        }
+        posts.forEach { post in
+            post.user.posts = post.user.posts.sorted { $0.cuid > $1.cuid }
+        }
+        let sorted = posts.sorted { $0.cuid > $1.cuid }
+        viewModel.postsObservable.onNext(sorted)
+        
+    }
+    
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -133,17 +171,23 @@ class HomeViewController: UIViewController {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CommentVC") as? CommentViewController else { return }
         
         var post = Post()
-        viewModel.postsObservable
-            .map { $0[indexPath.row] }
-            .subscribe(onNext: { post = $0 })
-            .disposed(by: disposeBag)
-        
-        var curUser = User()
-        viewModel.curUserObservable
-            .subscribe(onNext: { curUser = $0 })
-            .disposed(by: disposeBag)
+        do {
+            let posts = try viewModel.postsObservable.value()
+            post = posts[indexPath.row]
+        } catch { }
 
-        let commentViewModel = CommentViewModel(post: post, curUser: curUser)
+        var commentUser = [User]()
+        post.comments.map { comment in
+            DatabaseManager.shared.fetchUser(uid: comment.uid) { user in
+                commentUser.append(user)
+            }
+            
+        }
+
+        
+        
+        
+        let commentViewModel = CommentViewModel(post: post)
         nextVC.viewModel = commentViewModel
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

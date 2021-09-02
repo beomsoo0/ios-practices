@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+
 
 class User {
     
-    static var currentUser: User!
+    static var currentUser = User()
+    
+    static var currentUserRx = BehaviorSubject<User>(value: User())
+    static var allUserRx = BehaviorSubject<[User]>(value: [])
     
     var uid: String
     var id: String
@@ -19,6 +25,9 @@ class User {
     var followers: [String] //Uid
     var follows: [String] // Uid
     var posts: [Post]
+    
+    var followerUsers = [User]()
+    var followUsers = [User]()
     
     init() {
         uid = ""
@@ -42,6 +51,21 @@ class User {
         posts = []
     }
     
+    func fetchFollowUsers() {
+        self.followers.forEach { uid in
+            DatabaseManager.shared.fetchUser(uid: uid) { followers in
+                self.followerUsers.append(followers)
+                print("@@@@@@@", followers)
+            }
+        }
+        self.follows.forEach { uid in
+            DatabaseManager.shared.fetchUser(uid: uid) { follows in
+                self.followUsers.append(follows)
+            }
+        }
+    }
+    
+    
 }
 extension User: Equatable {
     static func == (lhs: User, rhs: User) -> Bool {
@@ -50,6 +74,9 @@ extension User: Equatable {
 }
     
 class Post {
+    
+    static var allPostsRx = BehaviorSubject<[Post]>(value: [])
+    
     var user: User
     var cuid: String
     var image: UIImage
@@ -85,9 +112,16 @@ extension Post: Equatable {
 class Comment {
     var uid: String
     var ment: String
+    var user = User()
     
     init(uid: String, ment: String) {
         self.uid = uid
         self.ment = ment
+    }
+    
+    func fetchCommentUser() {
+        DatabaseManager.shared.fetchUser(uid: uid) { user in
+            self.user = user
+        }
     }
 }

@@ -13,9 +13,7 @@ class ProfileViewController: UIViewController {
     // MARK - Variables
     let viewModel = ProfileViewModel()
     var disposeBag = DisposeBag()
-    
-    var user = User.currentUser!
-    
+
     // MARK - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +21,7 @@ class ProfileViewController: UIViewController {
         
         // id
         viewModel.idText
-            .subscribe(onNext: {
-                self.idLabel.setTitle($0, for: .normal)
-            })
+            .subscribe(onNext: { self.idLabel.setTitle($0, for: .normal) })
             .disposed(by: disposeBag)
         viewModel.idText
             .bind(to: nameLabel.rx.text)
@@ -93,40 +89,26 @@ class ProfileViewController: UIViewController {
     @IBAction func onFollower(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
 
-        var followUids: [String] = []
-        var followerUids: [String] = []
-        
         var user = User(uid: "", id: "", name: "")
         do {
             user = try viewModel.curUserObservable.value()
         } catch {}
-        
-        followUids = user.follows
-        followerUids = user.followers
-        
-        let followViewModel = FollowViewModel(isFollow: false, followUids: followUids, followerUids: followerUids)
+
+        let followViewModel = FollowViewModel(isFollow: false, user: user)
         nextVC.viewModel = followViewModel
-        nextVC.isFollow = false
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func onFollow(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
-        
-        var followUids: [String] = []
-        var followerUids: [String] = []
-        
+
         var user = User(uid: "", id: "", name: "")
         do {
             user = try viewModel.curUserObservable.value()
         } catch {}
-        
-        followUids = user.follows
-        followerUids = user.followers
-        
-        let followViewModel = FollowViewModel(isFollow: true, followUids: followUids, followerUids: followerUids)
+
+        let followViewModel = FollowViewModel(isFollow: true, user: user)
         nextVC.viewModel = followViewModel
-        nextVC.isFollow = true
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

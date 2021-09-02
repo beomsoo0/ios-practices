@@ -6,7 +6,8 @@
 //
 
 import FirebaseDatabase
-
+import RxSwift
+import RxCocoa
 
 public class DatabaseManager {
     
@@ -67,63 +68,20 @@ public class DatabaseManager {
         }
     }
     
+    
+    
     func fetchOtherUsers(completion: @escaping ([User]) -> Void) {
         ref.child("userinfo").observeSingleEvent(of: .value) { (infoSnapShot) in
             var users = [User]()
             for uidSnapShot in infoSnapShot.children.allObjects as! [DataSnapshot] {
                 let values = uidSnapShot.value as? [String: Any]
-                // email[o], id[o], name[o], profileImage[o], description[o], followers[x], follows[x], posts[o]
-                
-                // email, id, name
-                guard let uid = values?["uid"] as? String,
-                      let id = values?["id"] as? String,
-                      let name = values?["name"] as? String else {
-                    return
-                }
-                
-//                if uid != User.currentUser.uid {
-//
-                    let user = User(uid: uid, id: id, name: name)
 
-                    let imgURL = values?["profileImageURL"] as? String
-                    self.downloadImage(url: imgURL) { image in
-                        user.profileImage = image
-                        
-                        //description
-                        if let description = values?["description"] as? String { user.description = description }
-                        
-                        // follower
-                        var followers = [String]()
-                        if let followerDic = values?["follower"] as? [String: String] {
-                            for fuidDic in followerDic {
-                                let followerUid = fuidDic.value
-                                followers.append(followerUid)
-                            }
-                        }
-                        user.followers = followers
-                        
-                        // follow
-                        var follows = [String]()
-                        if let followDic = values?["follow"] as? [String: String] {
-                            for fuidDic in followDic {
-                                let followUid = fuidDic.value
-                                follows.append(followUid)
-                            }
-                        }
-                        user.follows = follows
-                        
-                        // posts
-                        self.fetchUserPosts(user: user, uid: uid) { posts in
-                            user.posts = posts
-                            completion(users)
-                        }
+                if let uid = values?["uid"] as? String {
+                    self.fetchUser(uid: uid) { user in
                         users.append(user)
-//                    }
-                    
-                    
+                        completion(users)
+                    }
                 }
-                
-                
             }
         }
     }
@@ -133,7 +91,7 @@ public class DatabaseManager {
             URLSession.shared.dataTask(with: URL(string: imgURL)!) {
                 data, _, error in
                 if let data = data {
-                    completion(UIImage(data: data)!)
+                    completion(UIImage(data: data) ?? UIImage(named: "default_profile")!)
                 }
             }.resume()
         } else {
@@ -172,6 +130,8 @@ public class DatabaseManager {
             }
         }
         ref.child("userinfo").child(uid).child("posts").observeSingleEvent(of: .value) { (cuidSnapShot) in
+            let limit = cuidSnapShot.childrenCount
+            
             for postSnapShot in cuidSnapShot.children.allObjects as! [DataSnapshot]{
                 let values = postSnapShot.value as? [String: Any]
                 let imgURL = values?["imageURL"] as? String
@@ -181,7 +141,7 @@ public class DatabaseManager {
                     if let cuid = values?["cuid"] as? String,
                         let content = values?["content"] as? String {
                         
-                        var post = Post(user: user, cuid: cuid, image: image, content: content)
+                        let post = Post(user: user, cuid: cuid, image: image, content: content)
                         
                         // likes
                         var likes = [String]()
@@ -204,9 +164,10 @@ public class DatabaseManager {
                             }
                         }
                         post.comments = comments
-                        
                         posts.append(post)
-                        completion(posts)
+                        if limit == posts.count {
+                            completion(posts)
+                        }
                     }
                 }
             }
@@ -253,8 +214,6 @@ public class DatabaseManager {
                                             commentDic.forEach({ key, value in
                                                 let comment = Comment(uid: key, ment: value)
                                                 comments.append(comment)
-                                                
-                                                
                                             })
                                         }
                                     }
@@ -301,7 +260,6 @@ public class DatabaseManager {
         // follow
         let followRef = ref.child("userinfo").child(from.uid).child("follow")
         followRef.updateChildValues([to.name: to.uid])
-//        followRef.setValue([to.name: to.uid])
     }
     
     func deleteFollow(from: User, to: User, completion: @escaping () -> Void) {

@@ -11,6 +11,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.hideKeyboard()
     }
 
@@ -26,10 +27,14 @@ class LoginViewController: UIViewController {
         AuthManager.shared.loginUser(email: emailField.text!, password: passwordField.text!) { success in
             if success {
                 guard let uid = AuthManager.shared.currentUid() else { return }
+
                 DatabaseManager.shared.fetchUser(uid: uid) { user in
+                    user.posts = user.posts.sorted(by: {$0.cuid > $1.cuid })
+                    User.currentUserRx.onNext(user)
                     User.currentUser = user
                     self.presentModalVC(vcName: "TabbarVC")
                 }
+         
             } else {
                 self.alertMessage(message: "로그인 정보를 확인해주세요.")
             }

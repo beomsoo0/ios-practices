@@ -10,10 +10,9 @@ import RxSwift
 import RxCocoa
 
 protocol CommentViewModelType {
-    var postObservable: Observable<Post> { get }
-    var curUserObservable: Observable<User> { get }
-//    var commentObservable: Observable<[Comment]> { get }
-    
+
+    var postSubject: BehaviorSubject<Post> { get }
+    var curUserSubject: BehaviorSubject<User> { get }
     
     var pushCommentObservable: AnyObserver<Comment> { get }
 }
@@ -21,22 +20,17 @@ protocol CommentViewModelType {
 class CommentViewModel: CommentViewModelType {
 
     var disposeBag = DisposeBag()
-    var postObservable: Observable<Post>
-    var curUserObservable: Observable<User>
-//    var commentObservable: Observable<[Comment]>
-//    var usersObservable: Observable<[User]>
+
     var pushCommentObservable: AnyObserver<Comment>
     
-    init(post: Post = Post(), curUser: User = User()) {
+    
+    var postSubject: BehaviorSubject<Post>
+    var curUserSubject: BehaviorSubject<User>
+    
+    init(post: Post = Post()) {
 
-        var postSubject = BehaviorSubject<Post>(value: post)
-        let curUserSubject = BehaviorSubject<User>(value: curUser)
-        
-        postObservable = postSubject.asObserver()
-        curUserObservable = curUserSubject.asObservable()
-            
-//        commentObservable = postObservable.map({ $0.comments })
-
+        postSubject = BehaviorSubject<Post>(value: post)
+        curUserSubject = User.currentUserRx
         
         // 댓글달기
         let pushCommentSubject = PublishSubject<Comment>()

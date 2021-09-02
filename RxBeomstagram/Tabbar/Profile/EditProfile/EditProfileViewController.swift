@@ -10,7 +10,7 @@ import UIKit
 class EditProfileViewController: UIViewController {
 
     // MARK - Variables
-    var user = User.currentUser!
+    var user = User.currentUser
     var changeImage: UIImage?
 
     // MARK - Life Cycles
@@ -53,10 +53,35 @@ class EditProfileViewController: UIViewController {
         DatabaseManager.shared.editProfile(image: profileImage.image!, description: descriptionLabel.text!, name: name.text!, id: id.text!) { success in
             if success {
                 guard let uid = AuthManager.shared.currentUid() else { return }
-                DatabaseManager.shared.fetchUser(uid: uid) { user in
-                    self.user = user
-                    self.navigationPopToTabbarIdx(idx: 4)
-                }
+                
+                var curUser = User()
+                var allPosts = [Post]()
+                var allUsers = [User]()
+                do{
+                    curUser = try User.currentUserRx.value()
+                    allPosts = try Post.allPostsRx.value()
+                    allUsers = try User.allUserRx.value()
+                } catch { }
+                curUser.profileImage = self.profileImage.image!
+                curUser.description = self.descriptionLabel.text!
+                curUser.name = self.name.text!
+                curUser.id = self.id.text!
+                
+                allPosts.forEach({ post in
+                    if post.user.uid == uid {
+                        post.user = curUser
+                    }
+                })
+                
+                allUsers = allUsers.filter { $0.uid != uid }
+                allUsers.insert(curUser, at: 0)
+                
+                User.currentUserRx.onNext(curUser)
+                Post.allPostsRx.onNext(allPosts)
+                User.allUserRx.onNext(allUsers)
+                
+                self.navigationPopToTabbarIdx(idx: 4)
+                
             } else {
                 self.alertMessage(message: "프로필 업로드에 실패했습니다")
             }

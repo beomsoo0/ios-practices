@@ -17,9 +17,9 @@ protocol HomeViewModelType {
 
 class HomeViewModel: HomeViewModelType {
 
-    let usersObservable = BehaviorSubject<[User]>(value: [])
-    let postsObservable = BehaviorSubject<[Post]>(value: [])
-    let curUserObservable = BehaviorSubject<User>(value: User(uid: "", id: "", name: ""))
+    let usersObservable:  BehaviorSubject<[User]>
+    let postsObservable: BehaviorSubject<[Post]>
+    let curUserObservable: BehaviorSubject<User>
 
     let disposeBag = DisposeBag()
     
@@ -29,6 +29,10 @@ class HomeViewModel: HomeViewModelType {
     
     init() {
 
+        usersObservable = User.allUserRx
+        postsObservable = Post.allPostsRx
+        curUserObservable = User.currentUserRx
+        
         // Like
         let likeSubject = PublishSubject<(post: Post, isLike: Bool)>()
         
@@ -44,17 +48,10 @@ class HomeViewModel: HomeViewModelType {
             .subscribe(onNext: postsObservable.onNext)
             .disposed(by: disposeBag)
 
-        DatabaseManager.shared.fetchOtherUsers { [weak self] user in
-            self?.usersObservable.onNext(user)
-        }
-        DatabaseManager.shared.fetchAllPosts { [weak self] post in
-            self?.postsObservable.onNext(post)
-        }
-
-        let uid = AuthManager.shared.currentUid()!
-        DatabaseManager.shared.fetchUser(uid: uid) { [weak self] user in
-            self?.curUserObservable.onNext(user)
-        }
+        
+       
+        
+        
 
     }
     

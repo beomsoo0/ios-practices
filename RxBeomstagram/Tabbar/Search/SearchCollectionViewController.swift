@@ -24,9 +24,9 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
             posts = try viewModel.postsObservable.value()
         } catch { }
         
+        posts.swapAt(0, indexPath.item)
         let contentViewModel = ContentViewModel(posts)
         nextVC.viewModel = contentViewModel
-//        nextVC.allPosts = allPosts
         nextVC.indexPath = indexPath
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

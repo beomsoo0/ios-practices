@@ -36,11 +36,7 @@ class ProfileViewModel : ProfileViewModelType{
 
     init() {
         
-        curUserObservable = BehaviorSubject<User>(value: User(uid: "", id: "", name: ""))
-
-        let curUser = User.currentUser!
-        curUserObservable.onNext(curUser)
-        
+        curUserObservable = User.currentUserRx
 
         idText = curUserObservable.map { $0.id }
         profileImage = curUserObservable.map { $0.profileImage }

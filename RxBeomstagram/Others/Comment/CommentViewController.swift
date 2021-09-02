@@ -25,8 +25,6 @@ class CommentViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    
-    
     var post: Post!
     var users: [User] = []
     var comments: [Comment] = []
@@ -35,33 +33,27 @@ class CommentViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
 
-        viewModel.postObservable
+        viewModel.postSubject
             .map({ $0.image })
             .bind(to: postUserProfile.rx.image)
             .disposed(by: disposeBag)
         
-        viewModel.postObservable
+        viewModel.postSubject
             .map({ $0.content })
             .bind(to: postContent.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.postObservable
+        viewModel.postSubject
             .map { $0.comments }
 //        commentObservable
             .bind(to: tableView.rx.items(cellIdentifier: "CommentTableViewCell", cellType: CommentTableViewCell.self)) { index, item, cell in
                 cell.commentText.text = item.ment
-    
-                // User 정보 가지고 있게 구현 예정
-                DatabaseManager.shared.fetchUser(uid: item.uid) { user in
-                    DispatchQueue.main.async {
-                        cell.commentProfile.image = user.profileImage
-                        cell.commentProfile.layer.cornerRadius = cell.commentProfile.bounds.width * 0.5
-                    }
-                }
+                cell.commentProfile.image = item.user.profileImage
+                cell.commentProfile.layer.cornerRadius = cell.commentProfile.bounds.width * 0.5
             }
             .disposed(by: disposeBag)
 
-        viewModel.curUserObservable
+        viewModel.curUserSubject
             .map({ $0.profileImage })
             .bind(to: curUserProfile.rx.image)
             .disposed(by: disposeBag)
@@ -72,8 +64,7 @@ class CommentViewController: UIViewController {
 
     func updateUI() {
         self.navigationItem.title = "댓글"
-        postUserProfile.layer.cornerRadius = postUserProfile.bounds.width * 0.5
-//        curUserProfile.layer.cornerRadius = curUserProfile.bounds.width * 0.5
+        curUserProfile.layer.cornerRadius = curUserProfile.bounds.width * 0.5
     }
     
     
@@ -87,14 +78,22 @@ class CommentViewController: UIViewController {
     @IBAction func onPushComment(_ sender: UIButton) {
         
         let comment = Comment(uid: AuthManager.shared.currentUid()!, ment: inputTextField.text ?? "")
-        viewModel.pushCommentObservable.onNext(comment)
-
         var post = Post()
-        viewModel.postObservable
+        do {
+            comment.user = try viewModel.curUserSubject.value()
+            post = try viewModel.postSubject.value()
+        } catch {}
+        
+        viewModel.pushCommentObservable.onNext(comment)
+        Post.allPostsRx
             .subscribe(onNext: {
-                post = $0
+                $0.map { p in
+                    if p.cuid == post.cuid {
+                        p.comments.append(comment)
+                    }
+                }
             })
-            .dispose()
+            .disposed(by: disposeBag)
 
         DatabaseManager.shared.pushComment(post: post, comment: comment, completion: {})
         
@@ -106,7 +105,14 @@ extension CommentViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FriendVC") as? FriendViewController else { return }
-//        nextVC.user = users[indexPath.row]
+        
+        var post = Post()
+        do {
+            post = try viewModel.postSubject.value()
+        } catch {}
+        let user = post.comments[indexPath.row].user
+        let friendViewModel = FriendViewModel(user)
+        nextVC.viewModel = friendViewModel
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

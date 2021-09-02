@@ -24,6 +24,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDeleg
            posts = try viewModel.curUserObservable.value().posts
         } catch { }
         
+        posts.swapAt(0, indexPath.item)
         let contentViewModel = ContentViewModel(posts)
         nextVC.viewModel = contentViewModel
         nextVC.indexPath = indexPath

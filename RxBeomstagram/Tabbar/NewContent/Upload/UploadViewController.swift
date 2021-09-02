@@ -35,18 +35,29 @@ class UploadViewController: UIViewController {
             if success {
                 //curUser reparsing
                 guard let uid = AuthManager.shared.currentUid() else { return }
+
+                var curUser = User()
+                var allPosts = [Post]()
+                var allUsers = [User]()
+                do{
+                    curUser = try User.currentUserRx.value()
+                    allPosts = try Post.allPostsRx.value()
+                    allUsers = try User.allUserRx.value()
+                } catch { }
+                let post = Post(user: curUser, cuid: uid, image: image, content: content ?? "")
+                curUser.posts.insert(post, at: 0)
+                allPosts.insert(post, at: 0)
+                allUsers.forEach({
+                    if $0.uid == uid {
+                        $0.posts.insert(post, at: 0)
+                    }
+                })
                 
-                guard let homeVC = self.storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController else { return }
-                
-                // home reload [x]
-                let curUser = User.currentUser!
-                curUser.posts.append(Post(user: curUser, cuid: uid, image: image, content: content ?? ""))
-                homeVC.viewModel.curUserObservable.onNext(curUser)
- 
-                DatabaseManager.shared.fetchUser(uid: uid) { user in
-                    User.currentUser = user
-                    self.navigationPopToTabbarIdx(idx: 0)
-                }
+                User.currentUserRx.onNext(curUser)
+                Post.allPostsRx.onNext(allPosts)
+                User.allUserRx.onNext(allUsers)
+
+                self.navigationPopToTabbarIdx(idx: 0)
             }
             else {
                 self.alertMessage(message: "게시물 업로드에 실패하였습니다")

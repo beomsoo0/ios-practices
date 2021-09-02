@@ -12,6 +12,8 @@ import RxCocoa
 protocol FollowViewModelType {
     var followSubject: BehaviorSubject<[User]> { get }
     var followerSubject: BehaviorSubject<[User]> { get }
+    var userSubject: BehaviorSubject<User> { get }
+    var followState: BehaviorSubject<Bool> { get }
 }
 
 class FollowViewModel: FollowViewModelType {
@@ -19,23 +21,13 @@ class FollowViewModel: FollowViewModelType {
     var followSubject = BehaviorSubject<[User]>(value: [])
     var followerSubject = BehaviorSubject<[User]>(value: [])
     
-    init(isFollow: Bool = false, followUids: [String] = [], followerUids: [String] = []) {
+    var userSubject: BehaviorSubject<User>
+    var followState: BehaviorSubject<Bool>
+    
+    init(isFollow: Bool = false, user: User = User()) {
         
-        var followUsers: [User] = []
-        for followUid in followUids {
-            DatabaseManager.shared.fetchUser(uid: followUid) { [weak self] user in
-                followUsers.append(user)
-                self?.followSubject.onNext(followUsers)
-            }
-        }
-        
-        var followerUsers: [User] = []
-        for followerUid in followerUids {
-            DatabaseManager.shared.fetchUser(uid: followerUid) { [weak self] user in
-                followerUsers.append(user)
-                self?.followerSubject.onNext(followerUsers)
-            }
-        }
+        userSubject = BehaviorSubject<User>(value: user)
+        followState = BehaviorSubject<Bool>(value: isFollow)
         
     }
     

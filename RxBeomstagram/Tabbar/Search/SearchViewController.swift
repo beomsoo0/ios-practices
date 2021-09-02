@@ -11,9 +11,6 @@ import RxCocoa
 
 class SearchViewController: UIViewController {
 
-    var allPosts = [Post]()
-    
-    
     let viewModel = SearchViewModel()
     var disposeBag = DisposeBag()
     
@@ -21,6 +18,7 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
 
         collectionView.dataSource = nil
+        
         viewModel.postsObservable
             .observe(on: MainScheduler.instance)
             .bind(to: collectionView.rx.items(cellIdentifier: "SearchCollectionViewCell", cellType: SearchCollectionViewCell.self)) { index, item, cell in

@@ -15,10 +15,8 @@ class SearchViewModel {
     
     init() {
         
-        DatabaseManager.shared.fetchAllPosts { [weak self] posts in
-            self?.postsObservable.onNext(posts)
-        }
-        
+        postsObservable = Post.allPostsRx
+
     }
     
     

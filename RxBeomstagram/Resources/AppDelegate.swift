@@ -12,13 +12,25 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        
+        fetchUserInfo()
+        
         return true
     }
 
+    // posts, users 정보 fetching && 팔로워, 댓글 유저 정보
+    func fetchUserInfo() {
+        DatabaseManager.shared.fetchOtherUsers { users in
+            User.allUserRx.onNext(users)
+        }
+        DatabaseManager.shared.fetchAllPosts { posts in
+            Post.allPostsRx.onNext(posts)
+        }
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

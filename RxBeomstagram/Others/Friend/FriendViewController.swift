@@ -29,6 +29,8 @@ class FriendViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchFollowInfo()
+        
         viewModel.idText
             .subscribe(onNext: {
                 self.navigationItem.title = $0
@@ -97,6 +99,18 @@ class FriendViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
     
+    func fetchFollowInfo() {
+        var user = User()
+        do {
+            user = try viewModel.userSubject.value()
+        } catch { }
+
+        user.fetchFollowUsers()
+
+        viewModel.userSubject.onNext(user)
+    }
+    
+    
     // MARK - UI functions
     func updateUI() {
         profileImage.layer.cornerRadius = profileImage.bounds.width * 0.5
@@ -127,40 +141,26 @@ class FriendViewController: UIViewController {
     @IBAction func onFollower(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
 
-        var followUids: [String] = []
-        var followerUids: [String] = []
-        
         var user = User(uid: "", id: "", name: "")
         do {
             user = try viewModel.userSubject.value()
         } catch {}
-        
-        followUids = user.follows
-        followerUids = user.followers
-        
-        let followViewModel = FollowViewModel(isFollow: false, followUids: followUids, followerUids: followerUids)
+
+        let followViewModel = FollowViewModel(isFollow: false, user: user)
         nextVC.viewModel = followViewModel
-        nextVC.isFollow = false
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func onFollow(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "FollowVC") as? FollowViewController else { return }
 
-        var followUids: [String] = []
-        var followerUids: [String] = []
-        
         var user = User(uid: "", id: "", name: "")
         do {
             user = try viewModel.userSubject.value()
         } catch {}
-        
-        followUids = user.follows
-        followerUids = user.followers
-        
-        let followViewModel = FollowViewModel(isFollow: true, followUids: followUids, followerUids: followerUids)
+
+        let followViewModel = FollowViewModel(isFollow: true, user: user)
         nextVC.viewModel = followViewModel
-        nextVC.isFollow = true
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -184,7 +184,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDelega
         do {
             posts = try viewModel.userSubject.value().posts
         } catch { }
-        
+        posts.swapAt(0, indexPath.item)
         let contentViewModel = ContentViewModel(posts)
         nextVC.viewModel = contentViewModel
         nextVC.indexPath = indexPath
