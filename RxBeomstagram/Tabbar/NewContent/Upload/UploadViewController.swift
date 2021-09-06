@@ -44,6 +44,11 @@ class UploadViewController: UIViewController {
                     allPosts = try Post.allPostsRx.value()
                     allUsers = try User.allUserRx.value()
                 } catch { }
+                
+  
+                
+                
+                
                 let post = Post(user: curUser, cuid: uid, image: image, content: content ?? "")
                 curUser.posts.insert(post, at: 0)
                 allPosts.insert(post, at: 0)

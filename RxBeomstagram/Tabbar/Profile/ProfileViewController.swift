@@ -134,4 +134,11 @@ class ProfileViewController: UIViewController {
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
+    @IBAction func onChange(_ sender: Any) {
+        User.currentUser.id = "바뀜"
+
+        User.currentUserRx
+            .onNext(User.currentUser)
+            
+    }
 }

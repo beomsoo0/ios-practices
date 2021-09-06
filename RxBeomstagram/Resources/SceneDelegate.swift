@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,7 +18,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+
+        fetchUserInfo()
+        
+        if Auth.auth().currentUser?.uid != nil {
+            DatabaseManager.shared.fetchUser(uid: Auth.auth().currentUser!.uid) { user in
+                user.posts = user.posts.sorted(by: {$0.cuid > $1.cuid })
+                User.currentUser = user
+                User.currentUserRx.onNext(User.currentUser)
+            }
+        
+            let story = UIStoryboard(name: "Main", bundle: nil)
+            let tabbar = story.instantiateViewController(identifier: "TabbarVC") as! UITabBarController
+            self.window?.rootViewController = tabbar
+        }
+        
     }
+    
+    func fetchUserInfo() {
+        DatabaseManager.shared.fetchOtherUsers { users in
+            User.allUserRx.onNext(users)
+        }
+        DatabaseManager.shared.fetchAllPosts { posts in
+            Post.allPostsRx.onNext(posts)
+        }
+    }
+    
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

@@ -10,15 +10,6 @@ import RxSwift
 import RxCocoa
 
 extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-//        if indexPath.row == indexPath.last {
-//            DatabaseManager.shared.fetchAllPosts { [weak self] posts in
-//                self?.viewModel.postsObservable.onNext(posts)
-//            }
-//            print("끝")
-//        }
-    }
 }
 
 class HomeTableViewCell: UITableViewCell {

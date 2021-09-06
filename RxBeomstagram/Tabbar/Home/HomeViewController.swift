@@ -11,9 +11,10 @@ import RxCocoa
 
 class HomeViewController: UIViewController {
 
-    var allPosts = [Post]()
-    var otherUsers = [User]()
-    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var addContentButton: UIButton!
+
     let viewModel = HomeViewModel()
     var disposeBag = DisposeBag()
     
@@ -76,6 +77,17 @@ class HomeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        
+        // Buttons
+        addContentButton.rx.tap
+            .subscribe(onNext: {
+                self.tabBarController?.selectedIndex = 2
+            })
+            .disposed(by: disposeBag)
+        
+        
+        
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -122,14 +134,6 @@ class HomeViewController: UIViewController {
         let sorted = posts.sorted { $0.cuid > $1.cuid }
         viewModel.postsObservable.onNext(sorted)
         
-    }
-    
-
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var collectionView: UICollectionView!
-    
-    @IBAction func onAddContent(_ sender: Any) {
-        self.tabBarController?.selectedIndex = 2
     }
     
     func findIndexTableButton(_ sender: UIButton) -> IndexPath {
@@ -181,12 +185,7 @@ class HomeViewController: UIViewController {
             DatabaseManager.shared.fetchUser(uid: comment.uid) { user in
                 commentUser.append(user)
             }
-            
         }
-
-        
-        
-        
         let commentViewModel = CommentViewModel(post: post)
         nextVC.viewModel = commentViewModel
         self.navigationController?.pushViewController(nextVC, animated: true)

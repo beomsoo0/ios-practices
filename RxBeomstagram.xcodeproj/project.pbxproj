@@ -29,6 +29,8 @@
 		D837D95826D4CE5100F34743 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95726D4CE5100F34743 /* SettingViewModel.swift */; };
 		D837D95B26D4D88300F34743 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95A26D4D88300F34743 /* ContentViewController.swift */; };
 		D837D95D26D4E18500F34743 /* SearchCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95C26D4E18500F34743 /* SearchCollectionViewController.swift */; };
+		D85B3F2C26E5F0C6006FD628 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85B3F2B26E5F0C6006FD628 /* LoginViewModel.swift */; };
+		D85B3F2E26E5FCF6006FD628 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85B3F2D26E5FCF6006FD628 /* RegisterViewModel.swift */; };
 		D86132F126CB767F00E4D718 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F026CB767F00E4D718 /* AppDelegate.swift */; };
 		D86132F326CB767F00E4D718 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F226CB767F00E4D718 /* SceneDelegate.swift */; };
 		D86132F526CB767F00E4D718 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F426CB767F00E4D718 /* LoginViewController.swift */; };
@@ -78,6 +80,8 @@
 		D837D95726D4CE5100F34743 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		D837D95A26D4D88300F34743 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		D837D95C26D4E18500F34743 /* SearchCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewController.swift; sourceTree = "<group>"; };
+		D85B3F2B26E5F0C6006FD628 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		D85B3F2D26E5FCF6006FD628 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		D86132ED26CB767F00E4D718 /* RxBeomstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxBeomstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D86132F026CB767F00E4D718 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D86132F226CB767F00E4D718 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -291,7 +295,9 @@
 			isa = PBXGroup;
 			children = (
 				D86132F426CB767F00E4D718 /* LoginViewController.swift */,
+				D85B3F2B26E5F0C6006FD628 /* LoginViewModel.swift */,
 				D861330826CB791300E4D718 /* RegisterViewController.swift */,
+				D85B3F2D26E5FCF6006FD628 /* RegisterViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -466,8 +472,10 @@
 				D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */,
 				D861331626CBABAB00E4D718 /* Models.swift in Sources */,
 				D821DC4E26D89A4200B36CE1 /* HomeCollectionViewController.swift in Sources */,
+				D85B3F2C26E5F0C6006FD628 /* LoginViewModel.swift in Sources */,
 				D861332126CBC9AF00E4D718 /* UploadViewController.swift in Sources */,
 				D86132F526CB767F00E4D718 /* LoginViewController.swift in Sources */,
+				D85B3F2E26E5FCF6006FD628 /* RegisterViewModel.swift in Sources */,
 				D837D95426D4CDB700F34743 /* GalleryCell.swift in Sources */,
 				D86132F126CB767F00E4D718 /* AppDelegate.swift in Sources */,
 				D837D94826D4B64800F34743 /* SettingViewController.swift in Sources */,

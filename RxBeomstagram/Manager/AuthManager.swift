@@ -13,13 +13,8 @@ public class AuthManager {
     
     // Create User
     public func createNewUser(email: String, password: String, name: String, id: String, completion: @escaping (Bool) -> Void) {
-        guard !email.isEmpty, email.contains("@"), email.contains("."), !password.isEmpty, password.count >= 8, !name.isEmpty, !id.isEmpty  else {
-            completion(false)
-            return
-        }
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             guard let authResult = authResult, error == nil else {
-                print("계정 생성 실패 \(error.debugDescription)")
                 completion(false)
                 return
             }
@@ -31,13 +26,8 @@ public class AuthManager {
     }
     // Login User
     public func loginUser(email: String, password: String, completion: @escaping (Bool) -> Void) {
-        guard !email.isEmpty, !password.isEmpty else {
-            completion(false)
-            return
-        }
         Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
             guard authResult != nil, error == nil else {
-                print(error.debugDescription)
                 completion(false)
                 return
             }

@@ -17,12 +17,12 @@ protocol HomeViewModelType {
 
 class HomeViewModel: HomeViewModelType {
 
+    let disposeBag = DisposeBag()
+    
     let usersObservable:  BehaviorSubject<[User]>
     let postsObservable: BehaviorSubject<[Post]>
     let curUserObservable: BehaviorSubject<User>
 
-    let disposeBag = DisposeBag()
-    
     let likeObserver: AnyObserver<(post: Post, isLike: Bool)>
 
     
@@ -48,10 +48,6 @@ class HomeViewModel: HomeViewModelType {
             .subscribe(onNext: postsObservable.onNext)
             .disposed(by: disposeBag)
 
-        
-       
-        
-        
 
     }
     
