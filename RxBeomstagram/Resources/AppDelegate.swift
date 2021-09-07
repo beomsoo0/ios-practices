@@ -11,17 +11,11 @@ import Firebase
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
- 
-        
         return true
     }
-
-    // posts, users 정보 fetching && 팔로워, 댓글 유저 정보
  
     // MARK: UISceneSession Lifecycle
 

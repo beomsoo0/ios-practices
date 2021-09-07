@@ -18,15 +18,15 @@ class HomeViewController: UIViewController {
     let viewModel = HomeViewModel()
     var disposeBag = DisposeBag()
     
+    weak var coordinator: HomeCoordinator?
+    var delegate: ViewControllerHandler?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         fetchUserInfo()
         fetchPostsInfo()
-        
-        tableView.dataSource = nil
-        collectionView.dataSource = nil
-        
+
         // story
         viewModel.usersObservable
             .map({ users -> [User] in
@@ -181,7 +181,7 @@ class HomeViewController: UIViewController {
         } catch { }
 
         var commentUser = [User]()
-        post.comments.map { comment in
+        post.comments.forEach { comment in
             DatabaseManager.shared.fetchUser(uid: comment.uid) { user in
                 commentUser.append(user)
             }

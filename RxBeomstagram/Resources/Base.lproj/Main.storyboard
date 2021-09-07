@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jql-82-R04">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -615,7 +615,7 @@
         <!--Search View Controller-->
         <scene sceneID="zbF-Aq-tZq">
             <objects>
-                <viewController id="awC-dc-62u" customClass="SearchViewController" customModule="RxBeomstagram" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchVC" id="awC-dc-62u" customClass="SearchViewController" customModule="RxBeomstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2xf-vx-cSh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1040,7 +1040,7 @@
         <!--New Content View Controller-->
         <scene sceneID="Dm2-8c-blo">
             <objects>
-                <viewController id="sPT-l2-TG0" customClass="NewContentViewController" customModule="RxBeomstagram" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewContentVC" id="sPT-l2-TG0" customClass="NewContentViewController" customModule="RxBeomstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pvl-d1-uDX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1687,10 +1687,10 @@
             </objects>
             <point key="canvasLocation" x="2528.985507246377" y="1249.5535714285713"/>
         </scene>
-        <!--View Controller-->
+        <!--Four View Controller-->
         <scene sceneID="p7n-V9-T0Y">
             <objects>
-                <viewController id="Gs7-PW-MuZ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FourVC" id="Gs7-PW-MuZ" customClass="FourViewController" customModule="RxBeomstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qQJ-t3-Hdn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

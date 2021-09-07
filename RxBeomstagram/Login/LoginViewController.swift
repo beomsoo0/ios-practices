@@ -14,13 +14,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var findPasswordButton: UIButton!
     @IBOutlet weak var facebookLoginButton: UIButton!
     
     let viewModel = LoginViewModel()
     let disposeBag = DisposeBag()
+    var coordinator: AppCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,15 +49,8 @@ class LoginViewController: UIViewController {
             .subscribe(onNext: {
                 AuthManager.shared.loginUser(email: self.emailField.text!, password: self.passwordField.text!) { [weak self] success in
                     if success {
-                        guard let uid = AuthManager.shared.currentUid() else { return }
-
-                        DatabaseManager.shared.fetchUser(uid: uid) { user in
-                            user.posts = user.posts.sorted(by: {$0.cuid > $1.cuid })
-
-                            User.currentUser = user
-                            User.currentUserRx.onNext(User.currentUser )
-                            self?.presentModalVC(vcName: "TabbarVC")
-                        }
+                        
+                        self?.coordinator?.pushHomeVC()
                     } else {
                         self?.alertMessage(message: "로그인 정보를 확인해주세요.")
                     }

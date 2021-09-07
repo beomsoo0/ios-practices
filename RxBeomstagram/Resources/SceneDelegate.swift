@@ -12,7 +12,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -21,17 +20,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         fetchUserInfo()
         
-        if Auth.auth().currentUser?.uid != nil {
-            DatabaseManager.shared.fetchUser(uid: Auth.auth().currentUser!.uid) { user in
-                user.posts = user.posts.sorted(by: {$0.cuid > $1.cuid })
-                User.currentUser = user
-                User.currentUserRx.onNext(User.currentUser)
-            }
-        
-            let story = UIStoryboard(name: "Main", bundle: nil)
-            let tabbar = story.instantiateViewController(identifier: "TabbarVC") as! UITabBarController
-            self.window?.rootViewController = tabbar
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            self.window = window
+
+            let navigationController = UINavigationController()
+            self.window?.rootViewController = navigationController
+            let coordinator = AppCoordinator(navigationController: navigationController)
+            coordinator.start()
+
+            self.window?.makeKeyAndVisible()
         }
+        
+        
+//        if Auth.auth().currentUser?.uid != nil {
+//            DatabaseManager.shared.fetchUser(uid: Auth.auth().currentUser!.uid) { user in
+//                user.posts = user.posts.sorted(by: {$0.cuid > $1.cuid })
+//                User.currentUser = user
+//                User.currentUserRx.onNext(User.currentUser)
+//            }
+//
+//            let story = UIStoryboard(name: "Main", bundle: nil)
+//            let tabbar = story.instantiateViewController(identifier: "TabbarVC") as! UITabBarController
+//            self.window?.rootViewController = tabbar
+//        }
         
     }
     
