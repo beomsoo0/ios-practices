@@ -14,6 +14,7 @@
 		D821DC4C26D88C1B00B36CE1 /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4B26D88C1B00B36CE1 /* FollowViewController.swift */; };
 		D821DC4E26D89A4200B36CE1 /* HomeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4D26D89A4200B36CE1 /* HomeCollectionViewController.swift */; };
 		D821DC5026D8DAFA00B36CE1 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4F26D8DAFA00B36CE1 /* CommentViewController.swift */; };
+		D82F662E26E87B8A0032D8CB /* Coordinaotor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F662D26E87B8A0032D8CB /* Coordinaotor.swift */; };
 		D8318E6326DDDC3700F346BE /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318E6226DDDC3700F346BE /* ContentViewModel.swift */; };
 		D8318E6826DDE50900F346BE /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318E6726DDE50900F346BE /* CommentViewModel.swift */; };
 		D834551B26E7219F00319C02 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834551A26E7219F00319C02 /* AppCoordinator.swift */; };
@@ -72,6 +73,7 @@
 		D821DC4B26D88C1B00B36CE1 /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		D821DC4D26D89A4200B36CE1 /* HomeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewController.swift; sourceTree = "<group>"; };
 		D821DC4F26D8DAFA00B36CE1 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		D82F662D26E87B8A0032D8CB /* Coordinaotor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinaotor.swift; sourceTree = "<group>"; };
 		D8318E6226DDDC3700F346BE /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		D8318E6726DDE50900F346BE /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		D834551A26E7219F00319C02 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		D834551926E7218A00319C02 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				D82F662D26E87B8A0032D8CB /* Coordinaotor.swift */,
 				D834551A26E7219F00319C02 /* AppCoordinator.swift */,
 				D834552026E735BC00319C02 /* HomeCoordinator.swift */,
 				D834552226E787EB00319C02 /* SearchCoordinator.swift */,
@@ -533,6 +536,7 @@
 				D821DC5026D8DAFA00B36CE1 /* CommentViewController.swift in Sources */,
 				D861330D26CBAA9700E4D718 /* AuthManager.swift in Sources */,
 				D861331F26CBBA3300E4D718 /* NewContentViewController.swift in Sources */,
+				D82F662E26E87B8A0032D8CB /* Coordinaotor.swift in Sources */,
 				D834552526E787F400319C02 /* NewContentCoordinator.swift in Sources */,
 				D837D94326D4B02500F34743 /* HomeTableViewController.swift in Sources */,
 				D834552326E787EB00319C02 /* SearchCoordinator.swift in Sources */,

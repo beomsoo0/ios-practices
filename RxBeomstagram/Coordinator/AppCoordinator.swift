@@ -8,24 +8,6 @@
 import UIKit
 import FirebaseAuth
 
-protocol ViewControllerHandler: AnyObject {
-    func click(event: Event)
-}
-
-enum Event {
-    case push
-    case pop
-    case present
-    case dismiss
-}
-
-protocol Coordinator {
-    var parentCoordinator: Coordinator? { get set }
-    var childCoordinators: [Coordinator] { get set }
-    func start()
-    
-}
-
 class AppCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinators = [Coordinator]()
@@ -61,7 +43,6 @@ class AppCoordinator: Coordinator {
         home.parentCoordinator = self
         childCoordinators.append(home)
         let homeVC = home.startPush()
-        
         
         let search = SearchCoordinator()
         search.parentCoordinator = self

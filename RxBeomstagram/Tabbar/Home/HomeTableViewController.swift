@@ -9,10 +9,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-extension HomeViewController: UITableViewDelegate {
-}
-
 class HomeTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var profileID: UIButton!
     @IBOutlet weak var postImage: UIImageView!
@@ -21,9 +19,9 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var curProfileImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
-    
+
     var isLike: Bool!
     var post: Post!
-
+    
 }
 

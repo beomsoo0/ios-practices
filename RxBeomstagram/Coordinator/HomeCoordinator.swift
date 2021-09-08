@@ -28,15 +28,32 @@ class HomeCoordinator: Coordinator {
             let vc = story.instantiateViewController(identifier: "TabbarVC") as! UITabBarController
             self.navigationController.pushViewController(vc, animated: false)
         }
-       
     }
     
     func startPush() -> UINavigationController {
         let story = UIStoryboard(name: "Main", bundle: nil)
         let firstVC = story.instantiateViewController(identifier: "HomeVC") as! HomeViewController
+        firstVC.coordinator = self
         firstVC.navigationController?.isNavigationBarHidden = true
         navigationController.setViewControllers([firstVC], animated: false)
         return navigationController
     }
+    
+    func pushFriendVC(model: FriendViewModel) {
+        let story = UIStoryboard(name: "Main", bundle: nil)
+        guard let nextVC = story.instantiateViewController(identifier: "FriendVC") as? FriendViewController else { return }
+        nextVC.viewModel = model
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+//    func tabbarIndex(index: Int) {
+//        let story = UIStoryboard(name: "Main", bundle: nil)
+//        
+//        let homeVC = story.instantiateViewController(identifier: "HomeVC") as! HomeViewController
+//        homeVC.tabBarController?.selectedIndex = index
+//
+//        let tabbarVC = story.instantiateViewController(identifier: "TabbarVC") as! UITabBarController
+//        tabbarVC.selectedIndex = index
+//    }
     
 }

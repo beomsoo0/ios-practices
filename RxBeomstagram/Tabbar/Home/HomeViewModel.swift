@@ -64,6 +64,45 @@ class HomeViewModel: HomeViewModelType {
         return post
     }
     
+    // cur유저 팔로우, comment 유저 정보 fetching
+    func fetchUserInfo() {
+        
+        var user = User()
+        do {
+            user = try self.curUserObservable.value()
+        } catch { }
+        user.fetchFollowUsers() // followUsers Fetching (시간 좀 걸림)
+        user.posts.forEach { post in
+            post.comments.forEach { comment in
+                comment.fetchCommentUser()
+            }
+        }
+        self.curUserObservable.onNext(user)
+    }
     
+    func fetchPostsInfo() {
+        
+        var posts = [Post]()
+        do {
+            posts = try self.postsObservable.value()
+        } catch { }
+        
+        var uid = [String]()
+        posts.forEach { post in
+            if uid.contains(post.user.uid) == false {
+                post.user.fetchFollowUsers()
+                uid.append(post.user.uid)
+            }
+            post.comments.forEach { comment in
+                comment.fetchCommentUser()
+            }
+        }
+        posts.forEach { post in
+            post.user.posts = post.user.posts.sorted { $0.cuid > $1.cuid }
+        }
+        let sorted = posts.sorted { $0.cuid > $1.cuid }
+        self.postsObservable.onNext(sorted)
+        
+    }
     
 }

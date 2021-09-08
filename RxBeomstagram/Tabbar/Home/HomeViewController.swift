@@ -19,13 +19,12 @@ class HomeViewController: UIViewController {
     var disposeBag = DisposeBag()
     
     weak var coordinator: HomeCoordinator?
-    var delegate: ViewControllerHandler?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        fetchUserInfo()
-        fetchPostsInfo()
+        viewModel.fetchUserInfo()
+        viewModel.fetchPostsInfo()
 
         // story
         viewModel.usersObservable
@@ -59,6 +58,15 @@ class HomeViewController: UIViewController {
                 cell.profileImage.image = user.profileImage
                 cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.width * 0.5
                 cell.profileID.setTitle(user.id, for: .normal)
+                
+//                cell.profileID.rx.tap
+//                    .subscribe(onNext: {
+//                        let friendViewModel = FriendViewModel(user)
+//                        self.coordinator?.pushFriendVC(model: friendViewModel)
+//                    })
+//                    .disposed(by: self.disposeBag)
+                
+                
                 cell.postImage.image = post.image
                 
                 cell.postContentLabel.text = user.id + "  " + post.content
@@ -81,59 +89,17 @@ class HomeViewController: UIViewController {
         // Buttons
         addContentButton.rx.tap
             .subscribe(onNext: {
+//                 self.coordinator?.tabbarIndex(index: 2)
                 self.tabBarController?.selectedIndex = 2
             })
             .disposed(by: disposeBag)
-        
-        
-        
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
+
         
     }
 
-    // cur유저 팔로우, comment 유저 정보 fetching
-    func fetchUserInfo() {
-        
-        var user = User()
-        do {
-            user = try viewModel.curUserObservable.value()
-        } catch { }
-        user.fetchFollowUsers() // followUsers Fetching (시간 좀 걸림)
-        user.posts.forEach { post in
-            post.comments.forEach { comment in
-                comment.fetchCommentUser()
-            }
-        }
-        viewModel.curUserObservable.onNext(user)
-    }
-    
-    func fetchPostsInfo() {
-        
-        var posts = [Post]()
-        do {
-            posts = try viewModel.postsObservable.value()
-        } catch { }
-        
-        var uid = [String]()
-        posts.forEach { post in
-            if uid.contains(post.user.uid) == false {
-                post.user.fetchFollowUsers()
-                uid.append(post.user.uid)
-            }
-            post.comments.forEach { comment in
-                comment.fetchCommentUser()
-            }
-        }
-        posts.forEach { post in
-            post.user.posts = post.user.posts.sorted { $0.cuid > $1.cuid }
-        }
-        let sorted = posts.sorted { $0.cuid > $1.cuid }
-        viewModel.postsObservable.onNext(sorted)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     func findIndexTableButton(_ sender: UIButton) -> IndexPath {
@@ -157,7 +123,7 @@ class HomeViewController: UIViewController {
         let indexPath = findIndexTableButton(sender)
         guard let cell = tableView.cellForRow(at: indexPath) as? HomeTableViewCell else { return }
         let user = cell.post.user
-        
+
         let friendViewModel = FriendViewModel(user)
         nextVC.viewModel = friendViewModel
         self.navigationController?.pushViewController(nextVC, animated: true)

@@ -185,7 +185,6 @@ public class DatabaseManager {
                 let userinfoDic = uidSnapShot.value as? [String: Any]
                 
                 if let cuidDic = userinfoDic?["posts"] as? [String: [String: Any]] {
-
                     for dic in cuidDic {
                         let imgURL = dic.value["imageURL"] as? String
                         self.downloadImage(url: imgURL) { image in
@@ -194,9 +193,7 @@ public class DatabaseManager {
                                 // cuid, image, content
                                 if let cuid = dic.value["cuid"] as? String,
                                    let content = dic.value["content"] as? String {
-                                    
                                     let post = Post(user: user, cuid: cuid, image: image, content: content)
-                                    
                                     // likes
                                     var likes = [String]()
                                     if let likesDic = dic.value["likes"] as? [String: String] {
@@ -206,7 +203,6 @@ public class DatabaseManager {
                                         }
                                     }
                                     post.likes = likes
-                                    
                                     var comments = [Comment]()
                                     if let commentsUids = dic.value["comment"] as? [String: [String: String]] {
                                         
@@ -218,12 +214,12 @@ public class DatabaseManager {
                                         }
                                     }
                                     post.comments = comments
-                                    
                                     posts.append(post)
-                                    completion(posts)
                                 }
+                                completion(posts)
                             }
                         }
+                        
                     }
                     
                 }
