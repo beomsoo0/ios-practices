@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D4674525D2A7D9F2A774C26D /* Pods_RxPractice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E11826D9DA5C9BFE4E575E7 /* Pods_RxPractice.framework */; };
+		D851790126E9C0B300CCCABB /* CustomPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851790026E9C0B300CCCABB /* CustomPropertyViewController.swift */; };
+		D851790326E9CC4F00CCCABB /* CustomEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851790226E9CC4F00CCCABB /* CustomEventViewController.swift */; };
+		D851790526E9DBDE00CCCABB /* DelegateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851790426E9DBDE00CCCABB /* DelegateViewController.swift */; };
 		D8CADF4B26E89216007B1BA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CADF4A26E89216007B1BA8 /* AppDelegate.swift */; };
 		D8CADF4D26E89216007B1BA8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CADF4C26E89216007B1BA8 /* SceneDelegate.swift */; };
 		D8CADF4F26E89216007B1BA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CADF4E26E89216007B1BA8 /* ViewController.swift */; };
@@ -31,6 +34,9 @@
 		6D0F1AE96E7AA6E8FBDFE09E /* Pods-RxPractice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxPractice.debug.xcconfig"; path = "Target Support Files/Pods-RxPractice/Pods-RxPractice.debug.xcconfig"; sourceTree = "<group>"; };
 		76516870199B504096B5EEE7 /* Pods-RxPractice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxPractice.release.xcconfig"; path = "Target Support Files/Pods-RxPractice/Pods-RxPractice.release.xcconfig"; sourceTree = "<group>"; };
 		7E11826D9DA5C9BFE4E575E7 /* Pods_RxPractice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxPractice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D851790026E9C0B300CCCABB /* CustomPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPropertyViewController.swift; sourceTree = "<group>"; };
+		D851790226E9CC4F00CCCABB /* CustomEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventViewController.swift; sourceTree = "<group>"; };
+		D851790426E9DBDE00CCCABB /* DelegateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateViewController.swift; sourceTree = "<group>"; };
 		D8CADF4726E89216007B1BA8 /* RxPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CADF4A26E89216007B1BA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8CADF4C26E89216007B1BA8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				D8CADF4926E89216007B1BA8 /* RxPractice */,
-				D8CADF7B26E8D1E4007B1BA8 /* Binder */,
 				D8CADF4826E89216007B1BA8 /* Products */,
 				9410AC0DC21B02AC17CF759B /* Pods */,
 				4B6C32467BEC8F3487BD4C31 /* Frameworks */,
@@ -110,6 +115,7 @@
 				D8CADF5526E89218007B1BA8 /* LaunchScreen.storyboard */,
 				D8CADF5826E89218007B1BA8 /* Info.plist */,
 				D8CADF7A26E8D1DD007B1BA8 /* Main */,
+				D8CADF7B26E8D1E4007B1BA8 /* Binder */,
 			);
 			path = RxPractice;
 			sourceTree = "<group>";
@@ -202,6 +208,7 @@
 		D8CADF7D26E8D338007B1BA8 /* CustomProperty */ = {
 			isa = PBXGroup;
 			children = (
+				D851790026E9C0B300CCCABB /* CustomPropertyViewController.swift */,
 			);
 			path = CustomProperty;
 			sourceTree = "<group>";
@@ -209,6 +216,7 @@
 		D8CADF7E26E8D348007B1BA8 /* CustomEvent */ = {
 			isa = PBXGroup;
 			children = (
+				D851790226E9CC4F00CCCABB /* CustomEventViewController.swift */,
 			);
 			path = CustomEvent;
 			sourceTree = "<group>";
@@ -216,6 +224,7 @@
 		D8CADF7F26E8D36D007B1BA8 /* Delegate Pattern */ = {
 			isa = PBXGroup;
 			children = (
+				D851790426E9DBDE00CCCABB /* DelegateViewController.swift */,
 			);
 			path = "Delegate Pattern";
 			sourceTree = "<group>";
@@ -336,15 +345,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8CADF7526E8CE80007B1BA8 /* GestureViewController.swift in Sources */,
+				D851790526E9DBDE00CCCABB /* DelegateViewController.swift in Sources */,
 				D8CADF6D26E8A9D9007B1BA8 /* CollectionViewController.swift in Sources */,
 				D8CADF4F26E89216007B1BA8 /* ViewController.swift in Sources */,
 				D8CADF4B26E89216007B1BA8 /* AppDelegate.swift in Sources */,
+				D851790326E9CC4F00CCCABB /* CustomEventViewController.swift in Sources */,
 				D8CADF6F26E8AA4C007B1BA8 /* Color.swift in Sources */,
 				D8CADF6526E89992007B1BA8 /* ColorViewModel.swift in Sources */,
 				D8CADF6A26E89FEE007B1BA8 /* TableViewController.swift in Sources */,
 				D8CADF4D26E89216007B1BA8 /* SceneDelegate.swift in Sources */,
 				D8CADF7226E8BE67007B1BA8 /* AlertViewController.swift in Sources */,
 				D8CADF6326E896FE007B1BA8 /* ColorViewController.swift in Sources */,
+				D851790126E9C0B300CCCABB /* CustomPropertyViewController.swift in Sources */,
 				D8CADF6826E89FBE007B1BA8 /* AppleProducts.swift in Sources */,
 				D8CADF6026E89403007B1BA8 /* FirstViewController.swift in Sources */,
 				D8CADF8126E8D384007B1BA8 /* BindOneViewController.swift in Sources */,
