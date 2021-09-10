@@ -9,23 +9,31 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, ViewModelBindType {
 
+    var viewModel: HomeViewModel!
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var addContentButton: UIButton!
 
-    let viewModel = HomeViewModel()
     var disposeBag = DisposeBag()
     
     weak var coordinator: HomeCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    func bindViewModel() {
         viewModel.fetchUserInfo()
         viewModel.fetchPostsInfo()
-
+        
         // story
         viewModel.usersObservable
             .map({ users -> [User] in
@@ -94,14 +102,8 @@ class HomeViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
-    }
-    
     func findIndexTableButton(_ sender: UIButton) -> IndexPath {
         var superview = sender.superview
         while let view = superview, !(view is UITableViewCell) {

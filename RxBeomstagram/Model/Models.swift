@@ -13,7 +13,6 @@ import RxCocoa
 class User {
     
     static var currentUser = User()
-    
     static var currentUserRx = BehaviorSubject<User>(value: User())
     static var allUserRx = BehaviorSubject<[User]>(value: [])
     
@@ -30,11 +29,11 @@ class User {
     var followUsers = [User]()
     
     init() {
-        uid = ""
-        id = ""
-        name = ""
+        uid = "Default UID"
+        id = "Default ID"
+        name = "Default Name"
         profileImage = UIImage(named: "default_profile")!
-        description = ""
+        description = "Default Description"
         followers = []
         follows = []
         posts = []
@@ -86,9 +85,9 @@ class Post {
     
     init() {
         user = User()
-        cuid = ""
+        cuid = "Default CUID"
         image = UIImage(named: "default_profile")!
-        content = ""
+        content = "Default Content"
         likes = []
         comments = []
     }

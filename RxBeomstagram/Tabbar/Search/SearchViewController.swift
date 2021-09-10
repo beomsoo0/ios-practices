@@ -9,22 +9,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, ViewModelBindType {
 
-    let viewModel = SearchViewModel()
+    var viewModel: SearchViewModel!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         collectionView.dataSource = nil
-        
-        viewModel.postsObservable
-            .observe(on: MainScheduler.instance)
-            .bind(to: collectionView.rx.items(cellIdentifier: "SearchCollectionViewCell", cellType: SearchCollectionViewCell.self)) { index, item, cell in
-                cell.postImage.image = item.image
-            }.disposed(by: disposeBag)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,6 +27,13 @@ class SearchViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
     }
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    func bindViewModel() {
+        viewModel.postsObservable
+            .observe(on: MainScheduler.instance)
+            .bind(to: collectionView.rx.items(cellIdentifier: "SearchCollectionViewCell", cellType: SearchCollectionViewCell.self)) { index, item, cell in
+                cell.postImage.image = item.image
+            }.disposed(by: disposeBag)
+    }
+
 }
 

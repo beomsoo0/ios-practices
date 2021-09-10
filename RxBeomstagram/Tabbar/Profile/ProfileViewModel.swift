@@ -9,19 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol ProfileViewModelType {
+class ProfileViewModel: CommonViewModel {
     
-    var idText: Observable<String> { get }
-    var profileImage: Observable<UIImage> { get }
-    var descriptionText: Observable<String> { get }
-    var followersText: Observable<String> { get }
-    var followsText: Observable<String> { get }
-    var posts: Observable<[Post]> { get }
-    var postsCountText: Observable<String> { get }
-    var curUserObservable: BehaviorSubject<User> { get }
-}
-
-class ProfileViewModel : ProfileViewModelType{
+    let disposeBag = DisposeBag()
     
     var idText: Observable<String>
     var profileImage: Observable<UIImage>
@@ -32,12 +22,19 @@ class ProfileViewModel : ProfileViewModelType{
     var postsCountText: Observable<String>
 
     
+//    let curUserObservable = BehaviorSubject<User>(value: User())
+
     let curUserObservable: BehaviorSubject<User>
 
-    init() {
+    override init(sceneCoordinator: SceneCoordinatorType) {
+        let uid = AuthManager.shared.currentUid()!
+//        Service.shared.curUserSubject = Service.shared.fetchUser(uid: uid)
+        curUserObservable = Service.shared.fetchUser(uid: uid)
+        curUserObservable.subscribe(onNext: {
+            print("@@@@@", $0)
+        })
         
-        curUserObservable = User.currentUserRx
-
+        
         idText = curUserObservable.map { $0.id }
         profileImage = curUserObservable.map { $0.profileImage }
         descriptionText = curUserObservable.map { $0.description }
@@ -45,5 +42,20 @@ class ProfileViewModel : ProfileViewModelType{
         followsText = curUserObservable.map { "\($0.follows.count)\n\n팔로우" }
         posts = curUserObservable.map { $0.posts }
         postsCountText = curUserObservable.map { "\($0.posts.count)\n\n게시물" }
+        
+        super.init(sceneCoordinator: sceneCoordinator)
     }
+    
+    
+//    init() {
+//        print("profile @@@@@!!!!@@@")
+//        dump(curUserObservable)
+//        idText = curUserObservable.map { $0.id }
+//        profileImage = curUserObservable.map { $0.profileImage }
+//        descriptionText = curUserObservable.map { $0.description }
+//        followersText = curUserObservable.map { "\($0.followers.count)\n\n팔로워" }
+//        followsText = curUserObservable.map { "\($0.follows.count)\n\n팔로우" }
+//        posts = curUserObservable.map { $0.posts }
+//        postsCountText = curUserObservable.map { "\($0.posts.count)\n\n게시물" }
+//    }
 }

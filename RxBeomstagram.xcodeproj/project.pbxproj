@@ -38,6 +38,10 @@
 		D837D95826D4CE5100F34743 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95726D4CE5100F34743 /* SettingViewModel.swift */; };
 		D837D95B26D4D88300F34743 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95A26D4D88300F34743 /* ContentViewController.swift */; };
 		D837D95D26D4E18500F34743 /* SearchCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D95C26D4E18500F34743 /* SearchCollectionViewController.swift */; };
+		D843918626EB1AA900FB4635 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D843918526EB1AA900FB4635 /* SceneCoordinator.swift */; };
+		D843918826EB20E400FB4635 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D843918726EB20E400FB4635 /* Scene.swift */; };
+		D843918A26EB212000FB4635 /* TrasitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D843918926EB212000FB4635 /* TrasitionModel.swift */; };
+		D843919026EB339B00FB4635 /* VMBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D843918F26EB339B00FB4635 /* VMBinding.swift */; };
 		D85B3F2C26E5F0C6006FD628 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85B3F2B26E5F0C6006FD628 /* LoginViewModel.swift */; };
 		D85B3F2E26E5FCF6006FD628 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85B3F2D26E5FCF6006FD628 /* RegisterViewModel.swift */; };
 		D86132F126CB767F00E4D718 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86132F026CB767F00E4D718 /* AppDelegate.swift */; };
@@ -59,6 +63,7 @@
 		D8627DE326D3500000B4E347 /* Pods_RxBeomstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A881AD5A46C0654405418E /* Pods_RxBeomstagram.framework */; };
 		D8627DE826D3562E00B4E347 /* NewContentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */; };
 		D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */; };
+		D8940C0D26E9FD6B008A82CE /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8940C0C26E9FD6B008A82CE /* Service.swift */; };
 		D8FA707426DF7B20000EBAA6 /* FollowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FA707326DF7B20000EBAA6 /* FollowViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +102,10 @@
 		D837D95726D4CE5100F34743 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		D837D95A26D4D88300F34743 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		D837D95C26D4E18500F34743 /* SearchCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewController.swift; sourceTree = "<group>"; };
+		D843918526EB1AA900FB4635 /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		D843918726EB20E400FB4635 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		D843918926EB212000FB4635 /* TrasitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrasitionModel.swift; sourceTree = "<group>"; };
+		D843918F26EB339B00FB4635 /* VMBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMBinding.swift; sourceTree = "<group>"; };
 		D85B3F2B26E5F0C6006FD628 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		D85B3F2D26E5FCF6006FD628 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		D86132ED26CB767F00E4D718 /* RxBeomstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxBeomstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +128,7 @@
 		D861EB6326DCBBAC00CA0775 /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		D8627DE726D3562E00B4E347 /* NewContentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentCollectionViewController.swift; sourceTree = "<group>"; };
 		D8627DEB26D38ACC00B4E347 /* ProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewController.swift; sourceTree = "<group>"; };
+		D8940C0C26E9FD6B008A82CE /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		D8FA707326DF7B20000EBAA6 /* FollowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,13 +228,8 @@
 		D834551926E7218A00319C02 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				D82F662D26E87B8A0032D8CB /* Coordinaotor.swift */,
-				D834551A26E7219F00319C02 /* AppCoordinator.swift */,
-				D834552026E735BC00319C02 /* HomeCoordinator.swift */,
-				D834552226E787EB00319C02 /* SearchCoordinator.swift */,
-				D834552426E787F400319C02 /* NewContentCoordinator.swift */,
-				D834552B26E78EDF00319C02 /* FourCoordinator.swift */,
-				D834552626E787FD00319C02 /* ProfileCoordinator.swift */,
+				D843918426EB1A9D00FB4635 /* New Group */,
+				D843919126EB4A6500FB4635 /* Old */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -275,6 +280,31 @@
 				D8318E6626DDE4F900F346BE /* Comment */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		D843918426EB1A9D00FB4635 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				D843918526EB1AA900FB4635 /* SceneCoordinator.swift */,
+				D843918926EB212000FB4635 /* TrasitionModel.swift */,
+				D843918726EB20E400FB4635 /* Scene.swift */,
+				D843918F26EB339B00FB4635 /* VMBinding.swift */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		D843919126EB4A6500FB4635 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				D82F662D26E87B8A0032D8CB /* Coordinaotor.swift */,
+				D834551A26E7219F00319C02 /* AppCoordinator.swift */,
+				D834552026E735BC00319C02 /* HomeCoordinator.swift */,
+				D834552226E787EB00319C02 /* SearchCoordinator.swift */,
+				D834552426E787F400319C02 /* NewContentCoordinator.swift */,
+				D834552B26E78EDF00319C02 /* FourCoordinator.swift */,
+				D834552626E787FD00319C02 /* ProfileCoordinator.swift */,
+			);
+			path = Old;
 			sourceTree = "<group>";
 		};
 		D86132E426CB767F00E4D718 = {
@@ -347,6 +377,7 @@
 			children = (
 				D861330C26CBAA9700E4D718 /* AuthManager.swift */,
 				D861330E26CBAAD800E4D718 /* DatabaseManager.swift */,
+				D8940C0C26E9FD6B008A82CE /* Service.swift */,
 				D861331326CBAB6000E4D718 /* StorageManager.swift */,
 				D861331B26CBB9F000E4D718 /* PhotoManager.swift */,
 				D861331026CBAAEB00E4D718 /* Extension.swift */,
@@ -509,8 +540,10 @@
 				D837D94B26D4B93500F34743 /* EditProfileViewController.swift in Sources */,
 				D835F5C026DA1D69005A26A9 /* HomeViewModel.swift in Sources */,
 				D837D95826D4CE5100F34743 /* SettingViewModel.swift in Sources */,
+				D843918A26EB212000FB4635 /* TrasitionModel.swift in Sources */,
 				D8627DEC26D38ACC00B4E347 /* ProfileCollectionViewController.swift in Sources */,
 				D861331626CBABAB00E4D718 /* Models.swift in Sources */,
+				D843919026EB339B00FB4635 /* VMBinding.swift in Sources */,
 				D821DC4E26D89A4200B36CE1 /* HomeCollectionViewController.swift in Sources */,
 				D85B3F2C26E5F0C6006FD628 /* LoginViewModel.swift in Sources */,
 				D834552126E735BC00319C02 /* HomeCoordinator.swift in Sources */,
@@ -535,6 +568,7 @@
 				D837D95226D4CDAE00F34743 /* GalleryCollectionViewController.swift in Sources */,
 				D821DC5026D8DAFA00B36CE1 /* CommentViewController.swift in Sources */,
 				D861330D26CBAA9700E4D718 /* AuthManager.swift in Sources */,
+				D843918626EB1AA900FB4635 /* SceneCoordinator.swift in Sources */,
 				D861331F26CBBA3300E4D718 /* NewContentViewController.swift in Sources */,
 				D82F662E26E87B8A0032D8CB /* Coordinaotor.swift in Sources */,
 				D834552526E787F400319C02 /* NewContentCoordinator.swift in Sources */,
@@ -547,6 +581,8 @@
 				D8318E6326DDDC3700F346BE /* ContentViewModel.swift in Sources */,
 				D834551D26E7317F00319C02 /* SceneDelegate.swift in Sources */,
 				D834552C26E78EDF00319C02 /* FourCoordinator.swift in Sources */,
+				D843918826EB20E400FB4635 /* Scene.swift in Sources */,
+				D8940C0D26E9FD6B008A82CE /* Service.swift in Sources */,
 				D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */,
 				D8FA707426DF7B20000EBAA6 /* FollowViewModel.swift in Sources */,
 				D81FAD3C26CCBD0100B4BFFC /* HomeViewController.swift in Sources */,

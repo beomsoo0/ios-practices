@@ -8,19 +8,28 @@
 import UIKit
 import RxSwift
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, ViewModelBindType {
 
     // MARK - Variables
-    let viewModel = ProfileViewModel()
+    var viewModel: ProfileViewModel!
     var disposeBag = DisposeBag()
 
     // MARK - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.reloadData()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    // MARK - UI functions
+    
+    func bindViewModel() {
         // id
         viewModel.idText
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { self.idLabel.setTitle($0, for: .normal) })
             .disposed(by: disposeBag)
         viewModel.idText
@@ -36,6 +45,7 @@ class ProfileViewController: UIViewController {
             .dispose()
         // follower
         viewModel.followersText
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
                 self.followerCountButton.setTitle($0, for: .normal)
             })
@@ -63,16 +73,9 @@ class ProfileViewController: UIViewController {
                 cell.post = item
             }
             .disposed(by: disposeBag)
-        
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
-    }
     
-    // MARK - UI functions
     func updateUI() {
         profileImage.layer.cornerRadius = profileImage.bounds.width * 0.5
         buttonUI(postCountButton, followerCountButton, followCountButton)

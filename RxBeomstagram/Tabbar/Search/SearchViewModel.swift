@@ -9,15 +9,21 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SearchViewModel {
+class SearchViewModel: CommonViewModel {
     
     var postsObservable = BehaviorSubject<[Post]>(value: [])
     
-    init() {
+    override init(sceneCoordinator: SceneCoordinatorType) {
         
-        postsObservable = Post.allPostsRx
-
+        postsObservable = Service.shared.allPostsSubject
+        super.init(sceneCoordinator: sceneCoordinator)
     }
+    
+//    init() {
+//
+////        postsObservable = Post.allPostsRx
+//        postsObservable = Service.shared.allPostsSubject
+//    }
     
     
 }

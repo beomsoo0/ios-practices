@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 import FirebaseAuth
 
 class AppCoordinator: Coordinator {
@@ -13,6 +14,8 @@ class AppCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController!
     var isLoggedIn: Bool = false
+    
+    let disposeBag = DisposeBag()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -33,11 +36,12 @@ class AppCoordinator: Coordinator {
     
     func pushHomeVC() {
         guard let uid = AuthManager.shared.currentUid() else { return }
-        DatabaseManager.shared.fetchUser(uid: uid) { user in
-            user.posts = user.posts.sorted(by: {$0.cuid > $1.cuid })
-            User.currentUser = user
-            User.currentUserRx.onNext(User.currentUser)
-        }
+        
+//        DatabaseManager.shared.fetchUserRx(uid: uid)
+//            .bind(to: User.currentUserRx)
+//            .disposed(by: disposeBag)
+        
+        
         
         let home = HomeCoordinator()
         home.parentCoordinator = self
@@ -65,7 +69,7 @@ class AppCoordinator: Coordinator {
         let profileVC = profile.startPush()
         
         let story = UIStoryboard(name: "Main", bundle: nil)
-        let tabbarVC = story.instantiateViewController(identifier: "TabbarVC") as! UITabBarController
+        let tabbarVC = story.instantiateViewController(identifier: "tabbarVC") as! UITabBarController
         tabbarVC.viewControllers = [homeVC, searchVC, newContentVC, fourVC, profileVC]
 
         self.navigationController.pushViewController(tabbarVC, animated: false)

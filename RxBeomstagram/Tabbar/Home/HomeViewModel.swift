@@ -9,46 +9,38 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol HomeViewModelType {
-
-    var likeObserver: AnyObserver<(post: Post, isLike: Bool)> { get }
-    
-}
-
-class HomeViewModel: HomeViewModelType {
+class HomeViewModel: CommonViewModel {
 
     let disposeBag = DisposeBag()
     
-    let usersObservable:  BehaviorSubject<[User]>
+    let usersObservable: BehaviorSubject<[User]>
     let postsObservable: BehaviorSubject<[Post]>
     let curUserObservable: BehaviorSubject<User>
-
     let likeObserver: AnyObserver<(post: Post, isLike: Bool)>
 
-    
-    
-    init() {
+    override init(sceneCoordinator: SceneCoordinatorType) {
 
-        usersObservable = User.allUserRx
-        postsObservable = Post.allPostsRx
-        curUserObservable = User.currentUserRx
-        
+        usersObservable = Service.shared.storyUserSubject
+        postsObservable = Service.shared.feedPostsSubject
+        curUserObservable = Service.shared.curUserSubject
+
         // Like
         let likeSubject = PublishSubject<(post: Post, isLike: Bool)>()
-        
+
         likeObserver = likeSubject.asObserver()
+//
+//        likeSubject.map { self.changeLike($0.post, $0.isLike) }
+//            .withLatestFrom(postsObservable) { (updated, originals) -> [Post] in
+//                originals.map {
+//                    guard $0 == updated else { return $0 }
+//                    return updated
+//                }
+//            }
+//            .subscribe(onNext: postsObservable.onNext)
+//            .disposed(by: disposeBag)
+
+        super.init(sceneCoordinator: sceneCoordinator)
         
-        likeSubject.map { self.changeLike($0.post, $0.isLike) }
-            .withLatestFrom(postsObservable) { (updated, originals) -> [Post] in
-                originals.map {
-                    guard $0 == updated else { return $0 }
-                    return updated
-                }
-            }
-            .subscribe(onNext: postsObservable.onNext)
-            .disposed(by: disposeBag)
-
-
     }
     
     func changeLike(_ post: Post, _ isLike: Bool) -> Post {
