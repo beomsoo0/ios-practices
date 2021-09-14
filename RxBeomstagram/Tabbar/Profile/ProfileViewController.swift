@@ -52,6 +52,7 @@ class ProfileViewController: UIViewController, ViewModelBindType {
             .disposed(by: disposeBag)
         // follow
         viewModel.followsText
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
                 self.followCountButton.setTitle($0, for: .normal)
             })

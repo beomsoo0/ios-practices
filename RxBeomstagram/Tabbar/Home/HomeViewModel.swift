@@ -13,15 +13,17 @@ class HomeViewModel: CommonViewModel {
 
     let disposeBag = DisposeBag()
     
-    let usersObservable: BehaviorSubject<[User]>
-    let postsObservable: BehaviorSubject<[Post]>
+    let storyUserObservable: BehaviorSubject<[User]>
+    let feedPostsObservable: BehaviorSubject<[Post]>
     let curUserObservable: BehaviorSubject<User>
     let likeObserver: AnyObserver<(post: Post, isLike: Bool)>
 
     override init(sceneCoordinator: SceneCoordinatorType) {
 
-        usersObservable = Service.shared.storyUserSubject
-        postsObservable = Service.shared.feedPostsSubject
+        
+        storyUserObservable = Service.shared.storyUserSubject
+//        feedPostsObservable = Service.shared.feedPostsSubject
+        feedPostsObservable = Service.shared.allPostsSubject
         curUserObservable = Service.shared.curUserSubject
 
         // Like
@@ -76,7 +78,7 @@ class HomeViewModel: CommonViewModel {
         
         var posts = [Post]()
         do {
-            posts = try self.postsObservable.value()
+            posts = try self.feedPostsObservable.value()
         } catch { }
         
         var uid = [String]()
@@ -93,7 +95,7 @@ class HomeViewModel: CommonViewModel {
             post.user.posts = post.user.posts.sorted { $0.cuid > $1.cuid }
         }
         let sorted = posts.sorted { $0.cuid > $1.cuid }
-        self.postsObservable.onNext(sorted)
+        self.feedPostsObservable.onNext(sorted)
         
     }
     

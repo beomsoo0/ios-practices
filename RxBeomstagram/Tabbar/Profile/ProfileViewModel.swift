@@ -21,19 +21,13 @@ class ProfileViewModel: CommonViewModel {
     var posts: Observable<[Post]>
     var postsCountText: Observable<String>
 
-    
-//    let curUserObservable = BehaviorSubject<User>(value: User())
 
     let curUserObservable: BehaviorSubject<User>
 
     override init(sceneCoordinator: SceneCoordinatorType) {
         let uid = AuthManager.shared.currentUid()!
-//        Service.shared.curUserSubject = Service.shared.fetchUser(uid: uid)
+
         curUserObservable = Service.shared.fetchUser(uid: uid)
-        curUserObservable.subscribe(onNext: {
-            print("@@@@@", $0)
-        })
-        
         
         idText = curUserObservable.map { $0.id }
         profileImage = curUserObservable.map { $0.profileImage }
@@ -46,16 +40,5 @@ class ProfileViewModel: CommonViewModel {
         super.init(sceneCoordinator: sceneCoordinator)
     }
     
-    
-//    init() {
-//        print("profile @@@@@!!!!@@@")
-//        dump(curUserObservable)
-//        idText = curUserObservable.map { $0.id }
-//        profileImage = curUserObservable.map { $0.profileImage }
-//        descriptionText = curUserObservable.map { $0.description }
-//        followersText = curUserObservable.map { "\($0.followers.count)\n\n팔로워" }
-//        followsText = curUserObservable.map { "\($0.follows.count)\n\n팔로우" }
-//        posts = curUserObservable.map { $0.posts }
-//        postsCountText = curUserObservable.map { "\($0.posts.count)\n\n게시물" }
-//    }
+
 }

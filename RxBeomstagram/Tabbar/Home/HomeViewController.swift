@@ -11,15 +11,12 @@ import RxCocoa
 
 class HomeViewController: UIViewController, ViewModelBindType {
 
+    let disposeBag = DisposeBag()
     var viewModel: HomeViewModel!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var addContentButton: UIButton!
-
-    var disposeBag = DisposeBag()
-    
-    weak var coordinator: HomeCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,18 +32,7 @@ class HomeViewController: UIViewController, ViewModelBindType {
         viewModel.fetchPostsInfo()
         
         // story
-        viewModel.usersObservable
-            .map({ users -> [User] in
-                var u: [User] = []
-                users.forEach { user in
-                    if user.uid == AuthManager.shared.currentUid() {
-                        u.insert(user, at: 0)
-                    } else {
-                        u.append(user)
-                    }
-                }
-                return u
-            })
+        viewModel.storyUserObservable
             .observe(on: MainScheduler.instance)
             .bind(to: collectionView.rx.items(cellIdentifier: "HomeCollectionViewCell", cellType: HomeCollectionViewCell.self)) { index, item, cell in
                 cell.storyImageView.image = item.profileImage
@@ -56,7 +42,7 @@ class HomeViewController: UIViewController, ViewModelBindType {
             .disposed(by: disposeBag)
         
         // feed
-        viewModel.postsObservable
+        viewModel.feedPostsObservable
             .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: "HomeTableViewCell", cellType: HomeTableViewCell.self)) { index, item, cell in
                 
@@ -144,7 +130,7 @@ class HomeViewController: UIViewController, ViewModelBindType {
         
         var post = Post()
         do {
-            let posts = try viewModel.postsObservable.value()
+            let posts = try viewModel.feedPostsObservable.value()
             post = posts[indexPath.row]
         } catch { }
 

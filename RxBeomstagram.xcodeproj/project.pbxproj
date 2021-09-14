@@ -14,17 +14,10 @@
 		D821DC4C26D88C1B00B36CE1 /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4B26D88C1B00B36CE1 /* FollowViewController.swift */; };
 		D821DC4E26D89A4200B36CE1 /* HomeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4D26D89A4200B36CE1 /* HomeCollectionViewController.swift */; };
 		D821DC5026D8DAFA00B36CE1 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D821DC4F26D8DAFA00B36CE1 /* CommentViewController.swift */; };
-		D82F662E26E87B8A0032D8CB /* Coordinaotor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82F662D26E87B8A0032D8CB /* Coordinaotor.swift */; };
 		D8318E6326DDDC3700F346BE /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318E6226DDDC3700F346BE /* ContentViewModel.swift */; };
 		D8318E6826DDE50900F346BE /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8318E6726DDE50900F346BE /* CommentViewModel.swift */; };
-		D834551B26E7219F00319C02 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834551A26E7219F00319C02 /* AppCoordinator.swift */; };
 		D834551D26E7317F00319C02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834551C26E7317F00319C02 /* SceneDelegate.swift */; };
-		D834552126E735BC00319C02 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834552026E735BC00319C02 /* HomeCoordinator.swift */; };
-		D834552326E787EB00319C02 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834552226E787EB00319C02 /* SearchCoordinator.swift */; };
-		D834552526E787F400319C02 /* NewContentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834552426E787F400319C02 /* NewContentCoordinator.swift */; };
-		D834552726E787FD00319C02 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834552626E787FD00319C02 /* ProfileCoordinator.swift */; };
 		D834552A26E78E9800319C02 /* FourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834552926E78E9800319C02 /* FourViewController.swift */; };
-		D834552C26E78EDF00319C02 /* FourCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834552B26E78EDF00319C02 /* FourCoordinator.swift */; };
 		D835F5C026DA1D69005A26A9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835F5BF26DA1D69005A26A9 /* HomeViewModel.swift */; };
 		D835F5C226DA218A005A26A9 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835F5C126DA218A005A26A9 /* ProfileViewModel.swift */; };
 		D836638926DB6BA900ABA6A9 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D836638826DB6BA900ABA6A9 /* SearchViewModel.swift */; };
@@ -78,17 +71,10 @@
 		D821DC4B26D88C1B00B36CE1 /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		D821DC4D26D89A4200B36CE1 /* HomeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewController.swift; sourceTree = "<group>"; };
 		D821DC4F26D8DAFA00B36CE1 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
-		D82F662D26E87B8A0032D8CB /* Coordinaotor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinaotor.swift; sourceTree = "<group>"; };
 		D8318E6226DDDC3700F346BE /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		D8318E6726DDE50900F346BE /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
-		D834551A26E7219F00319C02 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D834551C26E7317F00319C02 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D834552026E735BC00319C02 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		D834552226E787EB00319C02 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
-		D834552426E787F400319C02 /* NewContentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentCoordinator.swift; sourceTree = "<group>"; };
-		D834552626E787FD00319C02 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		D834552926E78E9800319C02 /* FourViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourViewController.swift; sourceTree = "<group>"; };
-		D834552B26E78EDF00319C02 /* FourCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCoordinator.swift; sourceTree = "<group>"; };
 		D835F5BF26DA1D69005A26A9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D835F5C126DA218A005A26A9 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		D836638826DB6BA900ABA6A9 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -229,7 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				D843918426EB1A9D00FB4635 /* New Group */,
-				D843919126EB4A6500FB4635 /* Old */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -291,20 +276,6 @@
 				D843918F26EB339B00FB4635 /* VMBinding.swift */,
 			);
 			path = "New Group";
-			sourceTree = "<group>";
-		};
-		D843919126EB4A6500FB4635 /* Old */ = {
-			isa = PBXGroup;
-			children = (
-				D82F662D26E87B8A0032D8CB /* Coordinaotor.swift */,
-				D834551A26E7219F00319C02 /* AppCoordinator.swift */,
-				D834552026E735BC00319C02 /* HomeCoordinator.swift */,
-				D834552226E787EB00319C02 /* SearchCoordinator.swift */,
-				D834552426E787F400319C02 /* NewContentCoordinator.swift */,
-				D834552B26E78EDF00319C02 /* FourCoordinator.swift */,
-				D834552626E787FD00319C02 /* ProfileCoordinator.swift */,
-			);
-			path = Old;
 			sourceTree = "<group>";
 		};
 		D86132E426CB767F00E4D718 = {
@@ -546,7 +517,6 @@
 				D843919026EB339B00FB4635 /* VMBinding.swift in Sources */,
 				D821DC4E26D89A4200B36CE1 /* HomeCollectionViewController.swift in Sources */,
 				D85B3F2C26E5F0C6006FD628 /* LoginViewModel.swift in Sources */,
-				D834552126E735BC00319C02 /* HomeCoordinator.swift in Sources */,
 				D834552A26E78E9800319C02 /* FourViewController.swift in Sources */,
 				D861332126CBC9AF00E4D718 /* UploadViewController.swift in Sources */,
 				D86132F526CB767F00E4D718 /* LoginViewController.swift in Sources */,
@@ -570,23 +540,17 @@
 				D861330D26CBAA9700E4D718 /* AuthManager.swift in Sources */,
 				D843918626EB1AA900FB4635 /* SceneCoordinator.swift in Sources */,
 				D861331F26CBBA3300E4D718 /* NewContentViewController.swift in Sources */,
-				D82F662E26E87B8A0032D8CB /* Coordinaotor.swift in Sources */,
-				D834552526E787F400319C02 /* NewContentCoordinator.swift in Sources */,
 				D837D94326D4B02500F34743 /* HomeTableViewController.swift in Sources */,
-				D834552326E787EB00319C02 /* SearchCoordinator.swift in Sources */,
 				D837D95626D4CE2000F34743 /* SettingTableViewController.swift in Sources */,
 				D861EB6426DCBBAC00CA0775 /* FriendViewModel.swift in Sources */,
-				D834551B26E7219F00319C02 /* AppCoordinator.swift in Sources */,
 				D861331C26CBB9F000E4D718 /* PhotoManager.swift in Sources */,
 				D8318E6326DDDC3700F346BE /* ContentViewModel.swift in Sources */,
 				D834551D26E7317F00319C02 /* SceneDelegate.swift in Sources */,
-				D834552C26E78EDF00319C02 /* FourCoordinator.swift in Sources */,
 				D843918826EB20E400FB4635 /* Scene.swift in Sources */,
 				D8940C0D26E9FD6B008A82CE /* Service.swift in Sources */,
 				D81FAD4226CCBD2200B4BFFC /* ProfileViewController.swift in Sources */,
 				D8FA707426DF7B20000EBAA6 /* FollowViewModel.swift in Sources */,
 				D81FAD3C26CCBD0100B4BFFC /* HomeViewController.swift in Sources */,
-				D834552726E787FD00319C02 /* ProfileCoordinator.swift in Sources */,
 				D861331426CBAB6000E4D718 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -50,6 +50,7 @@ extension Scene {
             
             guard let tabbarVC = mainStory.instantiateViewController(identifier: "tabbarVC") as? UITabBarController else { fatalError() }
             tabbarVC.viewControllers = [homeNavVC, searchNavVC, newContentNavVC, fourNavVC, profileNavVC]
+            tabbarVC.modalPresentationStyle = .fullScreen
             return tabbarVC
         }
     }

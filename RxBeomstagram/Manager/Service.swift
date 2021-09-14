@@ -88,30 +88,28 @@ class Service {
         return userSubject
     }
     
-    func fetchStoryUsers() {
+    func fetchStoryUsers() -> BehaviorSubject<[User]> {
         
+        let storyUsersSubject = BehaviorSubject<[User]>(value: [])
         var users = [User]()
         
         curUserSubject
             .subscribe(onNext: { user in
-                if user.name != "Default Name" {
-                    users.append(user)
-                    self.storyUserSubject.onNext(users)
-                }
+                
+                users.append(user)
                 
                 user.follows.forEach { uid in
                     self.fetchUser(uid: uid)
-                        .subscribe(onNext: { user in
-                            if user.name != "Default Name" {
-                                users.append(user)
-                                self.storyUserSubject.onNext(users)
-                            }
+                        .subscribe(onNext: { u in
+                            users.append(u)
                         })
                         .disposed(by: self.disposeBag)
                 }
+                storyUsersSubject.onNext(users)
             })
             .disposed(by: disposeBag)
-
+        
+        return storyUsersSubject
     }
     
     func fetchUserPosts(user: User, uid: String) -> BehaviorSubject<[Post]> {

@@ -49,7 +49,6 @@ class SceneCoordinator: SceneCoordinatorType {
                 break
             }
             
-            // ???
             navVC.rx.willShow
                 .subscribe(onNext: { event in
                     self.currentVC = event.viewController.sceneViewController

@@ -17,7 +17,7 @@ protocol ViewModelBindType {
 extension ViewModelBindType where Self: UIViewController {
     mutating func bind(viewModel: Self.ViewModelType) {
         self.viewModel = viewModel
-        loadViewIfNeeded()
+        loadViewIfNeeded()  // ??
 
         bindViewModel()
     }

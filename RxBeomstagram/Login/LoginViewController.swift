@@ -23,7 +23,6 @@ class LoginViewController: UIViewController, ViewModelBindType {
     
     
     let disposeBag = DisposeBag()
-    var coordinator: AppCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +53,7 @@ class LoginViewController: UIViewController, ViewModelBindType {
         loginButton.rx.tap
             .subscribe(onNext: {
                 AuthManager.shared.loginUser(email: self.emailField.text!, password: self.passwordField.text!) { [weak self] success in
-                    if success {
-//                        self?.coordinator?.pushHomeVC()
-                        
+                    if success { 
                         self?.viewModel.modalTabBar()
                     } else {
                         self?.alertMessage(message: "로그인 정보를 확인해주세요.")
