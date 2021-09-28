@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43F8BB23A76B3741405B0F17 /* Pods_SNS_Login.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEA7CC3663F6A25E7889B9D /* Pods_SNS_Login.framework */; };
+		69D6F38C18053A6BFE5FD483 /* Pods_SNS_Login.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA20C4C24EEF20CFE8FD299 /* Pods_SNS_Login.framework */; };
 		D83370FB27005C3500D18906 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83370FA27005C3500D18906 /* AppDelegate.swift */; };
 		D83370FD27005C3500D18906 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83370FC27005C3500D18906 /* SceneDelegate.swift */; };
 		D83370FF27005C3500D18906 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83370FE27005C3500D18906 /* LoginViewController.swift */; };
@@ -21,9 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		02FEBE90AF240B489820A639 /* Pods-SNS_Login.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNS_Login.debug.xcconfig"; path = "Target Support Files/Pods-SNS_Login/Pods-SNS_Login.debug.xcconfig"; sourceTree = "<group>"; };
-		72174FAEC253546646B06A59 /* Pods-SNS_Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNS_Login.release.xcconfig"; path = "Target Support Files/Pods-SNS_Login/Pods-SNS_Login.release.xcconfig"; sourceTree = "<group>"; };
-		8FEA7CC3663F6A25E7889B9D /* Pods_SNS_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNS_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BA49AA437CF2ED9DD9EA8E5 /* Pods-SNS_Login.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNS_Login.debug.xcconfig"; path = "Target Support Files/Pods-SNS_Login/Pods-SNS_Login.debug.xcconfig"; sourceTree = "<group>"; };
+		8AA20C4C24EEF20CFE8FD299 /* Pods_SNS_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNS_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83370F727005C3500D18906 /* SNS_Login.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNS_Login.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83370FA27005C3500D18906 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D83370FC27005C3500D18906 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +35,7 @@
 		D84E3BBD270174BF004DE7AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D84E3BBF27017548004DE7AA /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D8589BC02702DCB70015E62E /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		E71568702383878D54EA173E /* Pods-SNS_Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNS_Login.release.xcconfig"; path = "Target Support Files/Pods-SNS_Login/Pods-SNS_Login.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8589BC12702DCB70015E62E /* ExternalAccessory.framework in Frameworks */,
-				43F8BB23A76B3741405B0F17 /* Pods_SNS_Login.framework in Frameworks */,
+				69D6F38C18053A6BFE5FD483 /* Pods_SNS_Login.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,7 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				D8589BC02702DCB70015E62E /* ExternalAccessory.framework */,
-				8FEA7CC3663F6A25E7889B9D /* Pods_SNS_Login.framework */,
+				8AA20C4C24EEF20CFE8FD299 /* Pods_SNS_Login.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -63,8 +63,8 @@
 		74BDD9417E241E5C0023221D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				02FEBE90AF240B489820A639 /* Pods-SNS_Login.debug.xcconfig */,
-				72174FAEC253546646B06A59 /* Pods-SNS_Login.release.xcconfig */,
+				5BA49AA437CF2ED9DD9EA8E5 /* Pods-SNS_Login.debug.xcconfig */,
+				E71568702383878D54EA173E /* Pods-SNS_Login.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -111,11 +111,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D833710B27005C3700D18906 /* Build configuration list for PBXNativeTarget "SNS_Login" */;
 			buildPhases = (
-				98199AB0641B0A86F85B8654 /* [CP] Check Pods Manifest.lock */,
+				D16630665BC094BE9456A037 /* [CP] Check Pods Manifest.lock */,
 				D83370F327005C3500D18906 /* Sources */,
 				D83370F427005C3500D18906 /* Frameworks */,
 				D83370F527005C3500D18906 /* Resources */,
-				0733A2E490EAA20D084CB235 /* [CP] Embed Pods Frameworks */,
+				58CA4964852AC48D3BC92D39 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -173,7 +173,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0733A2E490EAA20D084CB235 /* [CP] Embed Pods Frameworks */ = {
+		58CA4964852AC48D3BC92D39 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -190,7 +190,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SNS_Login/Pods-SNS_Login-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		98199AB0641B0A86F85B8654 /* [CP] Check Pods Manifest.lock */ = {
+		D16630665BC094BE9456A037 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -286,6 +286,8 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -347,6 +349,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -358,7 +361,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -368,18 +371,20 @@
 		};
 		D833710C27005C3700D18906 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02FEBE90AF240B489820A639 /* Pods-SNS_Login.debug.xcconfig */;
+			baseConfigurationReference = 5BA49AA437CF2ED9DD9EA8E5 /* Pods-SNS_Login.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SNS_Login/SNS_Login.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SPJ3VZVK78;
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = SNS_Login/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = beomsoo.SNSLogin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -389,18 +394,20 @@
 		};
 		D833710D27005C3700D18906 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72174FAEC253546646B06A59 /* Pods-SNS_Login.release.xcconfig */;
+			baseConfigurationReference = E71568702383878D54EA173E /* Pods-SNS_Login.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SNS_Login/SNS_Login.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SPJ3VZVK78;
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = SNS_Login/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = beomsoo.SNSLogin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

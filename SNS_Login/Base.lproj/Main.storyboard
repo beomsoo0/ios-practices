@@ -26,7 +26,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="login" destination="BYZ-38-t0r" eventType="touchUpInside" id="3cE-Bp-vpu"/>
+                                    <action selector="kakaoBtnSelected" destination="BYZ-38-t0r" eventType="touchUpInside" id="3cE-Bp-vpu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EtE-dI-Bja">
@@ -38,7 +38,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="naverLoginSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uF1-eE-Oyo"/>
+                                    <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bXt-um-OBX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bID-4y-pSa">
@@ -167,6 +167,22 @@
                                 <state key="normal" title="Kakao uid"/>
                                 <connections>
                                     <action selector="kakaoUidSelected:" destination="nOU-kg-b3t" eventType="touchUpInside" id="1Py-op-qHE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJD-KF-8tW">
+                                <rect key="frame" x="260" y="328" width="122" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Naver LogOut"/>
+                                <connections>
+                                    <action selector="naverLogOutSelected:" destination="nOU-kg-b3t" eventType="touchUpInside" id="uPP-FY-wMH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIv-1R-Lud">
+                                <rect key="frame" x="146" y="611" width="122" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Naver uid"/>
+                                <connections>
+                                    <action selector="naverUidSelected:" destination="nOU-kg-b3t" eventType="touchUpInside" id="9tT-FJ-5bD"/>
                                 </connections>
                             </button>
                         </subviews>

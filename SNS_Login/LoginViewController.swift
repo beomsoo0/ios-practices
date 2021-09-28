@@ -16,11 +16,12 @@ import GoogleSignIn
 import Firebase
 import FBSDKLoginKit
 import AuthenticationServices
+import NaverThirdPartyLogin
+import Alamofire
 
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var kakaoBtn: UIButton!
-
     @IBOutlet weak var naverBtn: UIButton!
     @IBOutlet weak var facebookBtn: UIButton!
     @IBOutlet weak var googleBtn: UIButton!
@@ -31,16 +32,23 @@ class LoginViewController: UIViewController {
     
     let bag = DisposeBag()
     let authManager = AuthManager.shared
+    let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance() //Naver
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        appleBtnUI() // Apple
+        loginInstance?.delegate = self // Naver
+        
+    }
+
+    func appleBtnUI() {
         let appleBtn = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
         appleBtn.frame = CGRect(x: naverBtn.frame.minX, y: naverBtn.frame.maxY + 20, width: naverBtn.bounds.width, height: naverBtn.bounds.height)
         self.view.addSubview(appleBtn)
         appleBtn.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
-        
     }
-
+    
     func loginSuccess() {
         guard let logOutVC = self.storyboard?.instantiateViewController(identifier: "logOutVC") as? LogOutViewController else { return }
         self.modalPresentationStyle = .fullScreen
@@ -48,12 +56,17 @@ class LoginViewController: UIViewController {
     }
     
     
-    @IBAction func login(){
+    @IBAction func kakaoBtnSelected(){
         authManager.kakaoLogin()
             .subscribe { _ in
                 self.loginSuccess()
+                print("카카오 로그인 성공")
             } onError: { error in
                 print("카톡 로그인 실패!!!", error)
+            } onCompleted: {
+                print("카카오 로그인 onCompleted")
+            } onDisposed: {
+                print("카카오 로그인 onDisposed")
             }
             .disposed(by: self.bag)
     }
@@ -121,28 +134,7 @@ class LoginViewController: UIViewController {
 
     }
     
-    // Naver Login
     
-    @IBAction func naverLoginSelected(_ sender: Any) {
-
-//        authManager.naverLogin()
-    }
-    
-    
-    
-    
-    // Apple Login
-    @objc
-    func handleAuthorizationAppleIDButtonPress() {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
-    }
 
 }
 
@@ -204,6 +196,108 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
 
 
 
+// Naver
 
+extension LoginViewController: NaverThirdPartyLoginConnectionDelegate {
+    
+    
+    // Naver Login
+    
+    // 로그인에 성공한 경우 호출
+    func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+        naverToFirLogin()
+    }
+    // referesh token
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+        guard loginInstance?.accessToken != nil else {
+            print("토큰 유효성 만료")
+            return
+        }
+        naverToFirLogin()
+    }
+    // 로그아웃
+    func oauth20ConnectionDidFinishDeleteToken() {
+        print("log out")
+    }
+    // 모든 error
+    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
+        print("error = \(error.localizedDescription)")
+    }
+    @IBAction func login(_ sender: Any) {
+        loginInstance?.requestThirdPartyLogin()
+    }
+    @IBAction func logout(_ sender: Any) {
+        loginInstance?.requestDeleteToken()
+    }
 
+    func naverToFirLogin() {
+        
+        guard let isValidAccessToken = loginInstance?.isValidAccessTokenExpireTimeNow() else { return }
+        
+        if !isValidAccessToken {
+            return
+        }
+        
+        guard let tokenType = loginInstance?.tokenType else { return }
+        guard let accessToken = loginInstance?.accessToken else { return }
+        
+        let urlStr = "https://openapi.naver.com/v1/nid/me"
+        let url = URL(string: urlStr)!
+        
+        let authorization = "\(tokenType) \(accessToken)"
+        
+        let req = AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": authorization])
+        
+        req.responseJSON { response in
+            guard let result = response.value as? [String: Any] else { return }
+            guard let object = result["response"] as? [String: Any] else { return }
+            guard let name = object["name"] as? String else { return }
+            guard let email = object["email"] as? String else { return }
+            guard let id = object["id"] as? String else {return}
+            
+            print("@@@ Naver Login Info @@@")
+            print("Email: \(email)")
+            print("Name: \(name)")
+            print("ID: \(id)")
+            
+            // FIR Login
+            
+            let tmpEmail = "\(id)@naver.com"
+            let tmpPassword = "\(id)naver"
+            let loginModel = LoginModel(email: tmpEmail, password: tmpPassword)
+            
+            self.authManager.firSNSLogin(loginModel: loginModel)
+                .subscribe { bool in
+                    if bool == true {
+                        print("네이버 파베 로그인 성공")
+                        self.loginSuccess()
+                    } else {
+                        print("네이버 파베 로그인 실패")
+                    }
+                } onError: { error in
+                    print("네이버 파베 로그인 오류")
+                    print(error)
+                }
+                .disposed(by: self.bag)
+            // End
+        }
+        
+    }
+    // Naver End
+    
+    // Apple Login
+    @objc
+    func handleAuthorizationAppleIDButtonPress() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
 
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
+    
+    
+}

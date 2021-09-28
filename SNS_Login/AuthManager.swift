@@ -14,8 +14,8 @@ import GoogleSignIn
 import Firebase
 import FBSDKLoginKit
 import AuthenticationServices
-//import NaverThirdPartyLogin
-
+import NaverThirdPartyLogin
+import Alamofire
 
 struct LoginModel {
     var email: String
@@ -150,6 +150,7 @@ class AuthManager {
                             }
                         }
                     } else { // 토큰 유효 시
+                        print("@@@토큰 유효 시")
                         self.kakaoToFirLogin()
                             .subscribe { _ in
                                 emitter.onNext(true)
@@ -208,7 +209,7 @@ class AuthManager {
     
     func kakaoToFirLogin() -> Observable<Bool> {
         return Observable.create { emitter in
-            
+            print("@@@kakaoToFirLogin")
             UserApi.shared.me { kuser, error in
                 if let error = error { // 유저 정보 로딩 실패
                     print("토큰(O), 토큰 만료(O), 카톡 어플(O), 로그인(X), 유저 정보(X)", error)
@@ -217,48 +218,14 @@ class AuthManager {
                     let tmpPassword = "\(String(describing: kuser!.id!))kakao"
                     let loginModel = LoginModel(email: tmpEmail, password: tmpPassword)
                     
-                    self.firRegister(loginModel: loginModel)
-                        .subscribe { _ in
-                            print("파이어베이스 회원가입 성공")
-                            self.firLogin(loginModel: loginModel)
-                                .subscribe { _ in
-                                    print("파이어베이스 로그인 성공")
-                                    emitter.onNext(true)
-                                } onError: { error in
-                                    print("파이어베이스 로그인 오류")
-                                    emitter.onError(error)
-                                }
-                                .disposed(by: self.bag)
+                    self.firSNSLogin(loginModel: loginModel)
+                        .subscribe { bool in
+                            emitter.onNext(bool)
                         } onError: { error in
-                            print("파이어베이스 회원가입 오류")
-                            let err = error as NSError
-                            switch err.code {
-                            case AuthErrorCode.wrongPassword.rawValue:
-                                print("wrong password")
-                                emitter.onError(error)
-                            case AuthErrorCode.invalidEmail.rawValue:
-                                print("invalid email")
-                                emitter.onError(error)
-                            case AuthErrorCode.accountExistsWithDifferentCredential.rawValue:
-                                print("accountExistsWithDifferentCredential")
-                                emitter.onError(error)
-                            case AuthErrorCode.emailAlreadyInUse.rawValue:
-                                print("email is alreay in use")
-                                self.firLogin(loginModel: loginModel)
-                                    .subscribe { _ in
-                                        print("파이어베이스 로그인 성공")
-                                        emitter.onNext(true)
-                                    } onError: { error in
-                                        print("파이어베이스 로그인 오류")
-                                        emitter.onError(error)
-                                    }
-                                    .disposed(by: self.bag)
-                            default:
-                                print("unknown error: \(err.localizedDescription)")
-                                emitter.onError(error)
-                            }
+                            emitter.onError(error)
                         }
                         .disposed(by: self.bag)
+
                 }
             }
             return Disposables.create {
@@ -267,13 +234,70 @@ class AuthManager {
         }
     }
     
+    func firSNSLogin(loginModel: LoginModel) -> Observable<Bool> {
+        return Observable.create { emitter in
+            self.firRegister(loginModel: loginModel)
+                .subscribe { _ in
+                    print("파이어베이스 회원가입 성공")
+                    self.firLogin(loginModel: loginModel)
+                        .subscribe { _ in
+                            print("파이어베이스 로그인 성공")
+                            emitter.onNext(true)
+                        } onError: { error in
+                            print("파이어베이스 로그인 오류")
+                            emitter.onError(error)
+                        }
+                        .disposed(by: self.bag)
+                } onError: { error in
+                    print("파이어베이스 회원가입 오류")
+                    let err = error as NSError
+                    switch err.code {
+                    case AuthErrorCode.wrongPassword.rawValue:
+                        print("wrong password")
+                        emitter.onError(error)
+                    case AuthErrorCode.invalidEmail.rawValue:
+                        print("invalid email")
+                        emitter.onError(error)
+                    case AuthErrorCode.accountExistsWithDifferentCredential.rawValue:
+                        print("accountExistsWithDifferentCredential")
+                        emitter.onError(error)
+                    case AuthErrorCode.emailAlreadyInUse.rawValue:
+                        print("email is alreay in use")
+                        self.firLogin(loginModel: loginModel)
+                            .subscribe { _ in
+                                print("파이어베이스 로그인 성공")
+                                emitter.onNext(true)
+                            } onError: { error in
+                                print("파이어베이스 로그인 오류")
+                                emitter.onError(error)
+                            }
+                            .disposed(by: self.bag)
+                    default:
+                        print("unknown error: \(err.localizedDescription)")
+                        emitter.onError(error)
+                    }
+                }
+                .disposed(by: self.bag)
+            return Disposables.create{
+                emitter.onCompleted()
+            }
+        }
+    }
+    
+    
     func kakaoLogOut() -> Observable<Bool> {
         return Observable.create { emitter in
             UserApi.shared.logout {(error) in
                 if let error = error {
                     emitter.onError(error)
                 }
-                emitter.onNext(true)
+                self.firlogOut()
+                    .subscribe { bool in
+                        emitter.onNext(bool)
+                    } onError: { error in
+                        emitter.onError(error)
+                    }
+                    .disposed(by: self.bag)
             }
             return Disposables.create {
                 emitter.onCompleted()
@@ -386,18 +410,8 @@ class AuthManager {
         
     }
     
-    func naverLogin() -> Observable<Bool> {
-        
-        return Observable.create { emitter in
-            
-            
-            return Disposables.create {
-                emitter.onCompleted()
-            }
-        }
-        
-        
-    }
+    
+    
     
     
 }

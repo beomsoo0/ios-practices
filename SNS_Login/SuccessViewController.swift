@@ -10,17 +10,18 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import RxSwift
 import FirebaseAuth
-
-class LogOutViewController: UIViewController {
+import NaverThirdPartyLogin
+class LogOutViewController: UIViewController, NaverThirdPartyLoginConnectionDelegate {
 
     @IBOutlet weak var uidLabel: UILabel!
     
     let authManager = AuthManager.shared
     let bag = DisposeBag()
+    let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance() // Naver
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        loginInstance?.delegate = self // Naver
         // Do any additional setup after loading the view.
     }
 
@@ -69,4 +70,36 @@ class LogOutViewController: UIViewController {
         }
         self.uidLabel.text = uid
     }
+    
+    
+    @IBAction func naverLogOutSelected(_ sender: Any) {
+        loginInstance?.requestDeleteToken()
+        authManager.firlogOut()
+            .subscribe { bool in
+                if bool == true {
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    
+                }
+            } onError: { error in
+                print(error)
+            }
+            .disposed(by: self.bag)
+
+    }
+    @IBAction func naverUidSelected(_ sender: Any) {
+    }
+    
+    func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+    }
+    
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+    }
+    
+    func oauth20ConnectionDidFinishDeleteToken() {
+    }
+    
+    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
+    }
 }
+
