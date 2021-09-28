@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key></key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -25,23 +27,24 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>fb255360429822786</string>
 				<string>kakao27b0d91a2235bfbc4fdd365b9a6644e7</string>
 			</array>
 			<key>CFBundleURLTypes</key>
 			<array>
-			  <dict>
-			  <key>CFBundleURLSchemes</key>
-			  <array>
-			    <string>255360429822786</string>
-			  </array>
-			  </dict>
+				<dict>
+					<key>CFBundleURLSchemes</key>
+					<array>
+						<string>255360429822786</string>
+					</array>
+				</dict>
 			</array>
 			<key>FacebookAppID</key>
 			<string>255360429822786</string>
 			<key>FacebookClientToken</key>
 			<string>86d45f8d8109bcfeeeaae9138b08462a</string>
 			<key>FacebookDisplayName</key>
-			<string>SNSLogin</string>	
+			<string>SNSLogin</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -49,6 +52,16 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.974456883076-b7vifi7djahk7se90jju57fjona4q8a7</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>naverlogin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>naverlogin</string>
 			</array>
 		</dict>
 	</array>
@@ -73,6 +86,8 @@
 		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
+		<string>naversearchapp</string>
+		<string>naversearchthirdlogin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -99,7 +114,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key></key>
-	<string></string>
 </dict>
 </plist>

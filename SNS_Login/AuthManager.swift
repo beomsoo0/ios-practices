@@ -12,6 +12,10 @@ import KakaoSDKUser
 import RxSwift
 import GoogleSignIn
 import Firebase
+import FBSDKLoginKit
+import AuthenticationServices
+//import NaverThirdPartyLogin
+
 
 struct LoginModel {
     var email: String
@@ -209,8 +213,8 @@ class AuthManager {
                 if let error = error { // 유저 정보 로딩 실패
                     print("토큰(O), 토큰 만료(O), 카톡 어플(O), 로그인(X), 유저 정보(X)", error)
                 } else { // 파이어베이스 로그인
-                    let tmpEmail = "\(String(describing: kuser!.id!))@asd.com"
-                    let tmpPassword = "\(String(describing: kuser!.id!))"
+                    let tmpEmail = "\(String(describing: kuser!.id!))@kakao.com"
+                    let tmpPassword = "\(String(describing: kuser!.id!))kakao"
                     let loginModel = LoginModel(email: tmpEmail, password: tmpPassword)
                     
                     self.firRegister(loginModel: loginModel)
@@ -288,7 +292,7 @@ class AuthManager {
                     emitter.onNext(false)
                 }
             }
-
+            
             // Create Google Sign In configuration object.
             let config = GIDConfiguration(clientID: clientID)
 
@@ -328,4 +332,72 @@ class AuthManager {
             }
         }
     }
+    
+    
+    // Facebook
+    func facebookLogin(vc: UIViewController) -> Observable<Bool> {
+        
+        return Observable.create { emitter in
+            
+            let manager = LoginManager()
+            
+            // 토큰 유효, 페북 로그인 필요 X
+            if let token = AccessToken.current, !token.isExpired {
+                let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+                self.firLoginByCredential(credential: credential)
+                    .subscribe { success in
+                        emitter.onNext(success)
+                    } onError: { error in
+                        print("@@@")
+                        print("페북 로그인 (O), 파이어베이스 로그인 (X)")
+                        emitter.onError(error)
+                    }
+                    .disposed(by: self.bag)
+            } else {
+                // 토큰 X, 페북 로그인 필요
+                manager.logIn(permissions: ["public_profile"], from: vc) { result, error in
+                    if let error = error {
+                        print("Process error: \(error)")
+                        return
+                    }
+                    guard let result = result else {
+                        print("No Result")
+                        return
+                    }
+                    if result.isCancelled {
+                        print("Login Cancelled")
+                        return
+                    }
+                    let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+                    self.firLoginByCredential(credential: credential)
+                        .subscribe { success in
+                            emitter.onNext(success)
+                        } onError: { error in
+                            print("페북 로그인 (O), 파이어베이스 로그인 (X)")
+                            emitter.onError(error)
+                        }
+                        .disposed(by: self.bag)
+                }
+            }
+            return Disposables.create {
+                emitter.onCompleted()
+            }
+        }
+        
+    }
+    
+    func naverLogin() -> Observable<Bool> {
+        
+        return Observable.create { emitter in
+            
+            
+            return Disposables.create {
+                emitter.onCompleted()
+            }
+        }
+        
+        
+    }
+    
+    
 }

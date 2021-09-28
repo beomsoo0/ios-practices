@@ -12,6 +12,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import GoogleSignIn
 import FBSDKCoreKit
+//import NaverThirdPartyLogin
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,15 +26,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KakaoSDKCommon.initSDK(appKey: "27b0d91a2235bfbc4fdd365b9a6644e7")
 
         // Facebook
+        
         ApplicationDelegate.shared.application(
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
+        FBSDKCoreKit.Settings.appID = "255360429822786"
+        
+//        // 네이버 간편로그인 init
+//            let instance = NaverThirdPartyLoginConnection.getSharedInstance()
+//        // if) 앱설치 -> 앱로그인 else) -> 사파리
+//            instance.isNaverAppOauthEnable = true
+//            instance.isInAppOauthEnable = true
+//
+//            instance?.serviceUrlScheme = kServiceAppUrlScheme // 앱을 등록할 때 입력한 URL Scheme
+//            instance?.consumerKey = kConsumerKey // 상수 - client id
+//            instance?.consumerSecret = kConsumerSecret // pw
+//            instance?.appName = kServiceAppName // app name
+//        
+//        // 네이버 로그인 화면이 새로 등장 -> 토큰을 요청하는 코드
+//        NaverThirdPartyLoginConnection
+//            .getSharedInstance()?
+//            .receiveAccessToken(URLContexts.first?.url)
+        
         
         return true
     }
 
-//    // Kakao Login
+//    // Kakao Login URL
 //    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
 //        if (AuthApi.isKakaoTalkLoginUrl(url)) {
 //            return AuthController.handleOpenUrl(url: url)
@@ -41,13 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        return false
 //    }
     
-    // Google Login
+    // Google Login URL
 //    @available(iOS 9.0, *)
 //    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
 //      return GIDSignIn.sharedInstance.handle(url)
 //    }
     
-    // Facebook Login
+    // Facebook Login URL
     func application(_ app: UIApplication,  open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         ApplicationDelegate.shared.application(
             app,
@@ -56,7 +76,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             annotation: options[UIApplication.OpenURLOptionsKey.annotation]
         )
     }
-    
+//    // Naver Login URL
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        NaverThirdPartyLoginConnection.getSharedInstance()?.application(app, open: url, options: options)
+//            return true
+//      }
     
     
     
