@@ -1,0 +1,54 @@
+PODS:
+  - Alamofire (5.5.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (15.0.0):
+    - Moya/Core
+    - RxSwift (~> 6.0)
+  - Nimble (9.2.1)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxNimble/Core (5.1.2):
+    - Nimble (~> 9.2)
+    - RxSwift (~> 6.0)
+  - RxNimble/RxTest (5.1.2):
+    - RxNimble/Core
+    - RxTest
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - RxTest (6.5.0):
+    - RxSwift (= 6.5.0)
+
+DEPENDENCIES:
+  - Moya/RxSwift
+  - RxCocoa
+  - RxNimble/RxTest
+  - RxSwift
+  - RxTest
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Moya
+    - Nimble
+    - RxCocoa
+    - RxNimble
+    - RxRelay
+    - RxSwift
+    - RxTest
+
+SPEC CHECKSUMS:
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxNimble: 60c8162b1518306a11d0c272a65ade133b209670
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
+
+PODFILE CHECKSUM: 4c79afdedaddd3384123fc0a354cdb0350021fb4
+
+COCOAPODS: 1.11.2
