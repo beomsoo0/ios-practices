@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="SNS_Login" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEp-sR-cSV">
+                                <rect key="frame" x="57" y="253" width="300" height="52.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bEp-sR-cSV" secondAttribute="height" multiplier="610:107" id="7Ai-b1-9On"/>
+                                    <constraint firstAttribute="width" constant="300" id="zxg-q2-l3f"/>
+                                </constraints>
+                                <state key="normal" image="KakaoLoginBtn">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="kakaoBtnSelected" destination="BYZ-38-t0r" eventType="touchUpInside" id="3cE-Bp-vpu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EtE-dI-Bja">
+                                <rect key="frame" x="57" y="471" width="300" height="52.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="EtE-dI-Bja" secondAttribute="height" multiplier="610:107" id="J73-Ua-MUL"/>
+                                </constraints>
+                                <state key="normal" title="Naver" image="NaverLoginBtn">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bXt-um-OBX"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bID-4y-pSa">
+                                <rect key="frame" x="202" y="123" width="229" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZ3-hY-Fyy">
+                                <rect key="frame" x="202" y="683" width="113" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Firebase Uid"/>
+                                <connections>
+                                    <action selector="firUidSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4TV-LR-kWd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSt-DO-xRP">
+                                <rect key="frame" x="57" y="398" width="300" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fSt-DO-xRP" secondAttribute="height" multiplier="610:107" id="ZMm-yM-9eM"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="FacebookLoginBtn"/>
+                                <connections>
+                                    <action selector="facebookBtnSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BWZ-n0-UXc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULw-p0-hMR">
+                                <rect key="frame" x="74" y="683" width="94" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Kakao uid"/>
+                                <connections>
+                                    <action selector="kakaoUidSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="haJ-4p-qhA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdM-fq-fub">
+                                <rect key="frame" x="57" y="325.5" width="300" height="52.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="VdM-fq-fub" secondAttribute="height" multiplier="610:107" id="5PO-ZD-kVu"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="GoogleLoginBtn"/>
+                                <connections>
+                                    <action selector="googleBtnSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cKf-es-mnp"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bEp-sR-cSV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="209" id="4RW-2k-K7K"/>
+                            <constraint firstItem="VdM-fq-fub" firstAttribute="top" secondItem="bEp-sR-cSV" secondAttribute="bottom" constant="20" id="CTp-Ww-PDi"/>
+                            <constraint firstItem="fSt-DO-xRP" firstAttribute="width" secondItem="bEp-sR-cSV" secondAttribute="width" id="IH5-y3-iDX"/>
+                            <constraint firstItem="bEp-sR-cSV" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="PcX-x5-CFS"/>
+                            <constraint firstItem="EtE-dI-Bja" firstAttribute="width" secondItem="bEp-sR-cSV" secondAttribute="width" id="VFn-uS-jH5"/>
+                            <constraint firstItem="VdM-fq-fub" firstAttribute="width" secondItem="bEp-sR-cSV" secondAttribute="width" id="cgT-VB-AVM"/>
+                            <constraint firstItem="fSt-DO-xRP" firstAttribute="top" secondItem="VdM-fq-fub" secondAttribute="bottom" constant="20" id="h0T-hd-EVO"/>
+                            <constraint firstItem="fSt-DO-xRP" firstAttribute="centerX" secondItem="bEp-sR-cSV" secondAttribute="centerX" id="h8A-vh-86q"/>
+                            <constraint firstItem="VdM-fq-fub" firstAttribute="centerX" secondItem="bEp-sR-cSV" secondAttribute="centerX" id="rag-WR-E6U"/>
+                            <constraint firstItem="EtE-dI-Bja" firstAttribute="centerX" secondItem="bEp-sR-cSV" secondAttribute="centerX" id="zUc-Jw-3p4"/>
+                            <constraint firstItem="EtE-dI-Bja" firstAttribute="top" secondItem="fSt-DO-xRP" secondAttribute="bottom" constant="20" id="zYq-Bi-za1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="facebookBtn" destination="fSt-DO-xRP" id="dRp-WF-pio"/>
+                        <outlet property="firUidBtn" destination="FZ3-hY-Fyy" id="l6r-SJ-Dlr"/>
+                        <outlet property="googleBtn" destination="VdM-fq-fub" id="gsh-SM-hUY"/>
+                        <outlet property="kakaoBtn" destination="bEp-sR-cSV" id="JGg-1E-Puq"/>
+                        <outlet property="kakaoUidBtn" destination="ULw-p0-hMR" id="hfW-Vf-WVB"/>
+                        <outlet property="naverBtn" destination="EtE-dI-Bja" id="X9h-sR-u0k"/>
+                        <outlet property="uidLabel" destination="bID-4y-pSa" id="dvr-E2-bjG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="63.768115942028992" y="161.38392857142856"/>
+        </scene>
+        <!--Log Out View Controller-->
+        <scene sceneID="YnU-0p-Rbp">
+            <objects>
+                <viewController storyboardIdentifier="logOutVC" id="nOU-kg-b3t" customClass="LogOutViewController" customModule="SNS_Login" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wXV-Gj-GcR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1v-bv-hA5">
+                                <rect key="frame" x="47" y="87" width="35" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="xmark.circle" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wr-CI-LWw">
+                                <rect key="frame" x="47" y="418" width="367" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AxB-DN-9e0">
+                                <rect key="frame" x="247" y="274" width="140" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Firebase LogOut"/>
+                                <connections>
+                                    <action selector="firLogOutSelected:" destination="nOU-kg-b3t" eventType="touchUpInside" id="Uxd-xP-wWz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDu-1M-ZQo">
+                                <rect key="frame" x="252" y="217" width="130" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Kakao LogOut"/>
+                                <connections>
+                                    <action selector="kakaoLogOutSelected:" destination="nOU-kg-b3t" eventType="touchUpInside" id="OXK-V2-gI6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agi-9D-b0A">
+                                <rect key="frame" x="117" y="567" width="181" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Firebase uid"/>
+                                <connections>
+                                    <action selector="firUidSelected:" destination="nOU-kg-b3t" eventType="touchUpInside" id="XEZ-j0-AT0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2B-1U-EDy">
+                                <rect key="frame" x="117" y="517" width="181" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Kakao uid"/>
+                                <connections>
+                                    <action selector="kakaoUidSelected:" destination="nOU-kg-b3t" eventType="touchUpInside" id="1Py-op-qHE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJD-KF-8tW">
+                                <rect key="frame" x="260" y="328" width="122" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Naver LogOut"/>
+                                <connections>
+                                    <action selector="naverLogOutSelected:" destination="nOU-kg-b3t" eventType="touchUpInside" id="uPP-FY-wMH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIv-1R-Lud">
+                                <rect key="frame" x="146" y="611" width="122" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Naver uid"/>
+                                <connections>
+                                    <action selector="naverUidSelected:" destination="nOU-kg-b3t" eventType="touchUpInside" id="9tT-FJ-5bD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1sE-74-oU2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="uidLabel" destination="5Wr-CI-LWw" id="0G9-EJ-Gw1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kle-3s-JIK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="847.82608695652175" y="87.723214285714278"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="FacebookLoginBtn" width="610" height="107"/>
+        <image name="GoogleLoginBtn" width="610" height="107"/>
+        <image name="KakaoLoginBtn" width="610" height="107"/>
+        <image name="NaverLoginBtn" width="610" height="107"/>
+        <image name="xmark.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
